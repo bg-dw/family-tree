@@ -18,6 +18,6 @@ class Acara extends CI_Controller
 		// 	redirect(base_url('user/beranda')); //mengarahkan ke halaman manager
 		// }
         $data['content'] = 'master/v_acara';
-		$this->load->view('main',$data);
+		$this->load->view('_layout/master/main',$data);
 	}
 }

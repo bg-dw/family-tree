@@ -3,22 +3,12 @@
 
 
 <!-- index.html  21 Nov 2019 03:44:50 GMT -->
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Otika - Admin Dashboard Template</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/css/app.min.css">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/css/style.css">
-  <link rel="stylesheet" href="<?=base_url()?>assets/css/components.css">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='<?=base_url()?>assets/img/favicon.ico' />
-  <link rel="stylesheet" href="<?=base_url()?>assets/bundles/datatables/datatables.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-  <script src="<?=base_url()?>assets/js/jquery-3.2.1.min.js"></script>
-  <script src="<?=base_url()?>assets/js/familytree.js"></script>
+  <title>IMAM MOERSYID FAMILY</title>
+  <?php $this->load->view('_layout/master/l_header'); ?>
 </head>
 
 <body>
@@ -30,7 +20,7 @@
         <div class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+                  collapse-btn"> <i data-feather="align-justify"></i></a></li>
             <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
                 <i data-feather="maximize"></i>
               </a></li>
@@ -50,20 +40,20 @@
               <div class="dropdown-list-content dropdown-list-icons">
                 <a href="#" class="dropdown-item dropdown-item-unread"> <span
                     class="dropdown-item-icon bg-primary text-white"> <i class="fas
-												fa-code"></i>
+                        fa-code"></i>
                   </span> <span class="dropdown-item-desc"> Template update is
                     available now! <span class="time">2 Min
                       Ago</span>
                   </span>
                 </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white"> <i class="far
-												fa-user"></i>
+                        fa-user"></i>
                   </span> <span class="dropdown-item-desc"> <b>You</b> and <b>Dedik
                       Sugiharto</b> are now friends <span class="time">10 Hours
                       Ago</span>
                   </span>
                 </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-success text-white"> <i
                       class="fas
-												fa-check"></i>
+                        fa-check"></i>
                   </span> <span class="dropdown-item-desc"> <b>Kusnaedi</b> has
                     moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">12
                       Hours
@@ -75,7 +65,7 @@
                     clean it! <span class="time">17 Hours Ago</span>
                   </span>
                 </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white"> <i class="fas
-												fa-bell"></i>
+                        fa-bell"></i>
                   </span> <span class="dropdown-item-desc"> Welcome to Otika
                     template! <span class="time">Yesterday</span>
                   </span>
@@ -87,53 +77,32 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<?=base_url()?>assets/img/user.png"
-                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
+                src="<?= base_url() ?>assets/img/user.png" class="user-img-radious-style"> <span
+                class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-              <div class="dropdown-title">Hello Sarah Smith</div>
-              <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-										fa-user"></i> Profile
-              </a> 
-              <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                Settings
+              <div class="dropdown-title">
+                <?= $this->session->userdata('nama') ?>
+              </div>
+              <a href="<?= base_url('master/profile/') ?>" class="dropdown-item has-icon"> <i class="far
+                    fa-user"></i> Profile
+              </a>
+              <a href="#" class="dropdown-item has-icon"> <i class="fas fa-lock"></i>
+                Ganti Kata Sandi
               </a>
               <div class="dropdown-divider"></div>
-              <a href="<?=base_url('login/logout/')?>" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
-                Logout
+              <a href="<?= base_url('login/logout/') ?>" class="dropdown-item has-icon text-danger"> <i
+                  class="fas fa-sign-out-alt"></i>
+                Keluar
               </a>
             </div>
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2">
-        <aside id="sidebar-wrapper">
-          <div class="sidebar-brand">
-            <a href="<?=base_url()?>"> <img alt="image" src="<?=base_url()?>assets/img/logo.png" class="header-logo" /> <span
-                class="logo-name">Family Tree</span>
-            </a>
-          </div>
-          <ul class="sidebar-menu">
-            <li class="menu-header">Main</li>
-            <li class="dropdown active">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                  data-feather="monitor"></i><span>Dashboard</span></a>
-              <ul class="dropdown-menu">
-                <li class="active"><a class="nav-link" href="<?=base_url('master/dashboard/')?>">Pohon Keluarga</a></li>
-                <li><a class="nav-link" href="<?=base_url('master/dashboard/timeline/')?>">Garis Waktu</a></li>
-              </ul>
-            </li>
-            <li><a class="nav-link" href="<?=base_url('master/pengguna/')?>"><i data-feather="user-check"></i><span>Pengguna</span></a></li>
-            <li><a class="nav-link" href="<?=base_url('master/acara/')?>"><i data-feather="calendar"></i><span>Acara</span></a></li>
-            <li class="menu-header">Media</li>
-            <li>
-              <a href="#" class="nav-link"><i data-feather="image"></i><span>Gallery</span></a>
-            </li>
-          </ul>
-        </aside>
-      </div>
+      <?php $this->load->view('_layout/master/l_menu'); ?>
       <!-- Main Content -->
       <div class="main-content">
-        <?php $this->load->view($content);?>
+        <?php $this->load->view($content); ?>
         <div class="settingSidebar">
           <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
           </a>
@@ -235,21 +204,9 @@
       </footer>
     </div>
   </div>
-  <!-- General JS Scripts -->
-  <script src="<?=base_url()?>assets/js/app.min.js"></script>
-  <!-- JS Libraies -->
-  <!-- Page Specific JS File -->
-  <!-- <script src="<?=base_url()?>assets/js/page/index.js"></script> -->
-  <!-- Template JS File -->
-  <script src="<?=base_url()?>assets/js/scripts.js"></script>
-  <!-- Custom JS File -->
-  <script src="<?=base_url()?>assets/js/custom.js"></script>
-  <script src="<?=base_url()?>assets/bundles/apexcharts/apexcharts.min.js"></script>
-  <script src="<?=base_url()?>assets/bundles/datatables/datatables.min.js"></script>
-  <script src="<?=base_url()?>assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="<?=base_url()?>assets/bundles/jquery-ui/jquery-ui.min.js"></script>
-  <script src="<?=base_url()?>assets/js/page/datatables.js"></script>
-  <!-- Page Specific JS File -->
-  
+  <?php $this->load->view('_layout/master/l_footer'); ?>
+  <?php $this->load->view('_layout/alert'); ?>
+
 </body>
+
 </html>

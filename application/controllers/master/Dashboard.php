@@ -8,38 +8,39 @@ class Dashboard extends CI_Controller
 		//akan berjalan ketika controller C_login di jalankan
 		parent::__construct();
 		$this->load->model('M_keluarga');
+
+		if ($this->session->userdata('login') != 'acc') {
+			redirect(base_url('login/')); //mengarahkan ke halaman master
+		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
+			redirect(base_url('user/beranda')); //mengarahkan ke halaman user
+		}
 	}
-	
+
 	public function index()
 	{
-		// if ($this->session->userdata('login') == TRUE && $this->session->userdata('level') == 'root') {
-		// 	redirect(base_url('admin/beranda/')); //mengarahkan ke halaman admin
-		// } elseif ($this->session->userdata('login') == TRUE && $this->session->userdata('level') == 'usr') {
-		// 	redirect(base_url('user/beranda')); //mengarahkan ke halaman manager
-		// }
-        $data['content'] = 'master/v_dashboard';
-        // $where = array(
-        //     'verifikasi' => 'done',
-        //     'level_user' => 'usr'
-        // );
+		$data['content'] = 'master/v_dashboard';
+		// $where = array(
+		//     'verifikasi' => 'done',
+		//     'level_user' => 'usr'
+		// );
 		// $a = array();
-		$this->load->view('main',$data);
+		$this->load->view('_layout/master/main', $data);
 	}
 
 	public function get_fam()
 	{
-        // $data['kel'] = $this->M_keluarga->get_data_keluarga()->result();
-        $t = $this->M_keluarga->get_data_keluarga()->result();
+		// $data['kel'] = $this->M_keluarga->get_data_keluarga()->result();
+		$t = $this->M_keluarga->get_data_keluarga()->result();
 		foreach ($t as $x) {
-			if($x->generasi=="1"){
+			if ($x->generasi == "1") {
 				$a[] = (object) array(
 					'id' => intval($x->id_user),
 					'gender' => $x->sex,
 					'name' => $x->u_nama,
 					'img' => base_url('assets/img/none2.png'),
-					'pids' =>[$x->pasangan]
+					'pids' => [$x->pasangan]
 				);
-			}else{
+			} else {
 				$a[] = (object) array(
 					'id' => intval($x->id_user),
 					'gender' => $x->sex,
@@ -54,10 +55,10 @@ class Dashboard extends CI_Controller
 		echo json_encode($a);
 	}
 
-    //timeline
+	//timeline
 	public function timeline()
 	{
-        $data['content'] = 'master/v_timeline';
-		$this->load->view('main',$data);
+		$data['content'] = 'master/v_timeline';
+		$this->load->view('_layout/master/main', $data);
 	}
 }
