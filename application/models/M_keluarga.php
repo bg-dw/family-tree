@@ -21,16 +21,16 @@ class M_keluarga extends CI_Model
 
     function get_data_keluarga()
     {
-        $this->db->select('tbl_user.sex,tbl_user.u_nama,tbl_user_bio.id_user,tbl_user_bio.generasi,tbl_user_bio.ibu,tbl_user_bio.ayah,tbl_user_bio.pasangan'); //mengambil semua data
+        $this->db->select('tbl_user.sex,tbl_user.name,tbl_user_bio.id_user,tbl_user_bio.generasi,tbl_user_bio.ibu,tbl_user_bio.ayah,tbl_user_bio.pasangan'); //mengambil semua data
         $this->db->from('tbl_user'); //dari table
         $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
-        // $this->db->group_by('tbl_detail_vga.id_vga');
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }
 
     //menyimpan data kedalam database
     public function db_input($data, $table) //$data dan $table merupakan variable yang dikirim dari controller
+
     {
         $query = $this->db->insert($table, $data); //bagian ini merupakan query builder bawaan codeigniter
         return $query;

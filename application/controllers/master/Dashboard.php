@@ -36,7 +36,7 @@ class Dashboard extends CI_Controller
 				$a[] = (object) array(
 					'id' => intval($x->id_user),
 					'gender' => $x->sex,
-					'name' => $x->u_nama,
+					'name' => $x->name,
 					'img' => base_url('assets/img/none2.png'),
 					'pids' => [$x->pasangan]
 				);
@@ -44,7 +44,7 @@ class Dashboard extends CI_Controller
 				$a[] = (object) array(
 					'id' => intval($x->id_user),
 					'gender' => $x->sex,
-					'name' => $x->u_nama,
+					'name' => $x->name,
 					'pids' => [$x->pasangan],
 					'img' => base_url('assets/img/none2.png'),
 					'mid' => $x->ibu,
