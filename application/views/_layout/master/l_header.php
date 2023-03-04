@@ -12,3 +12,4 @@
 <script src="<?= base_url() ?>assets/js/jquery-3.2.1.min.js"></script>
 <script src="<?= base_url() ?>assets/js/familytree.js"></script>
 <link rel="stylesheet" href="<?= base_url() ?>assets/bundles/izitoast/css/iziToast.min.css">
+<link href="<?= base_url() ?>assets/bundles/lightgallery/dist/css/lightgallery.css" rel="stylesheet">

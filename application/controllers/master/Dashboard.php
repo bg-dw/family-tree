@@ -13,17 +13,18 @@ class Dashboard extends CI_Controller
 			redirect(base_url('login/')); //mengarahkan ke halaman master
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
 			redirect(base_url('user/beranda')); //mengarahkan ke halaman user
+		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
+			redirect(base_url('user_manager/beranda')); //mengarahkan ke halaman user
 		}
 	}
 
 	public function index()
 	{
 		$data['content'] = 'master/v_dashboard';
-		// $where = array(
-		//     'verifikasi' => 'done',
-		//     'level_user' => 'usr'
-		// );
-		// $a = array();
+		$data['all'] = $this->M_keluarga->get_count_tot('tbl_user')->row();
+		$data['male'] = $this->M_keluarga->get_count_male('tbl_user')->row();
+		$data['female'] = $this->M_keluarga->get_count_female('tbl_user')->row();
+		$data['gen'] = $this->M_keluarga->get_count_gen('tbl_user_bio')->row();
 		$this->load->view('_layout/master/main', $data);
 	}
 
@@ -53,12 +54,5 @@ class Dashboard extends CI_Controller
 			}
 		}
 		echo json_encode($a);
-	}
-
-	//timeline
-	public function timeline()
-	{
-		$data['content'] = 'master/v_timeline';
-		$this->load->view('_layout/master/main', $data);
 	}
 }

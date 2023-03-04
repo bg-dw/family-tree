@@ -7,17 +7,27 @@ class Pengguna extends CI_Controller
 	{
 		//akan berjalan ketika controller C_login di jalankan
 		parent::__construct();
-		$this->load->model('M_login');
+		$this->load->model('M_keluarga');
+
+		if ($this->session->userdata('login') != 'acc') {
+			redirect(base_url('login/')); //mengarahkan ke halaman master
+		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
+			redirect(base_url('user/beranda')); //mengarahkan ke halaman user
+		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
+			redirect(base_url('user_manager/beranda')); //mengarahkan ke halaman user
+		}
 	}
-	
+
 	public function index()
 	{
-		// if ($this->session->userdata('login') == TRUE && $this->session->userdata('level') == 'root') {
-		// 	redirect(base_url('admin/beranda/')); //mengarahkan ke halaman admin
-		// } elseif ($this->session->userdata('login') == TRUE && $this->session->userdata('level') == 'usr') {
-		// 	redirect(base_url('user/beranda')); //mengarahkan ke halaman manager
-		// }
-        $data['content'] = 'master/v_pengguna';
-		$this->load->view('_layout/master/main',$data);
+		$data['content'] = 'master/v_pengguna';
+		$this->load->view('_layout/master/main', $data);
+	}
+
+	//relasi antar pengguna
+	public function relasi()
+	{
+		$data['content'] = 'master/v_relasi';
+		$this->load->view('_layout/master/main', $data);
 	}
 }

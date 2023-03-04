@@ -51,9 +51,32 @@ class M_keluarga extends CI_Model
     }
 
     //count data dari database
-    function get_count($table)
+    function get_count_tot($table)
     {
-        $this->db->select('count(id_user) as total'); //menghitung jumlah data
+        $this->db->select('COUNT(u_user) AS tot'); //menghitung jumlah data
+        $this->db->from($table); //dari table
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_count_male($table)
+    {
+        $this->db->select('COUNT(sex) AS M'); //menghitung jumlah data
+        $this->db->from($table); //dari table
+        $this->db->where('sex="male"');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_count_female($table)
+    {
+        $this->db->select('COUNT(sex) AS F'); //menghitung jumlah data
+        $this->db->from($table); //dari table
+        $this->db->where('sex="female"');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_count_gen($table)
+    {
+        $this->db->select('Max(generasi) AS tot'); //menghitung jumlah data
         $this->db->from($table); //dari table
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
