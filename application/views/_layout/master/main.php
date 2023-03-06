@@ -81,8 +81,7 @@
                   echo $this->session->userdata('pic');
                 else:
                   echo 'none.png';
-                endif; ?>" class="user-img-radious-style"> <span
-                class="d-sm-none d-lg-inline-block"></span></a>
+                endif; ?>" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">
                 <?= $this->session->userdata('nama') ?>
@@ -90,7 +89,12 @@
               <a href="<?= base_url('master/profile/') ?>" class="dropdown-item has-icon"> <i class="far
                     fa-user"></i> Profile
               </a>
-              <a href="#" class="dropdown-item has-icon"> <i class="fas fa-lock"></i>
+              <a href="#" class="dropdown-item has-icon" data-toggle="modal" data-target="#update-username"> <i
+                  class="fas fa-key"></i>
+                Ganti Pengguna
+              </a>
+              <a href="#" class="dropdown-item has-icon" data-toggle="modal" data-target="#update-password"> <i
+                  class="fas fa-lock"></i>
                 Ganti Kata Sandi
               </a>
               <div class="dropdown-divider"></div>
@@ -106,6 +110,104 @@
       <!-- Main Content -->
       <div class="main-content">
         <?php $this->load->view($content); ?>
+        <!-- Vertically Center -->
+        <div class="modal fade" id="update-username" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <form action="" method="post">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Pengguna</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" class="needs-validation"
+                    action="<?= base_url('master/profile/update_username/') ?>">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="form-group col-12">
+                          <label>Pengguna Lama</label>
+                          <input type="text" class="form-control" name="u_lama" required>
+                          <div class="invalid-feedback">
+                            Mohon isi pengguna lama anda!
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-12">
+                          <label>Pengguna Baru</label>
+                          <input type="text" class="form-control" name="u_baru" required>
+                          <div class="invalid-feedback">
+                            Mohon isi pengguna baru anda!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="update-password" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <form action="" method="post">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Kata Sandi</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" class="needs-validation"
+                    action="<?= base_url('master/profile/update_password/') ?>">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="form-group col-12">
+                          <label>Kata Sandi Lama</label>
+                          <input type="text" class="form-control" required>
+                          <div class="invalid-feedback">
+                            Mohon isi kata sandi lama anda!
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-12">
+                          <label>Verifikasi Kata Sandi Lama</label>
+                          <input type="text" class="form-control" required>
+                          <div class="invalid-feedback">
+                            Mohon verifikasi kata sandi lama anda!
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-12">
+                          <label>Kata Sandi Baru</label>
+                          <input type="text" class="form-control" name="u_baru" required>
+                          <div class="invalid-feedback">
+                            Mohon isi kata sandi baru anda!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                  <button type="submit" class="btn btn-primary">Simpan</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
         <div class="settingSidebar">
           <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
           </a>

@@ -13,7 +13,7 @@
         <a href="<?= base_url('master/dashboard/') ?>" class="nav-link"><i
             data-feather="monitor"></i><span>Dashboard</span></a>
       </li>
-      <li class="dropdown <?php if ($this->uri->segment(2) == 'pengguna'):
+      <li class="dropdown <?php if ($this->uri->segment(2) == 'pengguna' || $this->uri->segment(2) == 'relasi'):
         echo 'active';
       endif; ?>">
         <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="user-check"></i><span>Pengguna</span></a>
@@ -22,9 +22,9 @@
             echo 'active';
           endif; ?>"><a class="nav-link" href="<?= base_url('master/pengguna/') ?>">Data Keluarga</a>
           </li>
-          <li class="<?php if ($this->uri->segment(2) == 'pengguna' && $this->uri->segment(3) == 'relasi'):
+          <li class="<?php if ($this->uri->segment(2) == 'relasi' && $this->uri->segment(3) == ''):
             echo 'active';
-          endif; ?>"><a class="nav-link" href="<?= base_url('master/pengguna/relasi') ?>">Hubungan Keluarga</a>
+          endif; ?>"><a class="nav-link" href="<?= base_url('master/relasi') ?>">Hubungan Keluarga</a>
           </li>
         </ul>
       </li>

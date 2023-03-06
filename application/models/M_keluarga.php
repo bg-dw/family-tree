@@ -27,6 +27,53 @@ class M_keluarga extends CI_Model
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }
+    function get_data_relasi()
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.name,tbl_user_bio.*'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+
+    //get_ibu
+    function get_ibu()
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.name'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.ibu=tbl_user.id_user');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+
+    //get_ayah
+    function get_ayah()
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.name'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.ayah=tbl_user.id_user');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+
+    //get_pasangan
+    function get_pasangan()
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.name'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.pasangan=tbl_user.id_user');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+
+    //get_pasangan
+    function get_by()
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.name'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
 
     //menyimpan data kedalam database
     public function db_input($data, $table) //$data dan $table merupakan variable yang dikirim dari controller

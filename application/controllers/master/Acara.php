@@ -7,7 +7,7 @@ class Acara extends CI_Controller
 	{
 		//akan berjalan ketika controller C_login di jalankan
 		parent::__construct();
-		$this->load->model('M_keluarga');
+		$this->load->model('M_acara');
 
 		if ($this->session->userdata('login') != 'acc') {
 			redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -21,6 +21,7 @@ class Acara extends CI_Controller
 	public function index()
 	{
 		$data['content'] = 'master/v_acara';
+		$data['rec'] = $this->M_acara->get_data_acara()->result();
 		$this->load->view('_layout/master/main', $data);
 	}
 }

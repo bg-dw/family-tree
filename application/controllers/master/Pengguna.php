@@ -21,13 +21,13 @@ class Pengguna extends CI_Controller
 	public function index()
 	{
 		$data['content'] = 'master/v_pengguna';
-		$this->load->view('_layout/master/main', $data);
-	}
-
-	//relasi antar pengguna
-	public function relasi()
-	{
-		$data['content'] = 'master/v_relasi';
+		$where = array('acc_admin' => 'accept');
+		$q = $this->M_keluarga->get_data_by($where, 'tbl_user');
+		if ($q):
+			$data['rec'] = $q->result();
+		else:
+			$this->session->set_flashdata('error', ' Belum ada data!');
+		endif;
 		$this->load->view('_layout/master/main', $data);
 	}
 }

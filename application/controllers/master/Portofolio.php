@@ -7,7 +7,7 @@ class Portofolio extends CI_Controller
     {
         //akan berjalan ketika controller C_login di jalankan
         parent::__construct();
-        $this->load->model('M_keluarga');
+        $this->load->model('M_porto');
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -21,6 +21,7 @@ class Portofolio extends CI_Controller
     public function index()
     {
         $data['content'] = 'master/v_portofolio';
+        $data['rec'] = $this->M_porto->get_data_porto()->result();
         $this->load->view('_layout/master/main', $data);
     }
 }
