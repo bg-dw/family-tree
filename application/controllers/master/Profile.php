@@ -77,4 +77,29 @@ class Profile extends Renew
             redirect('master/profile/');
         endif;
     }
+
+    public function update_username()
+    {
+        $nm = $this->input->post('u_baru');
+
+        $where = array('id_user' => $this->session->userdata('id'));
+
+        $data = array(
+            'u_user' => $nm,
+            'id_log' => $this->session->userdata('id')
+        );
+        if ($this->session->userdata('id') != ""):
+            $q = $this->M_profile->db_update($where, $data, 'tbl_user');
+            if ($q):
+                $this->session->set_flashdata('success', ' Data Berhasil Diperbaharui!');
+                redirect('login/logout/');
+            else:
+                $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
+                redirect('master/dashboard/');
+            endif;
+        else:
+            $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
+            redirect('master/dashboard/');
+        endif;
+    }
 }

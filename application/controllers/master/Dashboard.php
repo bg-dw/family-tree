@@ -55,4 +55,17 @@ class Dashboard extends CI_Controller
 		}
 		echo json_encode($a);
 	}
+
+	//cek username
+	public function get_uname()
+	{
+		$user = $this->input->post('uname');
+		$where = array('u_user' => $user);
+		$q = $this->M_keluarga->get_data_by($where, 'tbl_user')->result();
+		if (count($q) >= 1) {
+			echo json_encode(1);
+		} else {
+			echo json_encode(0);
+		}
+	}
 }

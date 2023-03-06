@@ -32,47 +32,17 @@
             </a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
               <div class="dropdown-header">
-                Notifications
-                <div class="float-right">
-                  <a href="#">Mark All As Read</a>
-                </div>
+                Pemberitahuan
               </div>
               <div class="dropdown-list-content dropdown-list-icons">
                 <a href="#" class="dropdown-item dropdown-item-unread"> <span
                     class="dropdown-item-icon bg-primary text-white"> <i class="fas
                         fa-code"></i>
                   </span> <span class="dropdown-item-desc"> Template update is
-                    available now! <span class="time">2 Min
-                      Ago</span>
-                  </span>
-                </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white"> <i class="far
-                        fa-user"></i>
-                  </span> <span class="dropdown-item-desc"> <b>You</b> and <b>Dedik
-                      Sugiharto</b> are now friends <span class="time">10 Hours
-                      Ago</span>
-                  </span>
-                </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-success text-white"> <i
-                      class="fas
-                        fa-check"></i>
-                  </span> <span class="dropdown-item-desc"> <b>Kusnaedi</b> has
-                    moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">12
-                      Hours
-                      Ago</span>
-                  </span>
-                </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-danger text-white"> <i
-                      class="fas fa-exclamation-triangle"></i>
-                  </span> <span class="dropdown-item-desc"> Low disk space. Let's
-                    clean it! <span class="time">17 Hours Ago</span>
-                  </span>
-                </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white"> <i class="fas
-                        fa-bell"></i>
-                  </span> <span class="dropdown-item-desc"> Welcome to Otika
-                    template! <span class="time">Yesterday</span>
+                    available now!
+                    <span class="time">2 Min Ago</span>
                   </span>
                 </a>
-              </div>
-              <div class="dropdown-footer text-center">
-                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
               </div>
             </div>
           </li>
@@ -115,7 +85,8 @@
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <form action="" method="post">
+              <form method="post" action="<?= base_url('master/profile/update_username/') ?>"
+                onsubmit="return confirm('Simpan, dan Masuk Ulang?')">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Pengguna</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,29 +94,37 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" class="needs-validation"
-                    action="<?= base_url('master/profile/update_username/') ?>">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="form-group col-12">
-                          <label>Pengguna Lama</label>
-                          <input type="text" class="form-control" name="u_lama" required>
-                          <div class="invalid-feedback">
-                            Mohon isi pengguna lama anda!
-                          </div>
+                  <div class="card-body">
+                    <div class="row" id="u_lama">
+                      <div class="form-group col-12">
+                        <label>Pengguna Lama</label>
+                        <input type="text" class="form-control" name="u_lama" onkeyup="cek_uname_lama(this)" required
+                          id="in_lama">
+                        <div class="valid-feedback" id="valuser" style="display:none;">
+                          Valid!
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="form-group col-12">
-                          <label>Pengguna Baru</label>
-                          <input type="text" class="form-control" name="u_baru" required>
-                          <div class="invalid-feedback">
-                            Mohon isi pengguna baru anda!
-                          </div>
+                        <div class="invalid-feedback" id="inuser" style="display:none;">
+                          Tidak ditemukan!
                         </div>
                       </div>
                     </div>
-                  </form>
+                    <div class="row" id="u_baru" style="display:none;">
+                      <div class="form-group col-12">
+                        <label>Pengguna Baru (Minimal 5 Karakter)</label>
+                        <input type="text" class="form-control" name="u_baru" onkeyup="cek_uname_baru(this)" required
+                          id="in_baru">
+                        <div class="valid-feedback" id="valub" style="display:none;">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback" id="inub" style="display:none;">
+                          Tidak dapat digunakan!
+                        </div>
+                        <div class="invalid-feedback" id="inub2" style="display:none;">
+                          Harap gunakan pengguna yang berbeda dari pengguna lama!
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                   <button type="submit" class="btn btn-primary">Simpan</button>
@@ -311,6 +290,73 @@
   </div>
   <?php $this->load->view('_layout/master/l_footer'); ?>
   <?php $this->load->view('_layout/alert'); ?>
+
+  <script>
+    function cek_uname_lama(e) {
+      var user = e.value;
+      if (user.length >= 5) {
+        $.ajax({
+          url: '<?= base_url("master/dashboard/get_uname/") ?>',
+          type: "POST",
+          data: { uname: user },
+          dataType: 'json',
+          success: function (data) {
+            if (data == 1) {
+              $('#inuser').hide();
+              $('#valuser').show();
+              setTimeout(
+                function () {
+                  $('#u_lama').slideUp();
+                  $('#u_baru').slideDown("slow");
+                  $('#in_baru').focus();
+                }, 1000);
+            } else {
+              $('#inuser').show();
+            }
+          },
+          error: function (data) {
+            $('#u_baru').hide();
+            $('#u_lama').show();
+            alert(data.responseText)
+          }
+        });
+      }
+    }
+
+    function cek_uname_baru(e) {
+      var user_lama = $('#in_lama').val();
+      var user = e.value;
+      if (user.length >= 5) {
+        $.ajax({
+          url: '<?= base_url("master/dashboard/get_uname/") ?>',
+          type: "POST",
+          data: { uname: user },
+          dataType: 'json',
+          success: function (data) {
+            if (data == 0) {
+              $('#inub').hide();
+              $('#inub2').hide();
+              $('#valub').show();
+            } else {
+              if (user_lama == user) {
+                $('#valub').hide();
+                $('#inub').hide();
+                $('#inub2').show();
+              } else {
+                $('#valub').hide();
+                $('#inub2').hide();
+                $('#inub').show();
+              }
+            }
+          },
+          error: function (data) {
+            $('#u_baru').show();
+            alert(data.responseText)
+          }
+        });
+      }
+    }
+  </script>
 
 </body>
 
