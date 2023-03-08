@@ -57,10 +57,27 @@ class Dashboard extends CI_Controller
 	}
 
 	//cek username
+	public function get_my()
+	{
+		$id = $this->input->post('id');
+		$user = $this->input->post('uname');
+		$where = array(
+			'id_user' => $id,
+			'u_user' => $user
+		);
+		$q = $this->M_keluarga->get_data_by($where, 'tbl_user')->result();
+		if (count($q) >= 1) {
+			echo json_encode(1);
+		} else {
+			echo json_encode(0);
+		}
+	}
 	public function get_uname()
 	{
 		$user = $this->input->post('uname');
-		$where = array('u_user' => $user);
+		$where = array(
+			'u_user' => $user
+		);
 		$q = $this->M_keluarga->get_data_by($where, 'tbl_user')->result();
 		if (count($q) >= 1) {
 			echo json_encode(1);

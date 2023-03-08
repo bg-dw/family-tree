@@ -11,5 +11,6 @@
   href="<?= base_url() ?>assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 <script src="<?= base_url() ?>assets/js/jquery-3.2.1.min.js"></script>
 <script src="<?= base_url() ?>assets/js/familytree.js"></script>
+<script src="<?= base_url() ?>assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
 <link rel="stylesheet" href="<?= base_url() ?>assets/bundles/izitoast/css/iziToast.min.css">
-<link href="<?= base_url() ?>assets/bundles/lightgallery/dist/css/lightgallery.css" rel="stylesheet">
+<link rel="stylesheet" href="<?= base_url() ?>assets/bundles/lightgallery/dist/css/lightgallery.css">

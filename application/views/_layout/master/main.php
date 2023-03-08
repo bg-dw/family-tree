@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- index.html  21 Nov 2019 03:44:50 GMT -->
-
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
@@ -98,6 +95,8 @@
                     <div class="row" id="u_lama">
                       <div class="form-group col-12">
                         <label>Pengguna Lama</label>
+                        <input type="hidden" class="form-control" value="<?= $this->session->userdata('id') ?>" required
+                          id="id_us">
                         <input type="text" class="form-control" name="u_lama" onkeyup="cek_uname_lama(this)" required
                           id="in_lama">
                         <div class="valid-feedback" id="valuser" style="display:none;">
@@ -112,7 +111,7 @@
                       <div class="form-group col-12">
                         <label>Pengguna Baru (Minimal 5 Karakter)</label>
                         <input type="text" class="form-control" name="u_baru" onkeyup="cek_uname_baru(this)" required
-                          id="in_baru">
+                          id="in_baru" pattern=".{5,}">
                         <div class="valid-feedback" id="valub" style="display:none;">
                           Valid!
                         </div>
@@ -138,49 +137,56 @@
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <form action="" method="post">
-                <div class="modal-header">
+              <form method="post" class="needs-validation" action="<?= base_url('master/profile/update_password/') ?>"
+                onsubmit="return confirm('Simpan, dan Masuk Ulang?')">
+                <div class=" modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Kata Sandi</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" class="needs-validation"
-                    action="<?= base_url('master/profile/update_password/') ?>">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="form-group col-12">
-                          <label>Kata Sandi Lama</label>
-                          <input type="text" class="form-control" required>
-                          <div class="invalid-feedback">
-                            Mohon isi kata sandi lama anda!
-                          </div>
+                  <div class="card-body">
+                    <div class="row" id="f-lama">
+                      <div class="form-group col-12">
+                        <label>Kata Sandi Lama</label>
+                        <input type="hidden" class="form-control" value="<?= $this->session->userdata('upass') ?>"
+                          required id="pwd_lama">
+                        <input type="password" class="form-control" onkeyup="cek_pwd_lama(this);" required>
+                        <div class="valid-feedback" id="valpwd" style="display:none;">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback" id="inpwd" style="display:none;">
+                          Tidak sama!
                         </div>
                       </div>
+                    </div>
+                    <div id="f-baru" style="display:none;">
                       <div class="row">
                         <div class="form-group col-12">
-                          <label>Verifikasi Kata Sandi Lama</label>
-                          <input type="text" class="form-control" required>
-                          <div class="invalid-feedback">
-                            Mohon verifikasi kata sandi lama anda!
-                          </div>
+                          <label>Kata Sandi Baru (Minimal 5 Karakter)</label>
+                          <input type="password" class="form-control" name="pwd" onkeyup="ver_sandi()" required
+                            id="in_pwd" pattern=".{5,}">
                         </div>
                       </div>
-                      <div class="row">
+                      <div class="row" id="in-ver" style="display:none;">
                         <div class="form-group col-12">
-                          <label>Kata Sandi Baru</label>
-                          <input type="text" class="form-control" name="u_baru" required>
-                          <div class="invalid-feedback">
-                            Mohon isi kata sandi baru anda!
+                          <label>Verifikasi Kata Sandi Baru</label>
+                          <input type="password" class="form-control" name="u_baru" onkeyup="ver_sandi()" required
+                            id="in_conf">
+                          <div class="valid-feedback" id="valpwdb" style="display:none;">
+                            Valid!
+                          </div>
+                          <div class="invalid-feedback" id="inpwdb" style="display:none;">
+                            Kata sandi baru tidak sama!
                           </div>
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
-                  <button type="submit" class="btn btn-primary">Simpan</button>
+                  <button type="submit" class="btn btn-primary" id="btn-save" style="display:none;">Simpan</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 </div>
               </form>
@@ -294,11 +300,12 @@
   <script>
     function cek_uname_lama(e) {
       var user = e.value;
+      var id_us = $('#id_us').val();
       if (user.length >= 5) {
         $.ajax({
-          url: '<?= base_url("master/dashboard/get_uname/") ?>',
+          url: '<?= base_url("master/dashboard/get_my/") ?>',
           type: "POST",
-          data: { uname: user },
+          data: { id: id_us, uname: user },
           dataType: 'json',
           success: function (data) {
             if (data == 1) {
@@ -354,6 +361,41 @@
             alert(data.responseText)
           }
         });
+      }
+    }
+
+    function cek_pwd_lama(e) {
+      var pwd_lama = $('#pwd_lama').val();
+      var pwd = e.value;
+      if (pwd_lama == pwd) {
+        $('#inpwd').hide();
+        $('#valpwd').show();
+        $('#f-lama').slideUp();
+        $('#f-baru').slideDown("slow");
+        $('#in_pwd').focus();
+      } else {
+        $('#valpwd').hide();
+        $('#inpwd').show();
+      }
+    }
+
+    //verifikasi sandi
+    function ver_sandi() {
+      var pwd = $('#in_pwd').val();
+      var conf = $('#in_conf').val();
+      if (pwd.length >= 5) {
+        $('#in-ver').show();
+        if (pwd == conf) {
+          $('#inpwdb').hide();
+          $('#valpwdb').show();
+          $('#btn-save').show();
+        } else {
+          $('#valpwdb').hide();
+          $('#btn-save').hide();
+          $('#inpwdb').show();
+        }
+      } else {
+        $('#in-ver').hide();
       }
     }
   </script>
