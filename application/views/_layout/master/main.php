@@ -53,7 +53,7 @@
               <div class="dropdown-title">
                 <?= $this->session->userdata('nama') ?>
               </div>
-              <a href="<?= base_url('master/profile/') ?>" class="dropdown-item has-icon"> <i class="far
+              <a href="<?= base_url('master-profile') ?>" class="dropdown-item has-icon"> <i class="far
                     fa-user"></i> Profile
               </a>
               <a href="#" class="dropdown-item has-icon" data-toggle="modal" data-target="#update-username"> <i
@@ -65,7 +65,7 @@
                 Ganti Kata Sandi
               </a>
               <div class="dropdown-divider"></div>
-              <a href="<?= base_url('login/logout/') ?>" class="dropdown-item has-icon text-danger"> <i
+              <a href="<?= base_url('logout') ?>" class="dropdown-item has-icon text-danger"> <i
                   class="fas fa-sign-out-alt"></i>
                 Keluar
               </a>
@@ -82,7 +82,7 @@
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <form method="post" action="<?= base_url('master/profile/update_username/') ?>"
+              <form method="post" action="<?= base_url('master-update-username') ?>"
                 onsubmit="return confirm('Simpan, dan Masuk Ulang?')">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Pengguna</h5>
@@ -137,7 +137,7 @@
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <form method="post" class="needs-validation" action="<?= base_url('master/profile/update_password/') ?>"
+              <form method="post" class="needs-validation" action="<?= base_url('master-update-password') ?>"
                 onsubmit="return confirm('Simpan, dan Masuk Ulang?')">
                 <div class=" modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Kata Sandi</h5>
@@ -298,12 +298,15 @@
   <?php $this->load->view('_layout/alert'); ?>
 
   <script>
+    $(document).ready(function () {
+      $('.select2').select2();
+    });
     function cek_uname_lama(e) {
       var user = e.value;
       var id_us = $('#id_us').val();
       if (user.length >= 5) {
         $.ajax({
-          url: '<?= base_url("master/dashboard/get_my/") ?>',
+          url: '<?= base_url("master-get-my") ?>',
           type: "POST",
           data: { id: id_us, uname: user },
           dataType: 'json',
@@ -335,7 +338,7 @@
       var user = e.value;
       if (user.length >= 5) {
         $.ajax({
-          url: '<?= base_url("master/dashboard/get_uname/") ?>',
+          url: '<?= base_url("master-get-uname") ?>',
           type: "POST",
           data: { uname: user },
           dataType: 'json',

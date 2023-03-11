@@ -13,7 +13,7 @@ class Login extends CI_Controller
 	public function index()
 	{
 		if ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'um') {
-			redirect(base_url('master/dashboard/')); //mengarahkan ke halaman master
+			redirect(base_url('master-dashboard')); //mengarahkan ke halaman master
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
 			redirect(base_url('user_manager/dashboard')); //mengarahkan ke halaman user
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
@@ -61,7 +61,7 @@ class Login extends CI_Controller
 					); //memberikan nilai yang di ambil dari databae pada userdata user
 					$this->session->set_userdata($isi);
 					$this->session->set_flashdata('success', 'Selamat datang ' . $data['name'] . " !");
-					redirect(base_url('master/dashboard/'));
+					redirect(base_url('master-dashboard'));
 				} elseif ($data['u_level'] == 'us') {
 					$this->session->set_userdata('login', TRUE); //memberikan nilai TRUE pada userdata login
 					$this->session->set_userdata('user', $data['uname']); //memberikan nilai yang di ambil dari databae pada userdata user

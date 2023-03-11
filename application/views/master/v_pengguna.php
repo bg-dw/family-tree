@@ -66,8 +66,8 @@
             </table>
           </div>
         </div>
-        <form action="<?= base_url('master/pengguna/add_pengguna') ?>" method="post"
-          onsubmit="return confirm('Simpan data?');" id="tbl_add" style="display:none;">
+        <form action="<?= base_url('master-add-pengguna') ?>" method="post" onsubmit="return confirm('Simpan data?');"
+          id="tbl_add" style="display:none;">
           <div class="card-body">
             <div class="form-row">
               <div class="form-group col-md-4">
@@ -262,12 +262,12 @@
             </div>
           </div>
           <div class="card-footer text-right">
-            <button type="submit" class="btn btn-primary" id="btn-save" style="display:none;">Simpan</button>
+            <button type="submit" class="btn btn-primary" id="btn-save-add" style="display:none;">Simpan</button>
             <button type="button" class="btn btn-secondary" onclick="cancel_add()">Batal</button>
           </div>
         </form>
 
-        <form action="<?= base_url('master/pengguna/update_pengguna') ?>" method="post"
+        <form action="<?= base_url('master-update-pengguna') ?>" method="post"
           onsubmit="return confirm('Simpan data?');" id="tbl_update" style="display:none;">
           <div class="card-body">
             <div class="form-row">
@@ -491,7 +491,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form action="<?= base_url('master/pengguna/delete_pengguna') ?>" method="post">
+              <form action="<?= base_url('master-delete-pengguna') ?>" method="post">
                 <div class="modal-body">
                   <input type="hidden" name="id" id="h_id" required>
                   <div class="text-center">
@@ -523,17 +523,17 @@
     var user = e.value;
     if (user.length >= 5) {
       $.ajax({
-        url: '<?= base_url("master/dashboard/get_uname/") ?>',
+        url: '<?= base_url("master-get-uname") ?>',
         type: "POST",
         data: { uname: user },
         dataType: 'json',
         success: function (data) {
           if (data == 0) {
             $('#u_in').hide();
-            $('#btn-save').show();
+            $('#btn-save-add').show();
             $('#u_val').show();
           } else {
-            $('#btn-save').hide();
+            $('#btn-save-add').hide();
             $('#u_val').hide();
             $('#u_in').show();
           }
@@ -561,7 +561,7 @@
     $('#tbl_update').slideDown('slow');
 
     $.ajax({
-      url: "<?= base_url('master/pengguna/get_user/') ?>",
+      url: "<?= base_url('master-get-user') ?>",
       method: "POST",
       dataType: 'json',
       data: { id_user: id },
@@ -604,7 +604,7 @@
     var user = e.value;
     if (user.length >= 5) {
       $.ajax({
-        url: '<?= base_url("master/dashboard/get_uname/") ?>',
+        url: '<?= base_url("master-get-uname") ?>',
         type: "POST",
         data: { uname: user },
         dataType: 'json',
@@ -614,8 +614,8 @@
             $('#btn-save-update').show();
             $('#u-val').show();
           } else {
-            if (user == "<?= $this->session->userdata('user') ?>"){
- 
+            if (user == "<?= $this->session->userdata('user') ?>") {
+
               $('#u-in').hide();
               $('#btn-save-update').show();
               $('#u-val').show();

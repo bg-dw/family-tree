@@ -52,3 +52,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = 'login';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['logout'] = 'Login/logout';
+
+//profile
+$route['master-profile'] = 'master/Profile';
+$route['master-update-username']['post'] = 'master/Profile/update_username';
+$route['master-update-password']['post'] = 'master/Profile/update_password';
+
+//menu dashboard
+$route['master-dashboard'] = 'master/Dashboard';
+$route['master-get-uname']['post'] = 'master/dashboard/get_uname/';
+$route['master-get-my']['post'] = 'master/dashboard/get_my/';
+
+//menu pengguna
+$route['master-data-keluarga'] = 'master/Pengguna';
+$route['master-add-pengguna']['post'] = 'master/Pengguna/add_pengguna';
+$route['master-update-pengguna']['post'] = 'master/Pengguna/update_pengguna';
+$route['master-delete-pengguna']['post'] = 'master/Pengguna/delete_pengguna';
+$route['master-get-user']['post'] = 'master/Pengguna/get_user';
+$route['master-hubungan-keluarga'] = 'master/Relasi';
+$route['master-get-user-relasi'] = 'master/Relasi/get_user';
+$route['master-get-ortu']['post'] = 'master/Relasi/get_ortu';
+$route['master-get-pasangan']['post'] = 'master/Relasi/get_pasangan';
+$route['master-add-relasi']['post'] = 'master/Relasi/add_relasi';
+$route['master-update-relasi']['post'] = 'master/Relasi/update_relasi';
+$route['master-delete-relasi']['post'] = 'master/Relasi/delete_relasi';
+
+//menu portofolio
+$route['master-portofolio'] = 'master/Portofolio';
+
+//menu acara
+$route['master-acara'] = 'master/Acara';
+
+//menu galeri
+$route['master-galeri'] = 'master/Galeri';

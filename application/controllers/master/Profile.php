@@ -67,14 +67,14 @@ class Profile extends Renew
             if ($q):
                 $this->session->set_flashdata('success', ' Data Berhasil Diperbaharui!');
                 $this->new_ses($this->session->userdata('id'));
-                redirect('master/profile/');
+                redirect('master-profile');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-                redirect('master/profile/');
+                redirect('master-profile');
             endif;
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-            redirect('master/profile/');
+            redirect('master-profile');
         endif;
     }
 
@@ -92,14 +92,14 @@ class Profile extends Renew
             $q = $this->M_profile->db_update($where, $data, 'tbl_user');
             if ($q):
                 $this->session->set_flashdata('success', ' Data Berhasil Diperbaharui!');
-                redirect('login/logout/');
+                redirect('logout');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-                redirect('master/dashboard/');
+                redirect('master-dashboard');
             endif;
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-            redirect('master/dashboard/');
+            redirect('master-dashboard');
         endif;
     }
 
@@ -118,14 +118,14 @@ class Profile extends Renew
             $q = $this->M_profile->db_update($where, $data, 'tbl_user');
             if ($q):
                 $this->session->set_flashdata('success', ' Data Berhasil Diperbaharui!');
-                redirect('login/logout/');
+                redirect('logout');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-                redirect('master/dashboard/');
+                redirect('master-dashboard');
             endif;
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-            redirect('master/dashboard/');
+            redirect('master-dashboard');
         endif;
     }
 }
