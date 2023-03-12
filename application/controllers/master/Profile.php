@@ -8,7 +8,6 @@ class Profile extends Renew
         //akan berjalan ketika controller C_login di jalankan
         parent::__construct();
         $this->load->model('M_profile');
-        // $this->load->library('../controllers/Renew');
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -126,6 +125,37 @@ class Profile extends Renew
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
             redirect('master-dashboard');
+        endif;
+    }
+
+    //update foto profile
+    function update_foto()
+    {
+        $old = $this->input->post('old');
+        $loc = './assets/img/users/profile/';
+        $foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
+        $where = array('id_user' => $this->session->userdata('id'));
+
+        if (is_array($foto)):
+            $data = array(
+                'u_pic' => $foto['file_name'],
+                'id_log' => $this->session->userdata('id')
+            );
+            $q = $this->M_profile->db_update($where, $data, 'tbl_user');
+            if ($q):
+                if ($old) {
+                    unlink($loc . $old);
+                }
+                $this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
+                $this->new_ses($this->session->userdata('id'));
+                redirect('master-profile');
+            else:
+                $this->session->set_flashdata('error', ' Gagal Memperbaharui Foto!');
+                redirect('master-profile');
+            endif;
+        else:
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            redirect('master-profile');
         endif;
     }
 }

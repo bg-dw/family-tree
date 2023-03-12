@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+include_once(dirname(__FILE__) . "/Renew.php");
 
-class Pengguna extends CI_Controller
+class Pengguna extends Renew
 {
 	function __construct()
 	{
@@ -26,7 +27,7 @@ class Pengguna extends CI_Controller
 		if ($q):
 			$data['rec'] = $q->result();
 		else:
-			$this->session->set_flashdata('error', ' Belum ada data!');
+			$this->session->set_flashdata('warning', ' Belum ada data!');
 		endif;
 		$this->load->view('_layout/master/main', $data);
 	}
@@ -78,9 +79,10 @@ class Pengguna extends CI_Controller
 		$q = $this->M_keluarga->db_input($data, 'tbl_user');
 		if ($q):
 			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
-			redirect('master/pengguna/');
+			redirect('master-data-keluarga');
 		else:
-			$this->session->set_flashdata('error', ' Gagal menyimpan data!');
+			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+			redirect('master-data-keluarga');
 		endif;
 	}
 
@@ -143,9 +145,10 @@ class Pengguna extends CI_Controller
 		$q = $this->M_keluarga->db_update($where, $data, 'tbl_user');
 		if ($q):
 			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
-			redirect('master/pengguna/');
+			redirect('master-data-keluarga');
 		else:
-			$this->session->set_flashdata('error', ' Gagal menyimpan data!');
+			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+			redirect('master-data-keluarga');
 		endif;
 	}
 
@@ -153,13 +156,48 @@ class Pengguna extends CI_Controller
 	public function delete_pengguna()
 	{
 		$id = $this->input->post('id');
+		$old = $this->input->post('old');
+		$loc = './assets/img/users/profile/';
 		$where = array('id_user' => $id);
 		$q = $this->M_keluarga->db_delete($where, 'tbl_user');
 		if ($q):
+			if ($old):
+				unlink($loc . $old);
+			endif;
 			$this->session->set_flashdata('success', ' Berhasil Dihapus!');
-			redirect('master/pengguna/');
+			redirect('master-data-keluarga');
 		else:
-			$this->session->set_flashdata('error', ' Gagal menghapus data!');
+			$this->session->set_flashdata('warning', ' Gagal menghapus data!');
+			redirect('master-data-keluarga');
+		endif;
+	}
+	function update_foto()
+	{
+		$id = $this->input->post('id_user');
+		$old = $this->input->post('old');
+		$loc = './assets/img/users/profile/';
+		$foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
+		$where = array('id_user' => $id);
+
+		if (is_array($foto)):
+			$data = array(
+				'u_pic' => $foto['file_name'],
+				'id_log' => $this->session->userdata('id')
+			);
+			$q = $this->M_profile->db_update($where, $data, 'tbl_user');
+			if ($q):
+				if ($old) {
+					unlink($loc . $old);
+				}
+				$this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
+				redirect('master-data-keluarga');
+			else:
+				$this->session->set_flashdata('warning', ' Gagal Memperbaharui Foto!');
+				redirect('master-data-keluarga');
+			endif;
+		else:
+			$this->session->set_flashdata('error', $this->upload->display_errors());
+			redirect('master-data-keluarga');
 		endif;
 	}
 }

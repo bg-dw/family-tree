@@ -15,3 +15,4 @@
 <script src="<?= base_url() ?>assets/bundles/lightgallery/dist/js/lightgallery-all.js"></script>
 <script src="<?= base_url() ?>assets/js/page/light-gallery.js"></script>
 <script src="<?= base_url() ?>assets/bundles/select2/dist/js/select2.full.min.js"></script>
+<script src="<?= base_url() ?>assets/bundles/summernote/summernote-bs4.js"></script>

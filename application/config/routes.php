@@ -59,6 +59,7 @@ $route['logout'] = 'Login/logout';
 $route['master-profile'] = 'master/Profile';
 $route['master-update-username']['post'] = 'master/Profile/update_username';
 $route['master-update-password']['post'] = 'master/Profile/update_password';
+$route['master-update-foto']['post'] = 'master/Profile/update_foto';
 
 //menu dashboard
 $route['master-dashboard'] = 'master/Dashboard';
@@ -71,6 +72,8 @@ $route['master-add-pengguna']['post'] = 'master/Pengguna/add_pengguna';
 $route['master-update-pengguna']['post'] = 'master/Pengguna/update_pengguna';
 $route['master-delete-pengguna']['post'] = 'master/Pengguna/delete_pengguna';
 $route['master-get-user']['post'] = 'master/Pengguna/get_user';
+$route['master-update-foto-pengguna']['post'] = 'master/Pengguna/update_foto';
+
 $route['master-hubungan-keluarga'] = 'master/Relasi';
 $route['master-get-user-relasi'] = 'master/Relasi/get_user';
 $route['master-get-ortu']['post'] = 'master/Relasi/get_ortu';
@@ -81,6 +84,11 @@ $route['master-delete-relasi']['post'] = 'master/Relasi/delete_relasi';
 
 //menu portofolio
 $route['master-portofolio'] = 'master/Portofolio';
+$route['master-portofolio-add']['post'] = 'master/Portofolio/add_porto';
+$route['master-update-foto-porto']['post'] = 'master/Portofolio/update_foto';
+$route['master-get-porto']['post'] = 'master/Portofolio/get_porto';
+$route['master-portofolio-update']['post'] = 'master/Portofolio/update_porto';
+$route['master-delete-porto']['post'] = 'master/Portofolio/delete_porto';
 
 //menu acara
 $route['master-acara'] = 'master/Acara';

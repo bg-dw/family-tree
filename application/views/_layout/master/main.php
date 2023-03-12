@@ -44,11 +44,14 @@
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="<?= base_url() ?>assets/img/users/<?php if ($this->session->userdata('pic')):
-                  echo $this->session->userdata('pic');
-                else:
-                  echo 'none.png';
-                endif; ?>" class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <?php if ($this->session->userdata('pic')): ?>
+                <img alt="image" src="<?= base_url() ?>assets/img/users/profile/<?= $this->session->userdata('pic'); ?>"
+                  class="user-img-radious-style">
+              <?php else: ?>
+                <img alt="image" src="<?= base_url() ?>assets/img/users/none.png" class="user-img-radious-style">
+              <?php endif; ?>
+              <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
               <div class="dropdown-title">
                 <?= $this->session->userdata('nama') ?>

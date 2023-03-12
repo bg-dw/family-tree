@@ -17,6 +17,7 @@
                   <th class="text-center">
                     #
                   </th>
+                  <th class="text-center">Foto</th>
                   <th class="text-center">Nama Lengkap</th>
                   <th class="text-center">Tanggal Lahir</th>
                   <th class="text-center">Pekerjaan</th>
@@ -31,6 +32,15 @@
                   <tr>
                     <td>
                       <?= $i . "." ?>
+                    </td>
+                    <td>
+                      <?php if ($baris->u_pic): ?>
+                        <img src="<?= base_url() ?>assets/img/users/profile/<?= $baris->u_pic ?>" class="user-img" alt=""
+                          width="50px" height="50px" onclick="upload_foto('<?= $baris->id_user ?>','<?= $baris->u_pic ?>')">
+                      <?php else: ?>
+                        <img src="<?= base_url() ?>assets/img/users/none.png" class="user-img" alt="" width="50px"
+                          height="50px" onclick="upload_foto('<?= $baris->id_user ?>','<?= $baris->u_pic ?>')">
+                      <?php endif; ?>
                     </td>
                     <td>
                       <?= $baris->name ?>
@@ -56,7 +66,7 @@
                         onclick="update_data('<?= $baris->id_user ?>');"><i class="fas fa-pencil-alt"></i></a>
                       <?php if ($baris->u_level != "um"): ?>
                         <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
-                          onclick="hapus_data('<?= $baris->id_user ?>','<?= $baris->name ?>')"><i
+                          onclick="hapus_data('<?= $baris->id_user ?>','<?= $baris->name ?>','<?= $baris->u_pic ?>')"><i
                             class="fas fa-trash"></i></a>
                       <?php endif; ?>
                     </td>
@@ -494,6 +504,7 @@
               <form action="<?= base_url('master-delete-pengguna') ?>" method="post">
                 <div class="modal-body">
                   <input type="hidden" name="id" id="h_id" required>
+                  <input type="hidden" name="old" id="h_old" required>
                   <div class="text-center">
                     <h4 id="h_text"></h4>
                   </div>
@@ -507,6 +518,43 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="upload-foto-pengguna" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Foto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= base_url('master-update-foto-pengguna') ?>" method="post" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" name="id_user" id="u-foto-id" required>
+          <input type="hidden" name="old" id="u-foto-lama">
+          <div class="alert alert-info alert-has-icon">
+            <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+            <div class="alert-body">
+              <div class="alert-title">Info</div>
+              Maksimal ukuran 2Mb, maksimal resolusi HD(1920x1080 pixel) dan jenis foto
+              ( jpg, png, jpeg )
+            </div>
+          </div>
+          <center>
+            <div id="image-preview" class="image-preview">
+              <label for="image-upload" id="image-label">Pilih Foto</label>
+              <input type="file" name="image" id="image-upload" required />
+            </div>
+          </center>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="type" class="btn btn-primary">Simpan</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -642,9 +690,26 @@
   }
 
   //hapus data
-  function hapus_data(id, nama) {
+  function hapus_data(id, nama, old) {
     $('#h_id').val(id);
+    $('#h_old').val(old);
     $('#h_text').text(nama);
     $('#modal-hapus').modal('show');
   }
+
+  function upload_foto(id, foto) {
+    $('#u-foto-id').val(id);
+    $('#u-foto-lama').val(foto);
+    $('#upload-foto-pengguna').modal('show');
+  }
+
+  $.uploadPreview({
+    input_field: "#image-upload",   // Default: .image-upload
+    preview_box: "#image-preview",  // Default: .image-preview
+    label_field: "#image-label",    // Default: .image-label
+    label_default: "Pilih Foto",   // Default: Choose File
+    label_selected: "Ganti Foto",  // Default: Change File
+    no_label: false,                // Default: false
+    success_callback: null          // Default: null
+  });
 </script>

@@ -146,14 +146,14 @@ class Relasi extends CI_Controller
             $q = $this->M_relasi->db_input($data, 'tbl_user_bio');
             if ($q):
                 $this->session->set_flashdata('success', ' Berhasil Disimpan!');
-                redirect('master/relasi/');
+                redirect('master-hubungan-keluarga');
             else:
                 $this->session->set_flashdata('error', ' Gagal menyimpan data!');
-                redirect('master/relasi/');
+                redirect('master-hubungan-keluarga');
             endif;
         else:
             $this->session->set_flashdata('error', ' Harap isi form dengan benar!');
-            redirect('master/relasi/');
+            redirect('master-hubungan-keluarga');
         endif;
     }
 
@@ -186,14 +186,14 @@ class Relasi extends CI_Controller
             $q = $this->M_relasi->db_update($where, $data, 'tbl_user_bio');
             if ($q):
                 $this->session->set_flashdata('success', ' Berhasil Disimpan!');
-                redirect('master/relasi/');
+                redirect('master-hubungan-keluarga');
             else:
                 $this->session->set_flashdata('error', ' Gagal menyimpan data!');
-                redirect('master/relasi/');
+                redirect('master-hubungan-keluarga');
             endif;
         else:
             $this->session->set_flashdata('error', ' Harap isi form dengan benar!');
-            redirect('master/relasi/');
+            redirect('master-hubungan-keluarga');
         endif;
     }
 
@@ -206,10 +206,10 @@ class Relasi extends CI_Controller
         $q = $this->M_relasi->db_delete($where, 'tbl_user_bio');
         if ($q):
             $this->session->set_flashdata('success', ' Berhasil Dihapus!');
-            redirect('master/relasi/');
+            redirect('master-hubungan-keluarga');
         else:
             $this->session->set_flashdata('error', ' Gagal menghapus data!');
-            redirect('master/relasi/');
+            redirect('master-hubungan-keluarga');
         endif;
 
     }

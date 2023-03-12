@@ -5,31 +5,20 @@
                 <div class="card author-box">
                     <div class="card-body">
                         <div class="author-box-center">
-                            <img alt="image" src="<?= base_url() ?>assets/img/users/<?php if ($this->session->userdata('pic')):
-                                  echo $this->session->userdata('pic');
-                              else:
-                                  echo 'none.png';
-                              endif; ?>" class="rounded-circle author-box-picture">
+                            <?php if($this->session->userdata('pic')):?>
+                                <img alt="image" src="<?= base_url() ?>assets/img/users/profile/<?=$this->session->userdata('pic')?>" class="rounded-circle author-box-picture" data-toggle="modal" data-target="#upload-foto" title="Klik untuk ganti">
+                            <?php else:?>
+                                <img alt="image" src="<?= base_url() ?>assets/img/users/none.png" class="rounded-circle author-box-picture" data-toggle="modal" title="Klik untuk ganti" data-target="#upload-foto">
+                            <?php endif;?>
                             <div class="clearfix"></div>
                             <div class="author-box-name">
                                 <a href="#">
-                                    <?= $this->session->userdata('nama_l') ?>
+                                    <?= $this->session->userdata('nama_l'); ?>
                                 </a>
                             </div>
                             <div class="author-box-job">
-                                <?= $this->session->userdata('work') ?>
+                                <?= $this->session->userdata('work'); ?>
                             </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="mb-2 mt-3">
-                                <div class="text-small font-weight-bold">Follow
-                                    <?= $this->session->userdata('nama') ?> On
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-social-icon mr-1 btn-instagram">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <div class="w-100 d-sm-none"></div>
                         </div>
                     </div>
                 </div>
@@ -44,7 +33,7 @@
                                     Lahir di
                                 </span>
                                 <span class="float-right text-muted">
-                                    <?= $this->session->userdata('born') . ", " . date('d M Y', strtotime($this->session->userdata('date'))) ?>
+                                    <?= $this->session->userdata('born') . ", " . date('d M Y', strtotime($this->session->userdata('date'))); ?>
                                 </span>
                             </p>
                             <p class="clearfix">
@@ -52,7 +41,7 @@
                                     Telp.
                                 </span>
                                 <span class="float-right text-muted">
-                                    <?= $this->session->userdata('telp') ?>
+                                    <?= $this->session->userdata('telp'); ?>
                                 </span>
                             </p>
                         </div>
@@ -92,14 +81,13 @@
                                         <div class="form-group col-12">
                                             <label class="d-block">Jenis Kelamin</label>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio"
-                                                    value="male" <?php if($this->session->userdata('sex')=='male'):echo "checked";endif; ?> disabled>
+                                                <input class="form-check-input" type="radio" value="male" <?php if($this->session->userdata('sex')=='male'){echo "checked";}  ?> disabled>
                                                 <label class="form-check-label">Laki - Laki</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio"
-                                                    value="female" <?php if ($this->session->userdata('sex') == 'female'):
-                                                        echo "checked"; endif; ?> disabled>
+                                                    value="female" <?php if ($this->session->userdata('sex') == 'female'){
+                                                        echo "checked";}?> disabled>
                                                 <label class="form-check-label">Perempuan</label>
                                             </div>
                                         </div>
@@ -107,12 +95,12 @@
                                     <div class="row">
                                         <div class="form-group col-md-7 col-12">
                                             <label>Tempat Lahir</label>
-                                            <input type="text" class="form-control" value="<?= $this->session->userdata('born') ?>"
+                                            <input type="text" class="form-control" value="<?= $this->session->userdata('born'); ?>"
                                                 readonly>
                                         </div>
                                         <div class="form-group col-md-5 col-12">
                                             <label>Tanggal Lahir</label>
-                                            <input type="date" class="form-control" value="<?=date('Y-m-d',strtotime($this->session->userdata('date'))) ?>" readonly>
+                                            <input type="date" class="form-control" value="<?=date('Y-m-d',strtotime($this->session->userdata('date'))); ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -298,3 +286,50 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="upload-foto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <form action="<?=base_url('master-update-foto')?>" method="post" enctype="multipart/form-data">
+            <div class="modal-body">
+                <input type="hidden" name="old" value="<?=$this->session->userdata('pic')?>">
+                    <div class="alert alert-info alert-has-icon">
+                        <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                        <div class="alert-body">
+                            <div class="alert-title">Info</div>
+                            Maksimal ukuran 2Mb, maksimal resolusi HD(1920x1080 pixel) dan jenis foto
+                            ( jpg, png, jpeg )
+                        </div>
+                    </div>
+                <center>
+                    <div id="image-preview" class="image-preview">
+                        <label for="image-upload" id="image-label">Pilih Foto</label>
+                        <input type="file" name="image" id="image-upload" required/>
+                    </div>
+                </center>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="type" class="btn btn-primary">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+<script>
+$.uploadPreview({
+  input_field: "#image-upload",   // Default: .image-upload
+  preview_box: "#image-preview",  // Default: .image-preview
+  label_field: "#image-label",    // Default: .image-label
+    label_default: "Pilih Foto",   // Default: Choose File
+    label_selected: "Ganti Foto",  // Default: Change File
+  no_label: false,                // Default: false
+  success_callback: null          // Default: null
+});
+</script>
