@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+include_once(dirname(__FILE__) . "/Renew.php");
 
-class Acara extends CI_Controller
+class Acara extends Renew
 {
 	function __construct()
 	{
@@ -23,5 +24,116 @@ class Acara extends CI_Controller
 		$data['content'] = 'master/v_acara';
 		$data['rec'] = $this->M_acara->get_data_acara()->result();
 		$this->load->view('_layout/master/main', $data);
+	}
+
+	//tambah acara
+	public function add_acara()
+	{
+		$judul = $this->input->post('judul');
+		$waktu = $this->input->post('waktu');
+		$isi = $this->input->post('isi');
+
+		$data = array(
+			'id_user' => $this->session->userdata('id'),
+			'nama_acara' => $judul,
+			'waktu_acara' => $waktu,
+			'isi_acara' => $isi,
+			'create_at' => date('Y-m-d H:i:s'),
+			'id_log' => $this->session->userdata('id'),
+			'acc_admin' => "accept"
+		);
+		$q = $this->M_acara->db_input($data, 'tbl_acara');
+		if ($q):
+			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
+			redirect('master-acara');
+		else:
+			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+			redirect('master-acara');
+		endif;
+	}
+
+	//upload foto
+	function update_foto()
+	{
+		$id = $this->input->post('id_acara');
+		$old = $this->input->post('old');
+		$loc = './assets/img/acara/';
+		$foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
+		$where = array('id_acara' => $id);
+
+		if (is_array($foto)):
+			$data = array(
+				'gambar_acara' => $foto['file_name'],
+				'id_log' => $this->session->userdata('id')
+			);
+			$q = $this->M_acara->db_update($where, $data, 'tbl_acara');
+			if ($q):
+				if ($old) {
+					unlink($loc . $old);
+				}
+				$this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
+				redirect('master-acara');
+			else:
+				$this->session->set_flashdata('warning', ' Gagal Memperbaharui Foto!');
+				redirect('master-acara');
+			endif;
+		else:
+			$this->session->set_flashdata('error', $this->upload->display_errors());
+			redirect('master-acara');
+		endif;
+	}
+
+	//get acara
+	public function get_acara()
+	{
+		$id = $this->input->post('id_acara');
+		$q = $this->M_acara->get_data_by($id)->row();
+		echo json_encode($q);
+	}
+
+	//update acara
+	public function update_acara()
+	{
+		$id = $this->input->post('id');
+		$judul = $this->input->post('judul');
+		$waktu = $this->input->post('waktu');
+		$isi = $this->input->post('isi');
+
+		$where = array('id_acara' => $id);
+		$data = array(
+			'nama_acara' => $judul,
+			'waktu_acara' => $waktu,
+			'isi_acara' => $isi,
+			'id_log' => $this->session->userdata('id'),
+			'acc_admin' => "accept"
+		);
+		$q = $this->M_acara->db_update($where, $data, 'tbl_acara');
+		if ($q):
+			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
+			redirect('master-acara');
+		else:
+			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+			redirect('master-acara');
+		endif;
+	}
+
+	//hapus acara
+	public function delete_acara()
+	{
+		$id = $this->input->post('id');
+		$old = $this->input->post('old');
+		$loc = './assets/img/acara/';
+		$where = array('id_acara' => $id);
+		$q = $this->M_acara->db_delete($where, 'tbl_acara');
+		if ($q):
+			if ($old):
+				unlink($loc . $old);
+			endif;
+			$this->session->set_flashdata('success', ' Berhasil Dihapus!');
+			redirect('master-acara');
+		else:
+			$this->session->set_flashdata('warning', ' Gagal menghapus data!');
+			redirect('master-acara');
+		endif;
 	}
 }

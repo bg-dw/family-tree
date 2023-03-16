@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section" style="margin-top: -40px;">
   <div class="row ">
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
       <div class="card card-statistic-1">
@@ -88,8 +88,6 @@
 <script>
 
   $(document).ready(function () {
-
-    // ${FamilyTree.gradientCircleForDefs('male_circle', '#039BE5', 60, 5)}
     $.ajax({
       url: "<?= base_url('master/dashboard/get_fam/') ?>",
       method: "POST",
@@ -102,7 +100,6 @@
             footer: 'Pohon Keluarga. Page {current-page} of {total-pages}'
           });
         }
-        // FamilyTree.templates.john.defs = 'svg.tommy .node.female>circle {fill: #FFFFFF;}';
         FamilyTree.templates.tommy_male.plus =
           '<circle cx="0" cy="0" r="15" fill="#ffffff" stroke="#aeaeae" stroke-width="1"></circle>'
           + '<line x1="-11" y1="0" x2="11" y2="0" stroke-width="1" stroke="#aeaeae"></line>'

@@ -38,7 +38,7 @@ class Dashboard extends CI_Controller
 					'id' => intval($x->id_user),
 					'gender' => $x->sex,
 					'name' => $x->name,
-					'img' => base_url('assets/img/none2.png'),
+					'img' => base_url('assets/img/users/none.png'),
 					'pids' => [$x->pasangan]
 				);
 			} else {
@@ -47,7 +47,7 @@ class Dashboard extends CI_Controller
 					'gender' => $x->sex,
 					'name' => $x->name,
 					'pids' => [$x->pasangan],
-					'img' => base_url('assets/img/none2.png'),
+					'img' => base_url('assets/img/users/none.png'),
 					'mid' => $x->ibu,
 					'fid' => $x->ayah
 				);

@@ -1,4 +1,4 @@
-<div class="section-body">
+<div class="section-body" style="margin-top: -40px;">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -225,7 +225,6 @@
                 $('#u-id-porto').val(data.id_porto);
                 $('#u-judul').val(data.judul_porto);
                 $('#u-isi-porto').summernote("code", data.isi_porto);
-                console.log(data);
             },
             error: function (data) {
                 alert(data.responseText)

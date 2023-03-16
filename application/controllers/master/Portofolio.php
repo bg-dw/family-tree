@@ -46,6 +46,7 @@ class Portofolio extends Renew
             redirect('master-portofolio');
         else:
             $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+            redirect('master-portofolio');
         endif;
     }
 
@@ -104,10 +105,11 @@ class Portofolio extends Renew
         endif;
     }
 
+    //get porto
     public function get_porto()
     {
         $id = $this->input->post('id_porto');
-        $q = $this->M_porto->get_data_by($id, 'tbl_portofolio')->row();
+        $q = $this->M_porto->get_data_by($id)->row();
         echo json_encode($q);
     }
 

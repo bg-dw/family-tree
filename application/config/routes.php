@@ -92,6 +92,15 @@ $route['master-delete-porto']['post'] = 'master/Portofolio/delete_porto';
 
 //menu acara
 $route['master-acara'] = 'master/Acara';
+$route['master-acara-add']['post'] = 'master/Acara/add_acara';
+$route['master-acara-update-foto']['post'] = 'master/Acara/update_foto';
+$route['master-get-acara']['post'] = 'master/Acara/get_acara';
+$route['master-acara-update']['post'] = 'master/Acara/update_acara';
+$route['master-acara-delete']['post'] = 'master/Acara/delete_acara';
 
 //menu galeri
 $route['master-galeri'] = 'master/Galeri';
+$route['master-galeri-add']['post'] = 'master/Galeri/add_galeri';
+$route['master-galeri-get']['post'] = 'master/Galeri/get_galeri';
+$route['master-galeri-update']['post'] = 'master/Galeri/update_galeri';
+$route['master-galeri-delete']['post'] = 'master/Galeri/delete_galeri';
