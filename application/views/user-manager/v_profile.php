@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="profile-tab2">
-                                <form method="post" class="needs-validation" action="<?=base_url('master-update-pofile')?>">
+                                <form method="post" class="needs-validation" action="<?=base_url('usm-update-pofile')?>">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="form-group col-md-8 col-12">
@@ -296,7 +296,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
         </div>
-        <form action="<?=base_url('master-update-foto')?>" method="post" enctype="multipart/form-data">
+        <form action="<?=base_url('usm-update-foto')?>" method="post" enctype="multipart/form-data">
             <div class="modal-body">
                 <input type="hidden" name="old" value="<?=$this->session->userdata('pic')?>">
                     <div class="alert alert-info alert-has-icon">

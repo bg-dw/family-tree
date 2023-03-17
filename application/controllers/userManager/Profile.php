@@ -11,17 +11,17 @@ class Profile extends Renew
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
+        } elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'um') {
+            redirect(base_url('master-dashboard')); //mengarahkan ke halaman user
         } elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
             redirect(base_url('dashboard-user')); //mengarahkan ke halaman user
-        } elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
-            redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user manager
         }
     }
 
     public function index()
     {
-        $data['content'] = 'master/v_profile';
-        $this->load->view('_layout/master/main', $data);
+        $data['content'] = 'user-manager/v_profile';
+        $this->load->view('_layout/usm/main', $data);
     }
 
     //update profile
@@ -66,14 +66,14 @@ class Profile extends Renew
             if ($q):
                 $this->session->set_flashdata('success', ' Data Berhasil Diperbaharui!');
                 $this->new_ses($this->session->userdata('id'));
-                redirect('master-profile');
+                redirect('profile-usm');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-                redirect('master-profile');
+                redirect('profile-usm');
             endif;
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-            redirect('master-profile');
+            redirect('profile-usm');
         endif;
     }
 
@@ -94,11 +94,11 @@ class Profile extends Renew
                 redirect('logout');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-                redirect('master-dashboard');
+                redirect('profile-usm');
             endif;
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-            redirect('master-dashboard');
+            redirect('profile-usm');
         endif;
     }
 
@@ -120,11 +120,11 @@ class Profile extends Renew
                 redirect('logout');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-                redirect('master-dashboard');
+                redirect('profile-usm');
             endif;
         else:
             $this->session->set_flashdata('error', ' Gagal Memperbaharui Data!');
-            redirect('master-dashboard');
+            redirect('profile-usm');
         endif;
     }
 
@@ -148,14 +148,14 @@ class Profile extends Renew
                 }
                 $this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
                 $this->new_ses($this->session->userdata('id'));
-                redirect('master-profile');
+                redirect('profile-usm');
             else:
                 $this->session->set_flashdata('error', ' Gagal Memperbaharui Foto!');
-                redirect('master-profile');
+                redirect('profile-usm');
             endif;
         else:
             $this->session->set_flashdata('error', $this->upload->display_errors());
-            redirect('master-profile');
+            redirect('profile-usm');
         endif;
     }
 }

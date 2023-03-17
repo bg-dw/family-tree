@@ -55,16 +55,19 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['logout'] = 'Login/logout';
 
+//##Akses Master##
+//menu dashboard
+$route['master-dashboard'] = 'master/Dashboard';
+$route['master-get-fam'] = 'master/Dashboard/get_fam';
+$route['master-get-uname']['post'] = 'master/dashboard/get_uname/';
+$route['master-get-my']['post'] = 'master/dashboard/get_my/';
+
 //profile
 $route['master-profile'] = 'master/Profile';
+$route['master-update-pofile']['post'] = 'master/Profile/update';
 $route['master-update-username']['post'] = 'master/Profile/update_username';
 $route['master-update-password']['post'] = 'master/Profile/update_password';
 $route['master-update-foto']['post'] = 'master/Profile/update_foto';
-
-//menu dashboard
-$route['master-dashboard'] = 'master/Dashboard';
-$route['master-get-uname']['post'] = 'master/dashboard/get_uname/';
-$route['master-get-my']['post'] = 'master/dashboard/get_my/';
 
 //menu pengguna
 $route['master-data-keluarga'] = 'master/Pengguna';
@@ -104,3 +107,28 @@ $route['master-galeri-add']['post'] = 'master/Galeri/add_galeri';
 $route['master-galeri-get']['post'] = 'master/Galeri/get_galeri';
 $route['master-galeri-update']['post'] = 'master/Galeri/update_galeri';
 $route['master-galeri-delete']['post'] = 'master/Galeri/delete_galeri';
+
+
+// ##Akses usermanager##
+
+//menu dashboard usm
+$route['dashboard-usm'] = 'userManager/Dashboard';
+$route['usm-get-fam'] = 'userManager/Dashboard/get_fam';
+$route['usm-get-uname']['post'] = 'userManager/dashboard/get_uname/';
+$route['usm-get-my']['post'] = 'userManager/dashboard/get_my/';
+
+//profile usm
+$route['profile-usm'] = 'userManager/Profile';
+$route['usm-update-pofile']['post'] = 'userManager/Profile/update';
+$route['usm-update-username']['post'] = 'userManager/Profile/update_username';
+$route['usm-update-password']['post'] = 'userManager/Profile/update_password';
+$route['usm-update-foto']['post'] = 'userManager/Profile/update_foto';
+
+//menu pengguna usm
+$route['data-keluarga-usm'] = 'userManager/Pengguna';
+$route['data-keluarga-usm-validasi'] = 'userManager/Pengguna/validasi';
+$route['usm-add-pengguna']['post'] = 'userManager/Pengguna/add_pengguna';
+$route['usm-update-pengguna']['post'] = 'userManager/Pengguna/update_pengguna';
+$route['usm-delete-pengguna']['post'] = 'userManager/Pengguna/delete_pengguna';
+$route['usm-get-user']['post'] = 'userManager/Pengguna/get_user';
+$route['usm-update-foto-pengguna']['post'] = 'userManager/Pengguna/update_foto';

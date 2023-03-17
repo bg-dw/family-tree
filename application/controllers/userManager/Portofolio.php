@@ -12,10 +12,10 @@ class Portofolio extends Renew
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
+        } elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'um') {
+            redirect(base_url('master-dashboard')); //mengarahkan ke halaman user
         } elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
             redirect(base_url('dashboard-user')); //mengarahkan ke halaman user
-        } elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
-            redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user manager
         }
     }
 

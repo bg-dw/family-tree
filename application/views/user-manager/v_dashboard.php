@@ -89,7 +89,7 @@
 
   $(document).ready(function () {
     $.ajax({
-      url: "<?= base_url('master-get-fam') ?>",
+      url: "<?= base_url('usm-get-fam') ?>",
       method: "POST",
       dataType: 'json',
       success: function (data) {

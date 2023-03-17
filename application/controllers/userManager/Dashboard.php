@@ -7,25 +7,25 @@ class Dashboard extends CI_Controller
 	{
 		//akan berjalan ketika controller C_login di jalankan
 		parent::__construct();
-		$this->load->model('M_keluarga');
+		$this->load->model('usm/M_keluarga');
 
 		if ($this->session->userdata('login') != 'acc') {
 			redirect(base_url('login/')); //mengarahkan ke halaman master
+		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'um') {
+			redirect(base_url('master-dashboard')); //mengarahkan ke halaman user
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
 			redirect(base_url('dashboard-user')); //mengarahkan ke halaman user
-		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
-			redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user manager
 		}
 	}
 
 	public function index()
 	{
-		$data['content'] = 'master/v_dashboard';
+		$data['content'] = 'user-manager/v_dashboard';
 		$data['all'] = $this->M_keluarga->get_count_tot('tbl_user')->row();
 		$data['male'] = $this->M_keluarga->get_count_male('tbl_user')->row();
 		$data['female'] = $this->M_keluarga->get_count_female('tbl_user')->row();
 		$data['gen'] = $this->M_keluarga->get_count_gen('tbl_user_bio')->row();
-		$this->load->view('_layout/master/main', $data);
+		$this->load->view('_layout/usm/main', $data);
 	}
 
 	public function get_fam()

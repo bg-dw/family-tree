@@ -8,28 +8,31 @@ class Pengguna extends Renew
 	{
 		//akan berjalan ketika controller C_login di jalankan
 		parent::__construct();
-		$this->load->model('M_keluarga');
+		$this->load->model('usm/M_keluarga');
 
 		if ($this->session->userdata('login') != 'acc') {
 			redirect(base_url('login/')); //mengarahkan ke halaman master
+		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'um') {
+			redirect(base_url('master-dashboard')); //mengarahkan ke halaman user
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
 			redirect(base_url('dashboard-user')); //mengarahkan ke halaman user
-		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
-			redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user manager
 		}
 	}
 
 	public function index()
 	{
-		$data['content'] = 'master/v_pengguna';
-		$where = array('acc_admin' => 'accept');
+		$data['content'] = 'user-manager/v_pengguna';
+		$where = array(
+			'acc_admin' => 'accept',
+			'u_level' => 'us',
+		);
 		$q = $this->M_keluarga->get_data_by($where, 'tbl_user');
 		if ($q):
 			$data['rec'] = $q->result();
 		else:
 			$this->session->set_flashdata('warning', ' Belum ada data!');
 		endif;
-		$this->load->view('_layout/master/main', $data);
+		$this->load->view('_layout/usm/main', $data);
 	}
 
 	//tambah pengguna
@@ -71,18 +74,19 @@ class Pengguna extends Renew
 			'kab' => $kab,
 			'prov' => $prov,
 			'telp' => $telp,
-			'login' => "acc",
+			'login' => "ban",
+			'aksi' => "add",
 			'create_at' => date('Y-m-d H:i:s'),
 			'id_log' => $this->session->userdata('id'),
-			'acc_admin' => "accept"
+			'acc_admin' => "waiting"
 		);
-		$q = $this->M_keluarga->db_input($data, 'tbl_user');
+		$q = $this->M_keluarga->db_input($data, 'temp_tbl_user');
 		if ($q):
-			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
-			redirect('master-data-keluarga');
+			$this->session->set_flashdata('success', ' Berhasil Diajukan!');
+			redirect('data-keluarga-usm-validasi');
 		else:
 			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-			redirect('master-data-keluarga');
+			redirect('data-keluarga-usm');
 		endif;
 	}
 
@@ -93,6 +97,7 @@ class Pengguna extends Renew
 		$q = $this->M_keluarga->get_data_by($where, 'tbl_user')->row();
 		echo json_encode($q);
 	}
+
 
 	//update pengguna
 	public function update_pengguna()
@@ -117,9 +122,8 @@ class Pengguna extends Renew
 		$user = $this->input->post('uname');
 		$pwd = $this->input->post('pass');
 
-		$where = array('id_user' => $id);
-
 		$data = array(
+			'id_user' => $id,
 			'u_user' => $user,
 			'u_pass' => $pwd,
 			'u_level' => $level,
@@ -138,17 +142,18 @@ class Pengguna extends Renew
 			'prov' => $prov,
 			'telp' => $telp,
 			'login' => $akses,
+			'aksi' => "update",
 			'create_at' => date('Y-m-d H:i:s'),
 			'id_log' => $this->session->userdata('id'),
-			'acc_admin' => "accept"
+			'acc_admin' => "waiting"
 		);
-		$q = $this->M_keluarga->db_update($where, $data, 'tbl_user');
+		$q = $this->M_keluarga->db_input($data, 'temp_tbl_user');
 		if ($q):
-			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
-			redirect('master-data-keluarga');
+			$this->session->set_flashdata('success', ' Berhasil Diajukan!');
+			redirect('data-keluarga-usm-validasi');
 		else:
 			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-			redirect('master-data-keluarga');
+			redirect('data-keluarga-usm');
 		endif;
 	}
 
@@ -156,48 +161,68 @@ class Pengguna extends Renew
 	public function delete_pengguna()
 	{
 		$id = $this->input->post('id');
-		$old = $this->input->post('old');
-		$loc = './assets/img/users/profile/';
-		$where = array('id_user' => $id);
-		$q = $this->M_keluarga->db_delete($where, 'tbl_user');
+		$where = array(
+			'id_user' => $id,
+			'aksi' => "delete",
+			'u_level' => "us",
+			'create_at' => date('Y-m-d H:i:s'),
+			'id_log' => $this->session->userdata('id'),
+			'acc_admin' => "waiting"
+		);
+		$q = $this->M_keluarga->db_input($where, 'temp_tbl_user');
 		if ($q):
-			if ($old):
-				unlink($loc . $old);
-			endif;
-			$this->session->set_flashdata('success', ' Berhasil Dihapus!');
-			redirect('master-data-keluarga');
+			$this->session->set_flashdata('success', ' Berhasil Diajukan!');
+			redirect('data-keluarga-usm-validasi');
 		else:
 			$this->session->set_flashdata('warning', ' Gagal menghapus data!');
-			redirect('master-data-keluarga');
+			redirect('data-keluarga-usm');
 		endif;
 	}
 	function update_foto()
 	{
 		$id = $this->input->post('id_user');
-		$old = $this->input->post('old');
 		$loc = './assets/img/users/profile/';
 		$foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
-		$where = array('id_user' => $id);
 
 		if (is_array($foto)):
 			$data = array(
+				'id_user' => $id,
 				'u_pic' => $foto['file_name'],
-				'id_log' => $this->session->userdata('id')
+				'aksi' => "update-foto",
+				'u_level' => "us",
+				'create_at' => date('Y-m-d H:i:s'),
+				'id_log' => $this->session->userdata('id'),
+				'acc_admin' => "waiting"
 			);
-			$q = $this->M_profile->db_update($where, $data, 'tbl_user');
+			$q = $this->M_keluarga->db_input($data, 'temp_tbl_user');
 			if ($q):
-				if ($old) {
-					unlink($loc . $old);
-				}
-				$this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
-				redirect('master-data-keluarga');
+				$this->session->set_flashdata('success', ' Berhasil Diajukan!');
+				redirect('data-keluarga-usm-validasi');
 			else:
 				$this->session->set_flashdata('warning', ' Gagal Memperbaharui Foto!');
-				redirect('master-data-keluarga');
+				redirect('data-keluarga-usm');
 			endif;
 		else:
 			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect('master-data-keluarga');
+			redirect('data-keluarga-usm');
 		endif;
+	}
+
+	//menunggu validasi
+	public function validasi()
+	{
+		$data['content'] = 'user-manager/v_validasi';
+		$where = array(
+			'acc_admin' => 'waiting',
+			'u_level' => 'us',
+			'id_log' => $this->session->userdata('id')
+		);
+		$q = $this->M_keluarga->get_data_by($where, 'temp_tbl_user');
+		if ($q):
+			$data['rec'] = $q->result();
+		else:
+			$this->session->set_flashdata('warning', ' Belum ada data!');
+		endif;
+		$this->load->view('_layout/usm/main', $data);
 	}
 }
