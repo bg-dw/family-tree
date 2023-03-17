@@ -132,3 +132,7 @@ $route['usm-update-pengguna']['post'] = 'userManager/Pengguna/update_pengguna';
 $route['usm-delete-pengguna']['post'] = 'userManager/Pengguna/delete_pengguna';
 $route['usm-get-user']['post'] = 'userManager/Pengguna/get_user';
 $route['usm-update-foto-pengguna']['post'] = 'userManager/Pengguna/update_foto';
+$route['usm-get-user-val']['post'] = 'userManager/Pengguna/get_user_val';
+$route['usm-get-uname-val']['post'] = 'userManager/Pengguna/get_uname_val/';
+$route['usm-update-pengguna-val']['post'] = 'userManager/Pengguna/update_pengguna_val';
+$route['usm-delete-pengguna-val']['post'] = 'userManager/Pengguna/delete_pengguna_val';

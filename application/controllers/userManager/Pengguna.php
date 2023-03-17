@@ -118,7 +118,6 @@ class Pengguna extends Renew
 		$kab = $this->input->post('kabupaten');
 		$prov = $this->input->post('prov');
 		$level = $this->input->post('level');
-		$akses = $this->input->post('akses');
 		$user = $this->input->post('uname');
 		$pwd = $this->input->post('pass');
 
@@ -141,7 +140,6 @@ class Pengguna extends Renew
 			'kab' => $kab,
 			'prov' => $prov,
 			'telp' => $telp,
-			'login' => $akses,
 			'aksi' => "update",
 			'create_at' => date('Y-m-d H:i:s'),
 			'id_log' => $this->session->userdata('id'),
@@ -224,5 +222,96 @@ class Pengguna extends Renew
 			$this->session->set_flashdata('warning', ' Belum ada data!');
 		endif;
 		$this->load->view('_layout/usm/main', $data);
+	}
+	public function get_user_val()
+	{
+		$id = $this->input->post('id_user');
+		$where = array('id_user' => $id);
+		$q = $this->M_keluarga->get_data_by($where, 'temp_tbl_user')->row();
+		echo json_encode($q);
+	}
+	public function get_uname_val()
+	{
+		$user = $this->input->post('uname');
+		$where = array(
+			'u_user' => $user
+		);
+		$q = $this->M_keluarga->get_data_by($where, 'temp_tbl_user')->result();
+		if (count($q) >= 1) {
+			echo json_encode(1);
+		} else {
+			echo json_encode(0);
+		}
+	}
+
+	//update permintaan pengguna
+	public function update_pengguna_val()
+	{
+		$id = $this->input->post('id');
+		$nl = $this->input->post('nama_l');
+		$nama = $this->input->post('nama');
+		$jk = $this->input->post('jk');
+		$loc = $this->input->post('tempat');
+		$tgl = $this->input->post('tgl');
+		$work = $this->input->post('pekerjaan');
+		$addr = $this->input->post('alamat');
+		$telp = $this->input->post('telp');
+		$rt = $this->input->post('rt');
+		$rw = $this->input->post('rw');
+		$des = $this->input->post('desa');
+		$kec = $this->input->post('kecamatan');
+		$kab = $this->input->post('kabupaten');
+		$prov = $this->input->post('prov');
+		$level = $this->input->post('level');
+		$user = $this->input->post('uname');
+		$pwd = $this->input->post('pass');
+
+		$where = array('id_user' => $id);
+		$data = array(
+			'u_user' => $user,
+			'u_pass' => $pwd,
+			'u_level' => $level,
+			'name' => $nl,
+			'nick_name' => $nama,
+			'sex' => $jk,
+			'tempat_lahir' => $loc,
+			'birth_date' => $tgl,
+			'pekerjaan' => $work,
+			'alamat' => $addr,
+			'rt' => $rt,
+			'rw' => $rw,
+			'desa' => $des,
+			'kec' => $kec,
+			'kab' => $kab,
+			'prov' => $prov,
+			'telp' => $telp,
+			'id_log' => $this->session->userdata('id'),
+			'acc_admin' => "waiting"
+		);
+		$q = $this->M_keluarga->db_update($where, $data, 'temp_tbl_user');
+		if ($q):
+			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
+			redirect('data-keluarga-usm-validasi');
+		else:
+			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+			redirect('data-keluarga-usm-validasi');
+		endif;
+	}
+
+	//hapus pengguna
+	public function delete_pengguna_val()
+	{
+		$id = $this->input->post('id');
+		$where = array(
+			'id_user' => $id
+		);
+		$q = $this->M_keluarga->db_delete($where, 'temp_tbl_user');
+		if ($q):
+			$this->session->set_flashdata('success', ' Berhasil Dihapus!');
+			redirect('data-keluarga-usm-validasi');
+		else:
+			$this->session->set_flashdata('warning', ' Gagal menghapus data!');
+			redirect('data-keluarga-usm-validasi');
+		endif;
 	}
 }

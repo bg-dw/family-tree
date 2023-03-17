@@ -81,8 +81,8 @@
           </div>
         </div>
 
-        <form action="<?= base_url('usm-update-pengguna') ?>" method="post" onsubmit="return confirm('Simpan data?');"
-          id="tbl_update" style="display:none;">
+        <form action="<?= base_url('usm-update-pengguna-val') ?>" method="post"
+          onsubmit="return confirm('Simpan data?');" id="tbl_update" style="display:none;">
           <div class="card-body">
             <div class="form-row">
               <input type="hidden" class="form-control" name="id" required="" id="uid">
@@ -235,17 +235,6 @@
                   Tidak Valid!
                 </div>
               </div>
-              <div class="form-group col-md-4">
-                <label>Akses Login</label><br>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="ual1" name="akses" value="acc" class="custom-control-input">
-                  <label class="custom-control-label" for="ual1">Bisa Login</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="ual2" name="akses" value="ban" class="custom-control-input">
-                  <label class="custom-control-label" for="ual2">Tidak Bisa</label>
-                </div>
-              </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-4">
@@ -303,7 +292,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form action="<?= base_url('usm-delete-pengguna') ?>" method="post">
+              <form action="<?= base_url('usm-delete-pengguna-val') ?>" method="post">
                 <div class="modal-body">
                   <input type="hidden" name="id" id="h_id" required>
                   <input type="hidden" name="old" id="h_old" required>
@@ -333,7 +322,7 @@
     $('#tbl_update').slideDown('slow');
 
     $.ajax({
-      url: "<?= base_url('usm-get-uname') ?>",
+      url: "<?= base_url('usm-get-user-val') ?>",
       method: "POST",
       dataType: 'json',
       data: { id_user: id },
@@ -376,7 +365,7 @@
     var user = e.value;
     if (user.length >= 5) {
       $.ajax({
-        url: '<?= base_url("usm-get-uname") ?>',
+        url: '<?= base_url("usm-get-uname-val") ?>',
         type: "POST",
         data: { uname: user },
         dataType: 'json',
@@ -417,6 +406,7 @@
   function hapus_data(id, nama, old) {
     $('#h_id').val(id);
     $('#h_old').val(old);
+    if (nama == "") { nama = "Data terpilih!" }
     $('#h_text').text(nama);
     $('#modal-hapus').modal('show');
   }
