@@ -196,7 +196,7 @@
             </div>
           </div>
         </div>
-        <div class="settingSidebar">
+        <div class="settingSidebar d-print-none">
           <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
           </a>
           <div class="settingSidebar-body ps-container ps-theme-default">
@@ -288,7 +288,7 @@
           </div>
         </div>
       </div>
-      <footer class="main-footer">
+      <footer class="main-footer d-print-none">
         <div class="footer-left">
           <a href="templateshub.net">Templateshub</a></a>
         </div>

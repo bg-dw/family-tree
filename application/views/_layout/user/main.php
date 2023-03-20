@@ -56,7 +56,7 @@
               <div class="dropdown-title">
                 <?= $this->session->userdata('nama') ?>
               </div>
-              <a href="<?= base_url('master-profile') ?>" class="dropdown-item has-icon"> <i class="far
+              <a href="<?= base_url('profile-us') ?>" class="dropdown-item has-icon"> <i class="far
                     fa-user"></i> Profile
               </a>
               <a href="#" class="dropdown-item has-icon" data-toggle="modal" data-target="#update-username"> <i
@@ -76,7 +76,7 @@
           </li>
         </ul>
       </nav>
-      <?php $this->load->view('_layout/master/l_menu'); ?>
+      <?php $this->load->view('_layout/user/l_menu'); ?>
       <!-- Main Content -->
       <div class="main-content">
         <?php $this->load->view($content); ?>
@@ -85,7 +85,7 @@
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <form method="post" action="<?= base_url('master-update-username') ?>"
+              <form method="post" action="<?= base_url('us-update-username') ?>"
                 onsubmit="return confirm('Simpan, dan Masuk Ulang?')">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Pengguna</h5>
@@ -140,7 +140,7 @@
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <form method="post" class="needs-validation" action="<?= base_url('master-update-password') ?>"
+              <form method="post" class="needs-validation" action="<?= base_url('us-update-password') ?>"
                 onsubmit="return confirm('Simpan, dan Masuk Ulang?')">
                 <div class=" modal-header">
                   <h5 class="modal-title" id="exampleModalCenterTitle">Ganti Kata Sandi</h5>
@@ -309,7 +309,7 @@
       var id_us = $('#id_us').val();
       if (user.length >= 5) {
         $.ajax({
-          url: '<?= base_url("master-get-my") ?>',
+          url: '<?= base_url("us-get-uname") ?>',
           type: "POST",
           data: { id: id_us, uname: user },
           dataType: 'json',
@@ -341,7 +341,7 @@
       var user = e.value;
       if (user.length >= 5) {
         $.ajax({
-          url: '<?= base_url("master-get-uname") ?>',
+          url: '<?= base_url("us-get-uname") ?>',
           type: "POST",
           data: { uname: user },
           dataType: 'json',

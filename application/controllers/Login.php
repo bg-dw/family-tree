@@ -17,7 +17,7 @@ class Login extends CI_Controller
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'usm') {
 			redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {
-			redirect(base_url('dashboard-user')); //mengarahkan ke halaman user
+			redirect(base_url('dashboard-us')); //mengarahkan ke halaman user
 		}
 
 		$this->load->view('login/v_login');
@@ -44,7 +44,7 @@ class Login extends CI_Controller
 					redirect(base_url('dashboard-usm'));
 				elseif ($data['u_level'] == 'us'):
 					$this->sesi($data);
-					redirect(base_url('dashboard-um'));
+					redirect(base_url('dashboard-us'));
 				else:
 					$this->session->set_flashdata('error', 'Akses terbatas!'); //membuat flashdata dengan parameter error
 					redirect(base_url('login/'));

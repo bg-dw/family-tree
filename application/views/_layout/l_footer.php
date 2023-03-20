@@ -16,3 +16,6 @@
 <script src="<?= base_url() ?>assets/js/page/light-gallery.js"></script>
 <script src="<?= base_url() ?>assets/bundles/select2/dist/js/select2.full.min.js"></script>
 <script src="<?= base_url() ?>assets/bundles/summernote/summernote-bs4.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="<?= base_url() ?>assets/bundles/jspdf/jspdf.js"></script>

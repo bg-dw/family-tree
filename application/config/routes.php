@@ -110,7 +110,6 @@ $route['master-galeri-delete']['post'] = 'master/Galeri/delete_galeri';
 
 
 // ##Akses usermanager##
-
 //menu dashboard usm
 $route['dashboard-usm'] = 'userManager/Dashboard';
 $route['usm-get-fam'] = 'userManager/Dashboard/get_fam';
@@ -136,3 +135,18 @@ $route['usm-get-user-val']['post'] = 'userManager/Pengguna/get_user_val';
 $route['usm-get-uname-val']['post'] = 'userManager/Pengguna/get_uname_val/';
 $route['usm-update-pengguna-val']['post'] = 'userManager/Pengguna/update_pengguna_val';
 $route['usm-delete-pengguna-val']['post'] = 'userManager/Pengguna/delete_pengguna_val';
+
+
+//##Akses User##
+//menu dashboard
+$route['dashboard-us'] = 'user/Dashboard';
+$route['us-get-fam'] = 'user/Dashboard/get_fam';
+$route['us-get-uname']['post'] = 'user/dashboard/get_uname/';
+$route['us-get-my']['post'] = 'user/dashboard/get_my/';
+
+//profile
+$route['profile-us'] = 'user/Profile';
+$route['us-update-foto']['post'] = 'user/Profile/update_foto';
+
+//Menu Data Keluarga
+$route['data-keluarga-us'] = 'user/Relasi';

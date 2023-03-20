@@ -1,4 +1,4 @@
-<div class="main-sidebar sidebar-style-2">
+<div class="main-sidebar sidebar-style-2 d-print-none">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
       <a href="<?= base_url('dashboard-usm') ?>"> <img alt="image" src="<?= base_url() ?>assets/img/logo.png"
