@@ -123,7 +123,7 @@ $route['usm-update-username']['post'] = 'userManager/Profile/update_username';
 $route['usm-update-password']['post'] = 'userManager/Profile/update_password';
 $route['usm-update-foto']['post'] = 'userManager/Profile/update_foto';
 
-//menu pengguna usm
+//menu data keluarga usm
 $route['data-keluarga-usm'] = 'userManager/Pengguna';
 $route['data-keluarga-usm-validasi'] = 'userManager/Pengguna/validasi';
 $route['usm-add-pengguna']['post'] = 'userManager/Pengguna/add_pengguna';
@@ -136,6 +136,20 @@ $route['usm-get-uname-val']['post'] = 'userManager/Pengguna/get_uname_val/';
 $route['usm-update-pengguna-val']['post'] = 'userManager/Pengguna/update_pengguna_val';
 $route['usm-delete-pengguna-val']['post'] = 'userManager/Pengguna/delete_pengguna_val';
 
+
+//menu hubungan keluarga usm
+$route['hubungan-keluarga-usm'] = 'userManager/Relasi';
+$route['hubungan-keluarga-usm-validasi'] = 'userManager/Relasi/validasi';
+
+$route['usm-add-pengguna']['post'] = 'userManager/Pengguna/add_pengguna';
+$route['usm-update-pengguna']['post'] = 'userManager/Pengguna/update_pengguna';
+$route['usm-delete-pengguna']['post'] = 'userManager/Pengguna/delete_pengguna';
+$route['usm-get-user']['post'] = 'userManager/Pengguna/get_user';
+$route['usm-update-foto-pengguna']['post'] = 'userManager/Pengguna/update_foto';
+$route['usm-get-user-val']['post'] = 'userManager/Pengguna/get_user_val';
+$route['usm-get-uname-val']['post'] = 'userManager/Pengguna/get_uname_val/';
+$route['usm-update-pengguna-val']['post'] = 'userManager/Pengguna/update_pengguna_val';
+$route['usm-delete-pengguna-val']['post'] = 'userManager/Pengguna/delete_pengguna_val';
 
 //##Akses User##
 //menu dashboard
@@ -150,3 +164,12 @@ $route['us-update-foto']['post'] = 'user/Profile/update_foto';
 
 //Menu Data Keluarga
 $route['data-keluarga-us'] = 'user/Relasi';
+
+//Menu Portofolio
+$route['portofolio-us'] = 'user/Portofolio';
+
+//Menu Acara
+$route['acara-us'] = 'user/Acara';
+
+//Menu Galeri
+$route['galeri-us'] = 'user/Galeri';

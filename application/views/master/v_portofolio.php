@@ -24,42 +24,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 1;
-                                foreach ($rec as $baris): ?>
-                                    <tr>
-                                        <td class="text-center">
-                                            <?= $i . "." ?>
-                                        </td>
-                                        <td>
-                                            <?= $baris->name ?>
-                                        </td>
-                                        <td>
-                                            <?= $baris->judul_porto ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <?php if ($baris->gambar_porto): ?>
-                                                <img alt="image"
-                                                    src="<?= base_url() ?>assets/img/porto/<?= $baris->gambar_porto ?>"
-                                                    width="120" height="50" data-toggle="modal" data-target="#upload-foto-porto"
-                                                    title="Klik untuk edit"
-                                                    onclick="upload_foto('<?= $baris->id_porto ?>','<?= $baris->gambar_porto ?>')">
-                                            <?php else: ?>
-                                                <img alt="image" src="<?= base_url() ?>assets/img/users/none.png" width="120"
-                                                    height="50" data-toggle="modal" data-target="#upload-foto-porto"
-                                                    title="Klik untuk edit"
-                                                    onclick="upload_foto('<?= $baris->id_porto ?>','<?= $baris->gambar_porto ?>')">
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="text-center">
-                                            <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
-                                                onclick="update_porto('<?= $baris->id_porto ?>')"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                onclick="hapus_data('<?= $baris->id_porto ?>','<?= $baris->judul_porto ?>','<?= $baris->gambar_porto ?>')"><i
-                                                    class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                    <?php $i++; endforeach; ?>
+                                <?php
+                                if ($rec):
+                                    $i = 1;
+                                    foreach ($rec as $baris): ?>
+                                        <tr>
+                                            <td class="text-center">
+                                                <?= $i . "." ?>
+                                            </td>
+                                            <td>
+                                                <?= $baris->name ?>
+                                            </td>
+                                            <td>
+                                                <?= $baris->judul_porto ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if ($baris->gambar_porto): ?>
+                                                    <img alt="image"
+                                                        src="<?= base_url() ?>assets/img/porto/<?= $baris->gambar_porto ?>"
+                                                        width="120" height="50" data-toggle="modal" data-target="#upload-foto-porto"
+                                                        title="Klik untuk edit"
+                                                        onclick="upload_foto('<?= $baris->id_porto ?>','<?= $baris->gambar_porto ?>')">
+                                                <?php else: ?>
+                                                    <img alt="image" src="<?= base_url() ?>assets/img/users/none.png" width="120"
+                                                        height="50" data-toggle="modal" data-target="#upload-foto-porto"
+                                                        title="Klik untuk edit"
+                                                        onclick="upload_foto('<?= $baris->id_porto ?>','<?= $baris->gambar_porto ?>')">
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
+                                                    onclick="update_porto('<?= $baris->id_porto ?>')"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
+                                                    onclick="hapus_data('<?= $baris->id_porto ?>','<?= $baris->judul_porto ?>','<?= $baris->gambar_porto ?>')"><i
+                                                        class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        <?php $i++;
+                                    endforeach;
+                                endif; ?>
                             </tbody>
                         </table>
                     </div>

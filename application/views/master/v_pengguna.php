@@ -27,51 +27,55 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $i = 1;
-                foreach ($rec as $baris): ?>
-                  <tr>
-                    <td>
-                      <?= $i . "." ?>
-                    </td>
-                    <td>
-                      <?php if ($baris->u_pic): ?>
-                        <img src="<?= base_url() ?>assets/img/users/profile/<?= $baris->u_pic ?>" class="user-img" alt=""
-                          width="50px" height="50px" onclick="upload_foto('<?= $baris->id_user ?>','<?= $baris->u_pic ?>')">
-                      <?php else: ?>
-                        <img src="<?= base_url() ?>assets/img/users/none.png" class="user-img" alt="" width="50px"
-                          height="50px" onclick="upload_foto('<?= $baris->id_user ?>','<?= $baris->u_pic ?>')">
-                      <?php endif; ?>
-                    </td>
-                    <td>
-                      <?= $baris->name ?>
-                    </td>
-                    <td class="text-center">
-                      <?= date('d M Y', strtotime($baris->birth_date)) ?>
-                    </td>
-                    <td>
-                      <?= $baris->pekerjaan ?>
-                    </td>
-                    <td>
-                      <?= $baris->alamat ?>
-                    </td>
-                    <td class="text-center">
-                      <?php if ($baris->login == "acc"): ?>
-                        <div class="badge badge-success badge-shadow">Bisa</div>
-                      <?php else: ?>
-                        <div class="badge badge-danger badge-shadow">Tidak Bisa</div>
-                      <?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                      <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
-                        onclick="update_data('<?= $baris->id_user ?>');"><i class="fas fa-pencil-alt"></i></a>
-                      <?php if ($baris->u_level != "um"): ?>
-                        <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
-                          onclick="hapus_data('<?= $baris->id_user ?>','<?= $baris->name ?>','<?= $baris->u_pic ?>')"><i
-                            class="fas fa-trash"></i></a>
-                      <?php endif; ?>
-                    </td>
-                  </tr>
-                  <?php $i++; endforeach; ?>
+                <?php
+                if ($rec):
+                  $i = 1;
+                  foreach ($rec as $baris): ?>
+                    <tr>
+                      <td>
+                        <?= $i . "." ?>
+                      </td>
+                      <td>
+                        <?php if ($baris->u_pic): ?>
+                          <img src="<?= base_url() ?>assets/img/users/profile/<?= $baris->u_pic ?>" class="user-img" alt=""
+                            width="50px" height="50px" onclick="upload_foto('<?= $baris->id_user ?>','<?= $baris->u_pic ?>')">
+                        <?php else: ?>
+                          <img src="<?= base_url() ?>assets/img/users/none.png" class="user-img" alt="" width="50px"
+                            height="50px" onclick="upload_foto('<?= $baris->id_user ?>','<?= $baris->u_pic ?>')">
+                        <?php endif; ?>
+                      </td>
+                      <td>
+                        <?= $baris->name ?>
+                      </td>
+                      <td class="text-center">
+                        <?= date('d M Y', strtotime($baris->birth_date)) ?>
+                      </td>
+                      <td>
+                        <?= $baris->pekerjaan ?>
+                      </td>
+                      <td>
+                        <?= $baris->alamat ?>
+                      </td>
+                      <td class="text-center">
+                        <?php if ($baris->login == "acc"): ?>
+                          <div class="badge badge-success badge-shadow">Bisa</div>
+                        <?php else: ?>
+                          <div class="badge badge-danger badge-shadow">Tidak Bisa</div>
+                        <?php endif; ?>
+                      </td>
+                      <td class="text-center">
+                        <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
+                          onclick="update_data('<?= $baris->id_user ?>');"><i class="fas fa-pencil-alt"></i></a>
+                        <?php if ($baris->u_level != "um"): ?>
+                          <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
+                            onclick="hapus_data('<?= $baris->id_user ?>','<?= $baris->name ?>','<?= $baris->u_pic ?>')"><i
+                              class="fas fa-trash"></i></a>
+                        <?php endif; ?>
+                      </td>
+                    </tr>
+                    <?php $i++;
+                  endforeach;
+                endif; ?>
               </tbody>
             </table>
           </div>

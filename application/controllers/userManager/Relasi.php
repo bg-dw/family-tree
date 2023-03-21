@@ -7,8 +7,8 @@ class Relasi extends CI_Controller
     {
         //akan berjalan ketika controller C_login di jalankan
         parent::__construct();
-        $this->load->model('M_keluarga');
-        $this->load->model('M_relasi');
+        $this->load->model('usm/M_keluarga');
+        $this->load->model('usm/M_relasi');
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -21,10 +21,9 @@ class Relasi extends CI_Controller
 
     public function index()
     {
-        $data['content'] = 'master/v_relasi';
+        $data['content'] = 'user-manager/v_relasi';
         $record = $this->M_keluarga->get_by();
         $q = $this->M_keluarga->get_data_relasi();
-        // $start = microtime(true);
         if ($q):
             $x = 0;
             foreach ($q->result() as $a) {
@@ -55,9 +54,8 @@ class Relasi extends CI_Controller
         else:
             $this->session->set_flashdata('error', ' Belum ada data!');
         endif;
-        // $end = microtime(true);
         $data['rec'] = $rel;
-        $this->load->view('_layout/master/main', $data);
+        $this->load->view('_layout/usm/main', $data);
     }
 
     //mendapatkan data user
@@ -214,4 +212,44 @@ class Relasi extends CI_Controller
 
     }
 
+    //Validasi Relasi
+    public function validasi()
+    {
+        $data['content'] = 'user-manager/v_validasi_relasi';
+        $record = $this->M_keluarga->get_by();
+        $q = $this->M_keluarga->get_data_relasi_val();
+        $rel = array();
+        if ($q):
+            $x = 0;
+            foreach ($q->result() as $a) {
+                //id_bio,id_user,gen,id_ibu,ibu,id_ayah,ayah,id_pasangan,pasangan
+                $rel[$x]['id_bio'] = $a->id_bio;
+                $rel[$x]['id_user'] = $a->id_user;
+                $rel[$x]['nama'] = $a->name;
+                $rel[$x]['sex'] = $a->sex;
+                $rel[$x]['id_ibu'] = $a->ibu;
+                $rel[$x]['id_ayah'] = $a->ayah;
+                $rel[$x]['id_pasangan'] = $a->pasangan;
+                $rel[$x]['ibu'] = "";
+                $rel[$x]['ayah'] = "";
+                $rel[$x]['pasangan'] = "";
+                foreach ($record->result() as $b) {
+                    if ($a->ibu == $b->id_user) {
+                        $rel[$x]['ibu'] = $b->name;
+                    }
+                    if ($a->ayah == $b->id_user) {
+                        $rel[$x]['ayah'] = $b->name;
+                    }
+                    if ($a->pasangan == $b->id_user) {
+                        $rel[$x]['pasangan'] = $b->name;
+                    }
+                }
+                $x++;
+            }
+        else:
+            $this->session->set_flashdata('error', ' Belum ada data!');
+        endif;
+        $data['rec'] = $rel;
+        $this->load->view('_layout/usm/main', $data);
+    }
 }

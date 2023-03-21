@@ -25,8 +25,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                if ($rec):
+                                <?php if ($rec):
                                     $x = 1;
                                     for ($i = 0; $i < count($rec); $i++): ?>
                                         <tr>
@@ -54,9 +53,7 @@
                                                         class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
-                                        <?php $x++;
-                                    endfor;
-                                endif; ?>
+                                        <?php $x++; endfor; endif; ?>
                             </tbody>
                         </table>
                     </div>

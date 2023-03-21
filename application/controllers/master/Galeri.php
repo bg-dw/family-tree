@@ -28,17 +28,11 @@ class Galeri extends CI_Controller
     //tambah portofolio
     public function add_galeri()
     {
-        $media = $this->input->post('media');
         $link = $this->input->post('link');
-        $judul = $this->input->post('judul');
-        $isi = $this->input->post('isi');
 
         $data = array(
             'id_user' => $this->session->userdata('id'),
-            'jenis_media' => $media,
             'media_galeri' => $link,
-            'judul_galeri' => $judul,
-            'isi_galeri' => $isi,
             'create_at' => date('Y-m-d H:i:s'),
             'id_log' => $this->session->userdata('id'),
             'acc_admin' => "accept"

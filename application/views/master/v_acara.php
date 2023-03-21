@@ -26,51 +26,55 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $i = 1;
-                foreach ($rec as $baris):
-                  $a = explode(" ", $baris->waktu_acara) ?>
-                  <tr>
-                    <td class="text-center">
-                      <?= $i . "." ?>
-                    </td>
-                    <td>
-                      <?= $baris->nama_acara ?>
-                    </td>
-                    <td class="text-center">
-                      <?php if ($baris->gambar_acara): ?>
-                        <img alt="image" src="<?= base_url() ?>assets/img/acara/<?= $baris->gambar_acara ?>" width="120"
-                          height="50" data-toggle="modal" data-target="#upload-foto-acara" title="Klik untuk edit"
-                          onclick="upload_foto('<?= $baris->id_acara ?>','<?= $baris->gambar_acara ?>')">
-                      <?php else: ?>
-                        <img alt="image" src="<?= base_url() ?>assets/img/users/none.png" width="120" height="50"
-                          data-toggle="modal" data-target="#upload-foto-acara" title="Klik untuk edit"
-                          onclick="upload_foto('<?= $baris->id_acara ?>','<?= $baris->gambar_acara ?>')">
-                      <?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                      <?= date("d M Y", strtotime($a[0])) ?>
-                    </td>
-                    <td class="text-center">
-                      <?= date("H:i", strtotime($a[1])) ?>
-                      <?php if (date("A", strtotime($a[1])) == "AM"):
-                        echo " Pagi"; ?>
-                      <?php else:
-                        echo " Malam";
-                      endif; ?>
-                      <?= " | " . date("h:i A", strtotime($a[1])) ?>
-                    </td>
-                    <td>
-                      <?= $baris->name ?>
-                    </td>
-                    <td class="text-center">
-                      <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
-                        onclick="update_acara('<?= $baris->id_acara ?>')"><i class="fas fa-pencil-alt"></i></a>
-                      <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
-                        onclick="hapus_data('<?= $baris->id_acara ?>','<?= $baris->nama_acara ?>','<?= $baris->gambar_acara ?>')"><i
-                          class="fas fa-trash"></i></a>
-                    </td>
-                  </tr>
-                  <?php $i++; endforeach; ?>
+                <?php
+                if ($rec):
+                  $i = 1;
+                  foreach ($rec as $baris):
+                    $a = explode(" ", $baris->waktu_acara) ?>
+                    <tr>
+                      <td class="text-center">
+                        <?= $i . "." ?>
+                      </td>
+                      <td>
+                        <?= $baris->nama_acara ?>
+                      </td>
+                      <td class="text-center">
+                        <?php if ($baris->gambar_acara): ?>
+                          <img alt="image" src="<?= base_url() ?>assets/img/acara/<?= $baris->gambar_acara ?>" width="120"
+                            height="50" data-toggle="modal" data-target="#upload-foto-acara" title="Klik untuk edit"
+                            onclick="upload_foto('<?= $baris->id_acara ?>','<?= $baris->gambar_acara ?>')">
+                        <?php else: ?>
+                          <img alt="image" src="<?= base_url() ?>assets/img/users/none.png" width="120" height="50"
+                            data-toggle="modal" data-target="#upload-foto-acara" title="Klik untuk edit"
+                            onclick="upload_foto('<?= $baris->id_acara ?>','<?= $baris->gambar_acara ?>')">
+                        <?php endif; ?>
+                      </td>
+                      <td class="text-center">
+                        <?= date("d M Y", strtotime($a[0])) ?>
+                      </td>
+                      <td class="text-center">
+                        <?= date("H:i", strtotime($a[1])) ?>
+                        <?php if (date("A", strtotime($a[1])) == "AM"):
+                          echo " Pagi"; ?>
+                        <?php else:
+                          echo " Malam";
+                        endif; ?>
+                        <?= " | " . date("h:i A", strtotime($a[1])) ?>
+                      </td>
+                      <td>
+                        <?= $baris->name ?>
+                      </td>
+                      <td class="text-center">
+                        <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
+                          onclick="update_acara('<?= $baris->id_acara ?>')"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
+                          onclick="hapus_data('<?= $baris->id_acara ?>','<?= $baris->nama_acara ?>','<?= $baris->gambar_acara ?>')"><i
+                            class="fas fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    <?php $i++;
+                  endforeach;
+                endif; ?>
               </tbody>
             </table>
           </div>
