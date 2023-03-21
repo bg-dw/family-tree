@@ -225,8 +225,8 @@ class Pengguna extends Renew
 	}
 	public function get_user_val()
 	{
-		$id = $this->input->post('id_user');
-		$where = array('id_user' => $id);
+		$id = $this->input->post('id_temp_user');
+		$where = array('id_temp_user' => $id);
 		$q = $this->M_keluarga->get_data_by($where, 'temp_tbl_user')->row();
 		echo json_encode($q);
 	}
@@ -247,7 +247,7 @@ class Pengguna extends Renew
 	//update permintaan pengguna
 	public function update_pengguna_val()
 	{
-		$id = $this->input->post('id');
+		$id_temp = $this->input->post('id_temp');
 		$nl = $this->input->post('nama_l');
 		$nama = $this->input->post('nama');
 		$jk = $this->input->post('jk');
@@ -266,7 +266,7 @@ class Pengguna extends Renew
 		$user = $this->input->post('uname');
 		$pwd = $this->input->post('pass');
 
-		$where = array('id_user' => $id);
+		$where = array('id_temp_user' => $id_temp);
 		$data = array(
 			'u_user' => $user,
 			'u_pass' => $pwd,

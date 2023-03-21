@@ -35,21 +35,33 @@
                                             <td>
                                                 <?= $rec[$i]['nama'] ?>
                                             </td>
-                                            <td class="text-center">
-                                                <?= $rec[$i]['ibu'] ?>
+                                            <td>
+                                                <?php if ($rec[$i]['ibu']):
+                                                    echo $rec[$i]['ibu'];
+                                                else:
+                                                    echo "-";
+                                                endif; ?>
                                             </td>
                                             <td>
-                                                <?= $rec[$i]['ayah'] ?>
+                                                <?php if ($rec[$i]['ayah']):
+                                                    echo $rec[$i]['ayah'];
+                                                else:
+                                                    echo "-";
+                                                endif; ?>
                                             </td>
                                             <td>
-                                                <?= $rec[$i]['pasangan'] ?>
+                                                <?php if ($rec[$i]['pasangan']):
+                                                    echo $rec[$i]['pasangan'];
+                                                else:
+                                                    echo "-";
+                                                endif; ?>
                                             </td>
                                             <td class="text-center">
                                                 <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
                                                     onclick="update_data('<?= $rec[$i]['id_bio'] ?>','<?= $rec[$i]['id_user'] ?>','<?= $rec[$i]['nama'] ?>','<?= $rec[$i]['sex'] ?>','<?= $rec[$i]['id_ibu'] ?>','<?= $rec[$i]['id_ayah'] ?>','<?= $rec[$i]['id_pasangan'] ?>')"><i
                                                         class="fas fa-pencil-alt"></i></a>
                                                 <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
-                                                    onclick="hapus_data('<?= $rec[$i]['id_bio'] ?>','<?= $rec[$i]['nama'] ?>')"><i
+                                                    onclick="hapus_data('<?= $rec[$i]['id_bio'] ?>','<?= $rec[$i]['nama'] ?>','<?= $rec[$i]['id_user'] ?>')"><i
                                                         class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
@@ -58,7 +70,7 @@
                         </table>
                     </div>
                 </div>
-                <form action="<?= base_url('master-add-relasi') ?>" method="post" onsubmit="return cek_form();"
+                <form action="<?= base_url('usm-add-relasi') ?>" method="post" onsubmit="return cek_form();"
                     id="tbl_add" style="display:none;">
                     <div class="card-body">
                         <div class="form-group row mb-4">
@@ -104,8 +116,8 @@
                         </div>
                     </div>
                 </form>
-                <form action="<?= base_url('master-update-relasi') ?>" method="post"
-                    onsubmit="return cek_form_update();" id="tbl_update" style="display:none;">
+                <form action="<?= base_url('usm-update-relasi') ?>" method="post" onsubmit="return cek_form_update();"
+                    id="tbl_update" style="display:none;">
                     <div class="card-body">
                         <div class="form-group row mb-4">
                             <input type="hidden" name="id_bio" id="u-id-bio" required>
@@ -182,9 +194,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master-delete-relasi') ?>" method="post">
+            <form action="<?= base_url('usm-delete-relasi') ?>" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="h_id" required>
+                    <input type="hidden" name="id_user" id="h_id_user" required>
                     <div class="text-center">
                         <h4 id="text-conf"></h4>
                     </div>
@@ -201,7 +214,7 @@
     //ajax load
     function show() {
         $.ajax({
-            url: "<?= base_url('master-get-user-relasi') ?>",
+            url: "<?= base_url('usm-get-user-relasi') ?>",
             dataType: 'json',
             success: function (data) {
                 $("#sel-user").html(data);
@@ -215,7 +228,7 @@
     function ortu(sex) {
         var id = $("#sel-user").val();
         $.ajax({
-            url: "<?= base_url('master-get-ortu') ?>",
+            url: "<?= base_url('usm-get-ortu') ?>",
             method: "POST",
             data: { jk: sex, id_user: id },
             dataType: 'json',
@@ -237,7 +250,7 @@
     function pasangan(e) {
         var id_pil = e.value;
         $.ajax({
-            url: "<?= base_url('master-get-pasangan') ?>",
+            url: "<?= base_url('usm-get-pasangan') ?>",
             method: "POST",
             data: { id_user: id_pil },
             dataType: 'json',
@@ -318,7 +331,7 @@
     function update_pasangan(id, sex, id_ibu, id_ayah, id_pas) {
         var id_pil = id + "," + sex;
         $.ajax({
-            url: "<?= base_url('master-get-pasangan') ?>",
+            url: "<?= base_url('usm-get-pasangan') ?>",
             method: "POST",
             data: { id_user: id_pil },
             dataType: 'json',
@@ -336,7 +349,7 @@
     function update_ortu(sex, id_ibu, id_ayah) {
         var id = $("#u-sel-user").val();
         $.ajax({
-            url: "<?= base_url('master-get-ortu') ?>",
+            url: "<?= base_url('usm-get-ortu') ?>",
             method: "POST",
             data: { jk: sex, id_user: id },
             dataType: 'json',
@@ -406,8 +419,9 @@
     }
 
     //hapus data
-    function hapus_data(id_bio, nama) {
+    function hapus_data(id_bio, nama, id_user) {
         $('#h_id').val(id_bio);
+        $('#h_id_user').val(id_user);
         $('#judul-conf').text('Hapus Hubungan?');
         $('#text-conf').text(nama);
         $('#modal-conf').modal('show');

@@ -4,10 +4,6 @@
             <div class="card">
                 <div class="card-header">
                     <h4 id="judul">Hubungan Keluarga</h4>
-                    <div class="card-header-action">
-                        <a href="#" class="btn btn-primary" id="btn-add" onclick="add_data();">Tambah <i
-                                class="fas fa-plus"></i></a>
-                    </div>
                 </div>
                 <div class="card-body" id="tbl_data">
                     <div class="table-responsive">
@@ -21,6 +17,7 @@
                                     <th class="text-center">Nama Ibu</th>
                                     <th class="text-center">Nama Ayah</th>
                                     <th class="text-center">Nama Pasangan</th>
+                                    <th class="text-center">Permintaan</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -35,21 +32,44 @@
                                             <td>
                                                 <?= $rec[$i]['nama'] ?>
                                             </td>
-                                            <td class="text-center">
-                                                <?= $rec[$i]['ibu'] ?>
+                                            <td>
+                                                <?php if ($rec[$i]['ibu']):
+                                                    echo $rec[$i]['ibu'];
+                                                else:
+                                                    echo "-";
+                                                endif; ?>
                                             </td>
                                             <td>
-                                                <?= $rec[$i]['ayah'] ?>
+                                                <?php if ($rec[$i]['ayah']):
+                                                    echo $rec[$i]['ayah'];
+                                                else:
+                                                    echo "-";
+                                                endif; ?>
                                             </td>
                                             <td>
-                                                <?= $rec[$i]['pasangan'] ?>
+                                                <?php if ($rec[$i]['pasangan']):
+                                                    echo $rec[$i]['pasangan'];
+                                                else:
+                                                    echo "-";
+                                                endif; ?>
                                             </td>
                                             <td class="text-center">
-                                                <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
-                                                    onclick="update_data('<?= $rec[$i]['id_bio'] ?>','<?= $rec[$i]['id_user'] ?>','<?= $rec[$i]['nama'] ?>','<?= $rec[$i]['sex'] ?>','<?= $rec[$i]['id_ibu'] ?>','<?= $rec[$i]['id_ayah'] ?>','<?= $rec[$i]['id_pasangan'] ?>')"><i
-                                                        class="fas fa-pencil-alt"></i></a>
+                                                <?php if ($rec[$i]['aksi'] == "add"): ?>
+                                                    <div class="badge badge-success badge-shadow">Tambah Data</div>
+                                                <?php elseif ($rec[$i]['aksi'] == "update"): ?>
+                                                    <div class="badge badge-warning badge-shadow">Ubah Data</div>
+                                                <?php else: ?>
+                                                    <div class="badge badge-danger badge-shadow">Hapus Data</div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?php if ($rec[$i]['aksi'] != "delete"): ?>
+                                                    <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
+                                                        onclick="update_data('<?= $rec[$i]['id_temp_bio'] ?>','<?= $rec[$i]['id_user'] ?>','<?= $rec[$i]['nama'] ?>','<?= $rec[$i]['sex'] ?>','<?= $rec[$i]['id_ibu'] ?>','<?= $rec[$i]['id_ayah'] ?>','<?= $rec[$i]['id_pasangan'] ?>')"><i
+                                                            class="fas fa-pencil-alt"></i></a>
+                                                <?php endif; ?>
                                                 <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
-                                                    onclick="hapus_data('<?= $rec[$i]['id_bio'] ?>','<?= $rec[$i]['nama'] ?>')"><i
+                                                    onclick="hapus_data('<?= $rec[$i]['id_temp_bio'] ?>','<?= $rec[$i]['nama'] ?>')"><i
                                                         class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
@@ -58,57 +78,11 @@
                         </table>
                     </div>
                 </div>
-                <form action="<?= base_url('master-add-relasi') ?>" method="post" onsubmit="return cek_form();"
-                    id="tbl_add" style="display:none;">
-                    <div class="card-body">
-                        <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Anda</label>
-                            <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_user" id="sel-user" required
-                                    style="width:100%;" onchange="pasangan(this)">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4" id="f-pasangan" style="display:none;">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Pasangan</label>
-                            <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_pasangan" id="sel-pasangan"
-                                    style="width:100%;">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4" id="f-ibu" style="display:none;">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Ibu</label>
-                            <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_ibu" id="sel-ibu" style="width:100%;"
-                                    onchange="set_gen_ibu()">
-                                </select>
-                                <input type="hidden" name="gen_ibu" id="inp-gen-ibu">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4" id="f-ayah" style="display:none;">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Ayah</label>
-                            <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_ayah" id="sel-ayah" style="width:100%;"
-                                    onchange="set_gen_ayah()">
-                                </select>
-                                <input type="hidden" name="gen_ayah" id="inp-gen-ayah">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                            <div class="col-sm-12 col-md-7 text-right">
-                                <button class="btn btn-primary" type="submit">Simpan</button>
-                                <button class="btn btn-secondary" type="button" onclick="cancel_add()">Batal</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <form action="<?= base_url('master-update-relasi') ?>" method="post"
+                <form action="<?= base_url('usm-update-relasi-val') ?>" method="post"
                     onsubmit="return cek_form_update();" id="tbl_update" style="display:none;">
                     <div class="card-body">
                         <div class="form-group row mb-4">
-                            <input type="hidden" name="id_bio" id="u-id-bio" required>
+                            <input type="hidden" name="id_temp_bio" id="u-id-temp-bio" required>
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Anda</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control select2" name="id_user" id="u-sel-user" required
@@ -182,7 +156,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master-delete-relasi') ?>" method="post">
+            <form action="<?= base_url('usm-delete-relasi-val') ?>" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="h_id" required>
                     <div class="text-center">
@@ -198,24 +172,10 @@
     </div>
 </div>
 <script>
-    //ajax load
-    function show() {
-        $.ajax({
-            url: "<?= base_url('master-get-user-relasi') ?>",
-            dataType: 'json',
-            success: function (data) {
-                $("#sel-user").html(data);
-            },
-            error: function (data) {
-                alert(data.responseText);
-            }
-        });
-    }
-
     function ortu(sex) {
         var id = $("#sel-user").val();
         $.ajax({
-            url: "<?= base_url('master-get-ortu') ?>",
+            url: "<?= base_url('usm-get-ortu') ?>",
             method: "POST",
             data: { jk: sex, id_user: id },
             dataType: 'json',
@@ -237,7 +197,7 @@
     function pasangan(e) {
         var id_pil = e.value;
         $.ajax({
-            url: "<?= base_url('master-get-pasangan') ?>",
+            url: "<?= base_url('usm-get-pasangan') ?>",
             method: "POST",
             data: { id_user: id_pil },
             dataType: 'json',
@@ -251,36 +211,6 @@
         });
         ortu("male");//ayah
         ortu("female");//ibu
-    }
-
-    //tambah data
-    function add_data() {
-        $('#judul').text('Tambah Hubungan Keluarga');
-        $('#btn-add').slideUp('slow');
-        $('#tbl_data').slideUp('slow');
-        $('#tbl_add').slideDown('slow');
-        show();
-    }
-
-    //batal tambah
-    function cancel_add() {
-        $('#judul').text('Hubungan Keluarga');
-        $('#tbl_add').slideUp('slow');
-        $('#btn-add').slideDown('slow');
-        $('#tbl_data').slideDown('slow');
-    }
-
-    //set gen ibu
-    function set_gen_ibu() {
-        var x = $("#sel-ibu").find(":selected").text();
-        var a = x.split('Gen-');
-        $("#inp-gen-ibu").val(a[1]);
-    }
-    //set gen ayah
-    function set_gen_ayah() {
-        var x = $("#sel-ayah").find(":selected").text();
-        var a = x.split('Gen-');
-        $("#inp-gen-ayah").val(a[1]);
     }
 
     function cek_form() {
@@ -318,7 +248,7 @@
     function update_pasangan(id, sex, id_ibu, id_ayah, id_pas) {
         var id_pil = id + "," + sex;
         $.ajax({
-            url: "<?= base_url('master-get-pasangan') ?>",
+            url: "<?= base_url('usm-get-pasangan') ?>",
             method: "POST",
             data: { id_user: id_pil },
             dataType: 'json',
@@ -336,7 +266,7 @@
     function update_ortu(sex, id_ibu, id_ayah) {
         var id = $("#u-sel-user").val();
         $.ajax({
-            url: "<?= base_url('master-get-ortu') ?>",
+            url: "<?= base_url('usm-get-ortu') ?>",
             method: "POST",
             data: { jk: sex, id_user: id },
             dataType: 'json',
@@ -356,13 +286,14 @@
     }
 
     //update data
-    function update_data(id_bio, id, nama, sex, id_ibu, id_ayah, id_pas) {
+    function update_data(id_temp_bio, id, nama, sex, id_ibu, id_ayah, id_pas) {
         $('#judul').text('Update Hubungan Keluarga');
         $('#btn-add').slideUp('slow');
         $('#tbl_data').slideUp('slow');
-        $('#u-id-bio').val(id_bio);
+        $('#u-id-temp-bio').val(id_temp_bio);
         $('#u-sel-user').append('<option value="' + id + '" selected>' + nama + '</option>')
         $('#tbl_update').slideDown('slow');
+        console.log(nama);
         update_pasangan(id, sex, id_ibu, id_ayah, id_pas);
     }
 
@@ -406,9 +337,9 @@
     }
 
     //hapus data
-    function hapus_data(id_bio, nama) {
-        $('#h_id').val(id_bio);
-        $('#judul-conf').text('Hapus Hubungan?');
+    function hapus_data(id, nama) {
+        $('#h_id').val(id);
+        $('#judul-conf').text('Hapus Permintaan?');
         $('#text-conf').text(nama);
         $('#modal-conf').modal('show');
     }

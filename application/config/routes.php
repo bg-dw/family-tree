@@ -140,16 +140,16 @@ $route['usm-delete-pengguna-val']['post'] = 'userManager/Pengguna/delete_penggun
 //menu hubungan keluarga usm
 $route['hubungan-keluarga-usm'] = 'userManager/Relasi';
 $route['hubungan-keluarga-usm-validasi'] = 'userManager/Relasi/validasi';
+$route['usm-get-user-relasi'] = 'userManager/Relasi/get_user';
+$route['usm-get-ortu']['post'] = 'userManager/Relasi/get_ortu';
+$route['usm-get-pasangan']['post'] = 'userManager/Relasi/get_pasangan';
+$route['usm-add-relasi']['post'] = 'userManager/Relasi/add_relasi';
+$route['usm-update-relasi']['post'] = 'userManager/Relasi/update_relasi';
+$route['usm-delete-relasi']['post'] = 'userManager/Relasi/delete_relasi';
 
-$route['usm-add-pengguna']['post'] = 'userManager/Pengguna/add_pengguna';
-$route['usm-update-pengguna']['post'] = 'userManager/Pengguna/update_pengguna';
-$route['usm-delete-pengguna']['post'] = 'userManager/Pengguna/delete_pengguna';
-$route['usm-get-user']['post'] = 'userManager/Pengguna/get_user';
-$route['usm-update-foto-pengguna']['post'] = 'userManager/Pengguna/update_foto';
-$route['usm-get-user-val']['post'] = 'userManager/Pengguna/get_user_val';
-$route['usm-get-uname-val']['post'] = 'userManager/Pengguna/get_uname_val/';
-$route['usm-update-pengguna-val']['post'] = 'userManager/Pengguna/update_pengguna_val';
-$route['usm-delete-pengguna-val']['post'] = 'userManager/Pengguna/delete_pengguna_val';
+$route['usm-update-relasi-val']['post'] = 'userManager/Relasi/update_relasi_val';
+$route['usm-delete-relasi-val']['post'] = 'userManager/Relasi/delete_relasi_val';
+
 
 //##Akses User##
 //menu dashboard

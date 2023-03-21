@@ -69,7 +69,7 @@
                       <td class="text-center">
                         <?php if ($baris->aksi == "add" || $baris->aksi == "update"): ?>
                           <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
-                            onclick="update_data('<?= $baris->id_user ?>');"><i class="fas fa-pencil-alt"></i></a>
+                            onclick="update_data('<?= $baris->id_temp_user ?>');"><i class="fas fa-pencil-alt"></i></a>
                         <?php endif; ?>
                         <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
                           onclick="hapus_data('<?= $baris->id_user ?>','<?= $baris->name ?>','<?= $baris->u_pic ?>')"><i
@@ -86,7 +86,7 @@
           onsubmit="return confirm('Simpan data?');" id="tbl_update" style="display:none;">
           <div class="card-body">
             <div class="form-row">
-              <input type="hidden" class="form-control" name="id" required="" id="uid">
+              <input type="text" class="form-control" name="id_temp" required="" id="uid_temp">
               <div class="form-group col-md-4">
                 <label>Nama Lengkap</label>
                 <input type="text" class="form-control" name="nama_l" required="" id="unl">
@@ -326,8 +326,9 @@
       url: "<?= base_url('usm-get-user-val') ?>",
       method: "POST",
       dataType: 'json',
-      data: { id_user: id },
+      data: { id_temp_user: id },
       success: function (data) {
+        $('#uid_temp').val(data.id_temp_user);
         $('#uid').val(data.id_user);
         $('#unl').val(data.name);
         $('#unm').val(data.nick_name);
