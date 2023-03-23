@@ -18,10 +18,24 @@ class Galeri extends CI_Controller
         }
     }
 
+    private $perPage = 2;
     public function index()
     {
-        $data['content'] = 'user/v_galeri';
-        $data['rec'] = $this->M_galeri->get_data_galeri()->result();
-        $this->load->view('_layout/user/main', $data);
+        if (!empty($this->input->get('page'))) {
+            $start = $this->perPage * intval($this->input->get('page'));
+            $query = $this->M_galeri->get_data_galeri_limit($this->perPage, $start);
+            $data['posts'] = $query->result();
+
+            $q = $this->load->view('user/data_galeri', $data);
+            echo json_encode($q);
+
+        } else {
+            $start = 0;
+            $query = $this->M_galeri->get_data_galeri_limit($this->perPage, $start);
+            $data['content'] = 'user/v_galeri';
+            $data['posts'] = $query->result();
+
+            $this->load->view('_layout/user/main', $data);
+        }
     }
 }

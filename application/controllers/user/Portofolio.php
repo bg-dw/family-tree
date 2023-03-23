@@ -28,7 +28,7 @@ class Portofolio extends CI_Controller
             $query = $this->M_porto->get_data_porto_limit($this->perPage, $start);
             $data['posts'] = $query->result();
 
-            $q = $this->load->view('user/data', $data);
+            $q = $this->load->view('user/data_porto', $data);
             echo json_encode($q);
 
         } else {

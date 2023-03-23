@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-12" id="post-data">
                 <?php
-                $this->load->view('user/data', $posts);
+                $this->load->view('user/data_porto', $posts);
                 ?>
             </div>
             <div class="alert alert-light ajax-load text-center" style="display:none">

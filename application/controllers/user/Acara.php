@@ -17,11 +17,27 @@ class Acara extends CI_Controller
             redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user
         }
     }
-
+    private $perPage = 8;
     public function index()
     {
-        $data['content'] = 'user/v_acara';
-        $data['rec'] = $this->M_acara->get_data_acara()->result();
-        $this->load->view('_layout/user/main', $data);
+        $count = $this->M_acara->get_data_acara()->num_rows();
+
+        if (!empty($this->input->get('page'))) {
+            $start = $this->perPage * intval($this->input->get('page'));
+            $query = $this->M_acara->get_data_acara_limit($this->perPage, $start);
+            $data['posts'] = $query->result();
+
+            $q = $this->load->view('user/data_acara', $data);
+            echo json_encode($q);
+
+        } else {
+            $start = 0;
+            $query = $this->M_acara->get_data_acara_limit($this->perPage, $start);
+            $data['content'] = 'user/v_acara';
+            $data['total_post'] = $count;
+            $data['posts'] = $query->result();
+
+            $this->load->view('_layout/user/main', $data);
+        }
     }
 }
