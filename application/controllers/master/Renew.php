@@ -79,4 +79,41 @@ class Renew extends CI_Controller
         }
     }
 
+    //foto banner 600x400
+    function set_upload_banner($foto, $loc)
+    {
+        $config['upload_path'] = $loc; //path folder
+        $config['allowed_types'] = 'jpg|png|jpeg'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //Enkripsi nama yang terupload
+        $config['overwrite'] = TRUE; //timpa file dengan file baru
+        $config['max_size'] = 2048; // batas ukuran file: 2MB
+        $config['max_width'] = 1920; // batas lebar gambar dalam piksel
+        $config['max_height'] = 1080; // batas tinggi gambar dalam piksel
+        $config['width'] = 600;
+        $config['height'] = 400;
+
+        $this->upload->initialize($config);
+        if (!empty($_FILES[$foto]['name'])) {
+
+            if ($this->upload->do_upload($foto)) {
+                $gbr = $this->upload->data();
+
+                //Compress Image
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = $loc . $gbr['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['quality'] = '50%';
+                $config['new_image'] = $loc . $gbr['file_name'];
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+                return $gbr;
+            } else {
+                return $this->upload->display_errors();
+            }
+        } else {
+            $this->session->set_flashdata('error', ' Gambar kosong!');
+        }
+    }
+
 }

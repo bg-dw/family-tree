@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="card-body" id="tbl_add" style="display: none;">
-                    <form action="<?= base_url('master-portofolio-add') ?>" method="post"
+                    <form action="<?= base_url('usm-portofolio-add') ?>" method="post"
                         onsubmit="return confirm('Simpan Data?');">
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
@@ -93,7 +93,7 @@
                     </form>
                 </div>
                 <div class="card-body" id="tbl_update" style="display: none;">
-                    <form action="<?= base_url('master-portofolio-update') ?>" method="post"
+                    <form action="<?= base_url('usm-portofolio-update') ?>" method="post"
                         onsubmit="return confirm('Simpan Data?');">
                         <input type="hidden" name="id_porto" id="u-id-porto">
                         <div class="form-group row mb-4">
@@ -132,7 +132,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master-update-foto-porto') ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('usm-update-foto-porto') ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" name="id_porto" id="u-foto-porto" required>
                     <input type="hidden" name="old" id="u-foto-lama">
@@ -170,7 +170,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('master-delete-porto') ?>" method="post">
+            <form action="<?= base_url('usm-delete-porto') ?>" method="post">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="h_id" required>
                     <input type="hidden" name="old" id="h_old" required>
@@ -221,7 +221,7 @@
 
     function update_porto(id) {
         $.ajax({
-            url: "<?= base_url('master-get-porto') ?>",
+            url: "<?= base_url('usm-get-porto') ?>",
             method: "POST",
             dataType: 'json',
             data: { id_porto: id },

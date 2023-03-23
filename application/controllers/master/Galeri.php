@@ -28,11 +28,12 @@ class Galeri extends CI_Controller
     //tambah portofolio
     public function add_galeri()
     {
-        $link = $this->input->post('link');
+        $x = $this->input->post('link');
+        $link = explode("/", $x);
 
         $data = array(
             'id_user' => $this->session->userdata('id'),
-            'media_galeri' => $link,
+            'media_galeri' => $link[3] . "/" . $link[4] . "/",
             'create_at' => date('Y-m-d H:i:s'),
             'id_log' => $this->session->userdata('id'),
             'acc_admin' => "accept"
@@ -49,18 +50,12 @@ class Galeri extends CI_Controller
     public function update_galeri()
     {
         $id = $this->input->post('id_galeri');
-        $media = $this->input->post('media');
         $x = $this->input->post('link');
-        $judul = $this->input->post('judul');
-        $isi = $this->input->post('isi');
         $link = explode("/", $x);
 
         $where = array('id_galeri' => $id);
         $data = array(
-            'jenis_media' => $media,
             'media_galeri' => $link[3] . "/" . $link[4] . "/",
-            'judul_galeri' => $judul,
-            'isi_galeri' => $isi,
             'id_log' => $this->session->userdata('id'),
             'acc_admin' => "accept"
         );

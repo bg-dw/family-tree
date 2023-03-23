@@ -58,7 +58,7 @@ class Acara extends Renew
 		$id = $this->input->post('id_acara');
 		$old = $this->input->post('old');
 		$loc = './assets/img/acara/';
-		$foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
+		$foto = $this->set_upload_banner('image', $loc); //input name,lokasi penempatan file,foto lama
 		$where = array('id_acara' => $id);
 
 		if (is_array($foto)):

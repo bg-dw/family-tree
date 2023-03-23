@@ -17,11 +17,28 @@ class Portofolio extends CI_Controller
             redirect(base_url('dashboard-usm')); //mengarahkan ke halaman user
         }
     }
+    private $perPage = 6;
 
     public function index()
     {
-        $data['content'] = 'user/v_portofolio';
-        $data['rec'] = $this->M_porto->get_data_porto()->result();
-        $this->load->view('_layout/user/main', $data);
+        $count = $this->M_porto->get_data_porto()->num_rows();
+
+        if (!empty($this->input->get('page'))) {
+            $start = $this->perPage * intval($this->input->get('page'));
+            $query = $this->M_porto->get_data_porto_limit($this->perPage, $start);
+            $data['posts'] = $query->result();
+
+            $q = $this->load->view('user/data', $data);
+            echo json_encode($q);
+
+        } else {
+            $start = 0;
+            $query = $this->M_porto->get_data_porto_limit($this->perPage, $start);
+            $data['content'] = 'user/v_portofolio';
+            $data['total_post'] = $count;
+            $data['posts'] = $query->result();
+
+            $this->load->view('_layout/user/main', $data);
+        }
     }
 }

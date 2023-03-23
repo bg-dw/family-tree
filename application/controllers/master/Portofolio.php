@@ -80,7 +80,7 @@ class Portofolio extends Renew
         $id = $this->input->post('id_porto');
         $old = $this->input->post('old');
         $loc = './assets/img/porto/';
-        $foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
+        $foto = $this->set_upload_banner('image', $loc); //input name,lokasi penempatan file,foto lama
         $where = array('id_porto' => $id);
 
         if (is_array($foto)):

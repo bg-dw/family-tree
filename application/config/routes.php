@@ -150,6 +150,29 @@ $route['usm-delete-relasi']['post'] = 'userManager/Relasi/delete_relasi';
 $route['usm-update-relasi-val']['post'] = 'userManager/Relasi/update_relasi_val';
 $route['usm-delete-relasi-val']['post'] = 'userManager/Relasi/delete_relasi_val';
 
+//menu portofolio usm
+$route['portofolio-usm'] = 'userManager/Portofolio';
+$route['usm-portofolio-add']['post'] = 'userManager/Portofolio/add_porto';
+$route['usm-update-foto-porto']['post'] = 'userManager/Portofolio/update_foto';
+$route['usm-get-porto']['post'] = 'userManager/Portofolio/get_porto';
+$route['usm-portofolio-update']['post'] = 'userManager/Portofolio/update_porto';
+$route['usm-delete-porto']['post'] = 'userManager/Portofolio/delete_porto';
+
+// //menu acara usm
+$route['acara-usm'] = 'userManager/Acara';
+$route['usm-acara-add']['post'] = 'userManager/Acara/add_acara';
+$route['usm-acara-update-foto']['post'] = 'userManager/Acara/update_foto';
+$route['usm-get-acara']['post'] = 'userManager/Acara/get_acara';
+$route['usm-acara-update']['post'] = 'userManager/Acara/update_acara';
+$route['usm-acara-delete']['post'] = 'userManager/Acara/delete_acara';
+
+//menu galeri usm
+$route['galeri-usm'] = 'userManager/Galeri';
+$route['usm-galeri-add']['post'] = 'userManager/Galeri/add_galeri';
+$route['usm-galeri-get']['post'] = 'userManager/Galeri/get_galeri';
+$route['usm-galeri-update']['post'] = 'userManager/Galeri/update_galeri';
+$route['usm-galeri-delete']['post'] = 'userManager/Galeri/delete_galeri';
+
 
 //##Akses User##
 //menu dashboard

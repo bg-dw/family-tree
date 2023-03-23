@@ -8,7 +8,7 @@ class Portofolio extends Renew
     {
         //akan berjalan ketika controller C_login di jalankan
         parent::__construct();
-        $this->load->model('M_porto');
+        $this->load->model('usm/M_porto');
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -21,9 +21,10 @@ class Portofolio extends Renew
 
     public function index()
     {
-        $data['content'] = 'master/v_portofolio';
-        $data['rec'] = $this->M_porto->get_data_porto()->result();
-        $this->load->view('_layout/master/main', $data);
+        $data['content'] = 'user-manager/v_portofolio';
+        $id = $this->session->userdata('id');
+        $data['rec'] = $this->M_porto->get_data_porto($id)->result();
+        $this->load->view('_layout/usm/main', $data);
     }
 
     //tambah portofolio
@@ -43,13 +44,43 @@ class Portofolio extends Renew
         $q = $this->M_porto->db_input($data, 'tbl_portofolio');
         if ($q):
             $this->session->set_flashdata('success', ' Berhasil Disimpan!');
-            redirect('master-portofolio');
+            redirect('portofolio-usm');
         else:
             $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-            redirect('master-portofolio');
+            redirect('portofolio-usm');
         endif;
     }
 
+    //upload foto
+    function update_foto()
+    {
+        $id = $this->input->post('id_porto');
+        $old = $this->input->post('old');
+        $loc = './assets/img/porto/';
+        $foto = $this->set_upload_banner('image', $loc); //input name,lokasi penempatan file,foto lama
+        $where = array('id_porto' => $id);
+
+        if (is_array($foto)):
+            $data = array(
+                'gambar_porto' => $foto['file_name'],
+                'id_log' => $this->session->userdata('id')
+            );
+            $q = $this->M_porto->db_update($where, $data, 'tbl_portofolio');
+            if ($q):
+                if ($old) {
+                    unlink($loc . $old);
+                }
+                $this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
+                redirect('portofolio-usm');
+            else:
+                $this->session->set_flashdata('warning', ' Gagal Memperbaharui Foto!');
+                redirect('portofolio-usm');
+            endif;
+        else:
+            $this->session->set_flashdata('error', $this->upload->display_errors());
+            redirect('portofolio-usm');
+        endif;
+    }
     //update portofolio
     public function update_porto()
     {
@@ -67,43 +98,13 @@ class Portofolio extends Renew
         $q = $this->M_porto->db_update($where, $data, 'tbl_portofolio');
         if ($q):
             $this->session->set_flashdata('success', ' Berhasil Disimpan!');
-            redirect('master-portofolio');
+            redirect('portofolio-usm');
         else:
             $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-            redirect('master-portofolio');
+            redirect('portofolio-usm');
         endif;
     }
 
-    //upload foto
-    function update_foto()
-    {
-        $id = $this->input->post('id_porto');
-        $old = $this->input->post('old');
-        $loc = './assets/img/porto/';
-        $foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
-        $where = array('id_porto' => $id);
-
-        if (is_array($foto)):
-            $data = array(
-                'gambar_porto' => $foto['file_name'],
-                'id_log' => $this->session->userdata('id')
-            );
-            $q = $this->M_porto->db_update($where, $data, 'tbl_portofolio');
-            if ($q):
-                if ($old) {
-                    unlink($loc . $old);
-                }
-                $this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
-                redirect('master-portofolio');
-            else:
-                $this->session->set_flashdata('warning', ' Gagal Memperbaharui Foto!');
-                redirect('master-portofolio');
-            endif;
-        else:
-            $this->session->set_flashdata('error', $this->upload->display_errors());
-            redirect('master-portofolio');
-        endif;
-    }
 
     //get porto
     public function get_porto()
@@ -126,10 +127,10 @@ class Portofolio extends Renew
                 unlink($loc . $old);
             endif;
             $this->session->set_flashdata('success', ' Berhasil Dihapus!');
-            redirect('master-portofolio');
+            redirect('portofolio-usm');
         else:
             $this->session->set_flashdata('warning', ' Gagal menghapus data!');
-            redirect('master-portofolio');
+            redirect('portofolio-usm');
         endif;
     }
 }

@@ -7,7 +7,7 @@ class Galeri extends CI_Controller
     {
         //akan berjalan ketika controller C_login di jalankan
         parent::__construct();
-        $this->load->model('M_galeri');
+        $this->load->model('usm/M_galeri');
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -20,25 +20,21 @@ class Galeri extends CI_Controller
 
     public function index()
     {
-        $data['content'] = 'master/v_galeri';
-        $data['rec'] = $this->M_galeri->get_data_galeri()->result();
-        $this->load->view('_layout/master/main', $data);
+        $data['content'] = 'user-manager/v_galeri';
+        $id = $this->session->userdata('id');
+        $data['rec'] = $this->M_galeri->get_data_galeri($id)->result();
+        $this->load->view('_layout/usm/main', $data);
     }
 
     //tambah portofolio
     public function add_galeri()
     {
-        $media = $this->input->post('media');
-        $link = $this->input->post('link');
-        $judul = $this->input->post('judul');
-        $isi = $this->input->post('isi');
+        $x = $this->input->post('link');
+        $link = explode("/", $x);
 
         $data = array(
             'id_user' => $this->session->userdata('id'),
-            'jenis_media' => $media,
-            'media_galeri' => $link,
-            'judul_galeri' => $judul,
-            'isi_galeri' => $isi,
+            'media_galeri' => $link[3] . "/" . $link[4] . "/",
             'create_at' => date('Y-m-d H:i:s'),
             'id_log' => $this->session->userdata('id'),
             'acc_admin' => "accept"
@@ -46,37 +42,31 @@ class Galeri extends CI_Controller
         $q = $this->M_galeri->db_input($data, 'tbl_galeri');
         if ($q):
             $this->session->set_flashdata('success', ' Berhasil Disimpan!');
-            redirect('master-galeri');
+            redirect('galeri-usm');
         else:
             $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-            redirect('master-galeri');
+            redirect('galeri-usm');
         endif;
     }
     public function update_galeri()
     {
         $id = $this->input->post('id_galeri');
-        $media = $this->input->post('media');
         $x = $this->input->post('link');
-        $judul = $this->input->post('judul');
-        $isi = $this->input->post('isi');
         $link = explode("/", $x);
 
         $where = array('id_galeri' => $id);
         $data = array(
-            'jenis_media' => $media,
             'media_galeri' => $link[3] . "/" . $link[4] . "/",
-            'judul_galeri' => $judul,
-            'isi_galeri' => $isi,
             'id_log' => $this->session->userdata('id'),
             'acc_admin' => "accept"
         );
         $q = $this->M_galeri->db_update($where, $data, 'tbl_galeri');
         if ($q):
             $this->session->set_flashdata('success', ' Berhasil Disimpan!');
-            redirect('master-galeri');
+            redirect('galeri-usm');
         else:
             $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-            redirect('master-galeri');
+            redirect('galeri-usm');
         endif;
     }
 
@@ -96,10 +86,10 @@ class Galeri extends CI_Controller
         $q = $this->M_galeri->db_delete($where, 'tbl_galeri');
         if ($q):
             $this->session->set_flashdata('success', ' Berhasil Dihapus!');
-            redirect('master-galeri');
+            redirect('galeri-usm');
         else:
             $this->session->set_flashdata('warning', ' Gagal menghapus data!');
-            redirect('master-galeri');
+            redirect('galeri-usm');
         endif;
     }
 }

@@ -8,7 +8,7 @@ class Acara extends Renew
 	{
 		//akan berjalan ketika controller C_login di jalankan
 		parent::__construct();
-		$this->load->model('M_acara');
+		$this->load->model('usm/M_acara');
 
 		if ($this->session->userdata('login') != 'acc') {
 			redirect(base_url('login/')); //mengarahkan ke halaman master
@@ -21,9 +21,10 @@ class Acara extends Renew
 
 	public function index()
 	{
-		$data['content'] = 'master/v_acara';
-		$data['rec'] = $this->M_acara->get_data_acara()->result();
-		$this->load->view('_layout/master/main', $data);
+		$data['content'] = 'user-manager/v_acara';
+		$id = $this->session->userdata('id');
+		$data['rec'] = $this->M_acara->get_data_acara($id)->result();
+		$this->load->view('_layout/usm/main', $data);
 	}
 
 	//tambah acara
@@ -45,10 +46,10 @@ class Acara extends Renew
 		$q = $this->M_acara->db_input($data, 'tbl_acara');
 		if ($q):
 			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
-			redirect('master-acara');
+			redirect('acara-usm');
 		else:
 			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-			redirect('master-acara');
+			redirect('acara-usm');
 		endif;
 	}
 
@@ -58,7 +59,7 @@ class Acara extends Renew
 		$id = $this->input->post('id_acara');
 		$old = $this->input->post('old');
 		$loc = './assets/img/acara/';
-		$foto = $this->set_upload('image', $loc); //input name,lokasi penempatan file,foto lama
+		$foto = $this->set_upload_banner('image', $loc); //input name,lokasi penempatan file,foto lama
 		$where = array('id_acara' => $id);
 
 		if (is_array($foto)):
@@ -72,14 +73,14 @@ class Acara extends Renew
 					unlink($loc . $old);
 				}
 				$this->session->set_flashdata('success', ' Foto Berhasil Diperbaharui!');
-				redirect('master-acara');
+				redirect('acara-usm');
 			else:
 				$this->session->set_flashdata('warning', ' Gagal Memperbaharui Foto!');
-				redirect('master-acara');
+				redirect('acara-usm');
 			endif;
 		else:
 			$this->session->set_flashdata('error', $this->upload->display_errors());
-			redirect('master-acara');
+			redirect('acara-usm');
 		endif;
 	}
 
@@ -110,10 +111,10 @@ class Acara extends Renew
 		$q = $this->M_acara->db_update($where, $data, 'tbl_acara');
 		if ($q):
 			$this->session->set_flashdata('success', ' Berhasil Disimpan!');
-			redirect('master-acara');
+			redirect('acara-usm');
 		else:
 			$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
-			redirect('master-acara');
+			redirect('acara-usm');
 		endif;
 	}
 
@@ -130,10 +131,10 @@ class Acara extends Renew
 				unlink($loc . $old);
 			endif;
 			$this->session->set_flashdata('success', ' Berhasil Dihapus!');
-			redirect('master-acara');
+			redirect('acara-usm');
 		else:
 			$this->session->set_flashdata('warning', ' Gagal menghapus data!');
-			redirect('master-acara');
+			redirect('acara-usm');
 		endif;
 	}
 }
