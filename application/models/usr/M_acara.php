@@ -16,6 +16,7 @@ class M_acara extends CI_Model
         $this->db->from('tbl_user'); //dari table
         $this->db->join('tbl_acara', 'tbl_acara.id_user=tbl_user.id_user');
         $this->db->limit($limit, $start);
+        $this->db->order_by('tbl_acara.create_at', 'DESC');
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }

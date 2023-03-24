@@ -31,9 +31,13 @@ class Galeri extends CI_Controller
 
         } else {
             $start = 0;
+            $tot = $this->M_galeri->sum_galeri()->row();
+            $us = $this->M_galeri->get_data_galeri();
             $query = $this->M_galeri->get_data_galeri_limit($this->perPage, $start);
             $data['content'] = 'user/v_galeri';
             $data['posts'] = $query->result();
+            $data['uploader'] = $us->result();
+            $data['total'] = $tot->total;
 
             $this->load->view('_layout/user/main', $data);
         }

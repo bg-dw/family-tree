@@ -20,9 +20,9 @@
                         <div class="bullet"></div>
                         <a href="#">
                             <?php if ($jarak->d > 0 && $jarak->d <= 7):
-                                echo $jarak->d . " yang lalu.";
+                                echo $jarak->d . " hari yang lalu.";
                             elseif ($jarak->d < 1):
-                                echo "Hari ini.";
+                                echo " Hari ini.";
                             else:
                                 echo date('d M Y', strtotime($post->create_at));
                             endif; ?>

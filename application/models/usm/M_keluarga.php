@@ -133,6 +133,7 @@ class M_keluarga extends CI_Model
     {
         $this->db->select('Max(generasi) AS tot'); //menghitung jumlah data
         $this->db->from($table); //dari table
+        $this->db->where('generasi!="X"');
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }

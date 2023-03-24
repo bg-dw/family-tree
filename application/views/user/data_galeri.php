@@ -1,6 +1,6 @@
 <?php
 foreach ($posts as $post): ?>
-    <div class="col-lg-11">
+    <div class="col-lg-11 el-load">
         <article class="article article-style-c">
             <div class="col-12 col-lg-12 col-lg-6 col-lg-6">
                 <iframe src="https://www.instagram.com/<?= $post->media_galeri ?>embed/" title="description" scrolling="no"
