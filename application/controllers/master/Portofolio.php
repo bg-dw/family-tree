@@ -9,6 +9,7 @@ class Portofolio extends Renew
         //akan berjalan ketika controller C_login di jalankan
         parent::__construct();
         $this->load->model('M_porto');
+        $this->load->model('M_keluarga');
 
         if ($this->session->userdata('login') != 'acc') {
             redirect(base_url('login/')); //mengarahkan ke halaman master

@@ -27,6 +27,14 @@ class M_keluarga extends CI_Model
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }
+    function get_data_val()
+    {
+        $this->db->select('temp_tbl_user.sex,temp_tbl_user.name,temp_tbl_user.u_pic,temp_tbl_user.birth_date,temp_tbl_user.pekerjaan,temp_tbl_user.alamat,temp_tbl_user.login,temp_tbl_user.aksi,tbl_user_bio.id_user,tbl_user_bio.generasi,tbl_user_bio.ibu,tbl_user_bio.ayah,tbl_user_bio.pasangan'); //mengambil semua data
+        $this->db->from('temp_tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=temp_tbl_user.id_temp_user');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
     function get_data_relasi()
     {
         $this->db->select('tbl_user.id_user,tbl_user.name,tbl_user.sex,tbl_user_bio.*'); //mengambil semua data
@@ -125,6 +133,20 @@ class M_keluarga extends CI_Model
         $this->db->select('Max(generasi) AS tot'); //menghitung jumlah data
         $this->db->from($table); //dari table
         $this->db->where('generasi!="X"');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_count_kel($table)
+    {
+        $this->db->select('count(id_temp_user) AS tot'); //menghitung jumlah data
+        $this->db->from($table); //dari table
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_count_hub($table)
+    {
+        $this->db->select('count(id_temp_bio) AS tot'); //menghitung jumlah data
+        $this->db->from($table); //dari table
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }

@@ -19,6 +19,17 @@
     </div>
 </div>
 <script>
+    function detail(num) {
+        if ($('.cont-' + num).css('display') == 'none') {
+            $('.all-cont').hide();
+            $('.all-dum').slideDown('slow');
+            $('.dum-' + num).hide();
+            $('.cont-' + num).slideDown('slow');
+        } else {
+            $('.cont-' + num).hide();
+            $('.dum-' + num).slideDown('slow');
+        }
+    }
     var page = 0;
     $(window).scroll(function () {
         if (($(window).scrollTop() + $(window).height() + 1) >= $(document).height()) {

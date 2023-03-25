@@ -18,7 +18,7 @@
                   <th class="text-center">Tanggal Lahir</th>
                   <th class="text-center">Alamat</th>
                   <th class="text-center">Permintaan</th>
-                  <th class="text-center">Akses Login</th>
+                  <th class="text-center">Status</th>
                   <th class="text-center">Aksi</th>
                 </tr>
               </thead>
@@ -60,10 +60,10 @@
                         <?php endif; ?>
                       </td>
                       <td class="text-center">
-                        <?php if ($baris->login == "acc"): ?>
-                          <div class="badge badge-success badge-shadow">Bisa</div>
+                        <?php if ($baris->acc_admin == "waiting"): ?>
+                          <div class="badge badge-warning badge-shadow">Menunggu Persetujuan</div>
                         <?php else: ?>
-                          <div class="badge badge-danger badge-shadow">Tidak Bisa</div>
+                          <div class="badge badge-danger badge-shadow">Ditolak</div>
                         <?php endif; ?>
                       </td>
                       <td class="text-center">
@@ -86,7 +86,7 @@
           onsubmit="return confirm('Simpan data?');" id="tbl_update" style="display:none;">
           <div class="card-body">
             <div class="form-row">
-              <input type="text" class="form-control" name="id_temp" required="" id="uid_temp">
+              <input type="hidden" class="form-control" name="id_temp" required="" id="uid_temp">
               <div class="form-group col-md-4">
                 <label>Nama Lengkap</label>
                 <input type="text" class="form-control" name="nama_l" required="" id="unl">

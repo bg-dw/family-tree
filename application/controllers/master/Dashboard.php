@@ -9,6 +9,8 @@ class Dashboard extends CI_Controller
 		parent::__construct();
 		$this->load->model('M_keluarga');
 
+		$data['val_data'] = $this->M_keluarga->get_count_kel('temp_tbl_user')->row();
+		$data['val_hub'] = $this->M_keluarga->get_count_hub('temp_tbl_user_bio')->row();
 		if ($this->session->userdata('login') != 'acc') {
 			redirect(base_url('login/')); //mengarahkan ke halaman master
 		} elseif ($this->session->userdata('login') == 'acc' && $this->session->userdata('level') == 'us') {

@@ -50,7 +50,7 @@ class Login extends CI_Controller
 					redirect(base_url('login/'));
 				endif;
 			else:
-				$this->session->set_flashdata('error', 'Tidak Diijinkan Masuk!'); //membuat flashdata dengan parameter error
+				$this->session->set_flashdata('error', 'Tidak diijinkan masuk, harap hubungi admin!'); //membuat flashdata dengan parameter error
 				redirect(base_url('login/'));
 			endif;
 		else:

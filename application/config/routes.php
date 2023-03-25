@@ -69,14 +69,20 @@ $route['master-update-username']['post'] = 'master/Profile/update_username';
 $route['master-update-password']['post'] = 'master/Profile/update_password';
 $route['master-update-foto']['post'] = 'master/Profile/update_foto';
 
-//menu pengguna
+//menu data keluarga
 $route['master-data-keluarga'] = 'master/Pengguna';
 $route['master-add-pengguna']['post'] = 'master/Pengguna/add_pengguna';
 $route['master-update-pengguna']['post'] = 'master/Pengguna/update_pengguna';
 $route['master-delete-pengguna']['post'] = 'master/Pengguna/delete_pengguna';
 $route['master-get-user']['post'] = 'master/Pengguna/get_user';
 $route['master-update-foto-pengguna']['post'] = 'master/Pengguna/update_foto';
+$route['master-data-keluarga-validasi'] = 'master/Pengguna/validasi';
+$route['master-get-permintaan']['post'] = 'master/Pengguna/get_permintaan_val';
+$route['master-permintaan-add']['post'] = 'master/Pengguna/ac_permintaan_add';
+$route['master-permintaan-update']['post'] = 'master/Pengguna/ac_permintaan_update';
+$route['master-permintaan-update-foto']['post'] = 'master/Pengguna/ac_permintaan_update_foto';
 
+//menu hubungan keluarga
 $route['master-hubungan-keluarga'] = 'master/Relasi';
 $route['master-get-user-relasi'] = 'master/Relasi/get_user';
 $route['master-get-ortu']['post'] = 'master/Relasi/get_ortu';

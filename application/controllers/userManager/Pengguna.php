@@ -211,7 +211,6 @@ class Pengguna extends Renew
 	{
 		$data['content'] = 'user-manager/v_validasi';
 		$where = array(
-			'acc_admin' => 'waiting',
 			'u_level' => 'us',
 			'id_log' => $this->session->userdata('id')
 		);

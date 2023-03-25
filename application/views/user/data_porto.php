@@ -1,5 +1,5 @@
 <div class="row">
-    <?php
+    <?php $i = 0;
     foreach ($posts as $post): ?>
         <div class="col-12 col-md-4 col-lg-4">
             <article class="article article-style-c">
@@ -10,7 +10,7 @@
                         <img src="<?= base_url() ?>assets/img/none.jpg" class="article-image" alt="">
                     <?php endif; ?>
                 </div>
-                <div class="article-details">
+                <div class="article-details table-responsive">
                     <?php
                     $tgl1 = new DateTime($post->create_at);
                     $tgl2 = new DateTime(date('Y-m-d H:i:s'));
@@ -29,13 +29,19 @@
                         </a>
                     </div>
                     <div class="article-title">
-                        <h2><a href="#">
+                        <h2>
+                            <a href="#">
                                 <?= $post->judul_porto ?>
-                            </a></h2>
+                            </a>
+                        </h2>
                     </div>
-                    <p>
-                        <?= substr($post->isi_porto, 0, 50) . " . . . . . "; ?>
-                    </p>
+                    <p class="dum-<?= $post->id_porto ?>  all-dum"> . . . . . . . . . . . . .</p>
+                    <div class="cont-<?= $post->id_porto ?> all-cont" style="display: none;">
+                        <p>
+                            <?= $post->isi_porto; ?>
+                        </p>
+                    </div>
+                    <button class="btn btn-primary pull-right" onclick="detail('<?= $post->id_porto ?>')">Detail</button>
                     <div class="article-user">
                         <?php if ($post->u_pic): ?>
                             <img alt="image" src="<?= base_url() ?>assets/img/users/profile/<?= $post->u_pic ?>">
@@ -55,5 +61,5 @@
                 </div>
             </article>
         </div>
-    <?php endforeach; ?>
+        <?php $i++; endforeach; ?>
 </div>
