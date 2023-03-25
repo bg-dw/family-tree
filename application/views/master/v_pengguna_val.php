@@ -72,7 +72,7 @@
                           onclick="lihat_data('<?= $baris->aksi ?>','<?= $baris->id_temp_user ?>','<?= $baris->id_user ?>');"><i
                             class="fas fa-file-alt"></i></a>
                         <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Hapus"
-                          onclick="hapus_data('<?= $baris->id_user ?>','<?= $baris->name ?>','<?= $baris->u_pic ?>')"><i
+                          onclick="hapus_data('<?= $baris->id_temp_user ?>','<?= $baris->name ?>','<?= $baris->u_pic ?>')"><i
                             class="fas fa-trash"></i></a>
                       </td>
                     </tr>
@@ -623,6 +623,7 @@
             <button type="button" class="btn btn-secondary" onclick="cancel_permintaan_update()">Kembali</button>
           </div>
         </div>
+
         <div id="tbl_permintaan_update_foto" style="display:none;">
           <div class="card-body">
             <form action="<?= base_url('master-permintaan-update-foto') ?>" method="post" id="f-permintaan-update-foto">
@@ -655,17 +656,235 @@
             <button type="button" class="btn btn-secondary" onclick="cancel_permintaan_update_foto()">Kembali</button>
           </div>
         </div>
+
+        <div id="tbl_permintaan_delete" style="display:none;">
+          <div class="card-body">
+            <form action="<?= base_url('master-permintaan-delete') ?>" method="post" id="f-permintaan-delete">
+              <div class="form-row">
+                <input type="hidden" class="form-control" name="id_user" required="" id="lid">
+                <input type="hidden" class="form-control" name="id_temp" required="" id="lid_temp">
+                <input type="hidden" class="form-control" name="aksi_val" required="" id="lakv">
+                <input type="hidden" class="form-control" name="old" required="" id="lold">
+                <div class="form-group col-md-4">
+                  <label>Nama Lengkap</label>
+                  <input type="text" class="form-control" name="nama_l" id="lnl">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Nama Panggilan</label>
+                  <input type="text" class="form-control" name="nama" id="lnm">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Jenis Kelalmin</label><br>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="lcr1" name="jk" value="male" class="custom-control-input">
+                    <label class="custom-control-label" for="lcr1">Laki - Laki</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="lcr2" name="jk" value="female" class="custom-control-input">
+                    <label class="custom-control-label" for="lcr2">Perempuan</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>Tempat Lahir</label>
+                  <input type="text" class="form-control" name="tempat" id="ltl">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Tanggal Lahir</label>
+                  <input type="date" class="form-control" name="tgl" id="ltgl">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Pekerjaan</label>
+                  <input type="text" class="form-control" name="pekerjaan" id="lpk">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>Alamat</label>
+                  <textarea class="form-control" name="alamat" id="lal"></textarea>
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>No. Telp</label>
+                  <input type="text" class="form-control" name="telp" id="ltel">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label>RT</label>
+                  <input type="number" min="1" class="form-control" name="rt" id="lrt">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-2">
+                  <label>RW</label>
+                  <input type="number" min="1" class="form-control" name="rw" id="lrw">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>Desa</label>
+                  <input type="text" class="form-control" name="desa" id="lds">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Kecamatan</label>
+                  <input type="text" class="form-control" name="kecamatan" id="lkec">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Kabupaten</label>
+                  <input type="text" class="form-control" name="kabupaten" id="lkab">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>Provinsi</label>
+                  <input type="text" class="form-control" name="prov" id="lprov">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Akses Login</label><br>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="lal1" name="akses" value="acc" class="custom-control-input">
+                    <label class="custom-control-label" for="lal1">Bisa Login</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="lal2" name="akses" value="ban" class="custom-control-input">
+                    <label class="custom-control-label" for="lal2">Tidak Bisa</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>Level Pengguna</label>
+                  <select class="form-control" name="level" id="llv">
+                    <option value="um">Admin Master</option>
+                    <option value="usm">Admin</option>
+                    <option value="us">Pengguna</option>
+                  </select>
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Pengguna (Username minimal 5 karakter)</label>
+                  <input type="text" class="form-control" name="uname" onkeyup="cek_uname_update()" pattern=".{5,}"
+                    id="lus">
+                  <div class="valid-feedback" id="l-val">
+                    Tersedia!
+                  </div>
+                  <div class="invalid-feedback" id="l-in">
+                    Harap gunakan username lain!
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Kata Sandi (Password)</label>
+                  <input type="text" class="form-control pwstrength" data-indicator="pwindicator" name="pass" id="lpw">
+                  <div class="valid-feedback">
+                    Valid!
+                  </div>
+                  <div class="invalid-feedback">
+                    Tidak Valid!
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-right">
+            <button type="button" class="btn btn-primary btn-add-permintaan"
+              onclick="return aksi_validasi_del('setuju')">Setuju</button>
+            <button type="button" class="btn btn-danger btn-add-permintaan"
+              onclick="return aksi_validasi_del('tolak')">Tolak</button>
+            <button type="button" class="btn btn-secondary" onclick="cancel_permintaan_del()">Kembali</button>
+          </div>
+        </div>
+
         <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
           aria-hidden="true" id="modal-hapus">
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Hapus Data?</h5>
+                <h5 class="modal-title">Hapus Permintaan?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form action="<?= base_url('master-delete-pengguna') ?>" method="post">
+              <form action="<?= base_url('master-delete-permintaan') ?>" method="post">
                 <div class="modal-body">
                   <input type="hidden" name="id" id="h_id" required>
                   <input type="hidden" name="old" id="h_old" required>
@@ -703,6 +922,10 @@
       update_foto(id, id_user);
       permintaan = "Ubah Foto";
       $('#tbl_permintaan_update_foto').slideDown('slow');
+    } else if (aksi == "delete") {
+      delete_data(id_user, id);
+      permintaan = "Hapus Data";
+      $('#tbl_permintaan_delete').slideDown('slow');
     }
     $('#judul').text('Lihat Permintaan ' + permintaan);
     $('#tbl_data').slideUp('slow');
@@ -1009,6 +1232,75 @@
     }
   }
 
+  function delete_data(id, id_temp) {
+    $.ajax({
+      url: "<?= base_url('master-get-user') ?>",
+      method: "POST",
+      dataType: 'json',
+      data: { id_user: id },
+      success: function (data) {
+        console.table(data);
+        $('#lid').val(id);
+        $('#lid_temp').val(id_temp);
+        $('#lold').val(data.u_pic);
+        $('#lnl').val(data.name);
+        $('#lnm').val(data.nick_name);
+        if (data.sex == 'male') {
+          $('#lcr1').prop('checked', true);
+        } else if (data.sex == 'female') {
+          $('#lcr2').prop('checked', true);
+        }
+        if (data.login == 'acc') {
+          $('#lal1').prop('checked', true);
+        } else if (data.login == 'ban') {
+          $('#lal2').prop('checked', true);
+        }
+        $('#ltl').val(data.tempat_lahir);
+        $('#ltgl').val(data.birth_date);
+        $('#lpk').val(data.pekerjaan);
+        $('#lal').val(data.alamat);
+        $('#ltel').val(data.telp);
+        $('#lrt').val(data.rt);
+        $('#lrw').val(data.rw);
+        $('#lds').val(data.desa);
+        $('#lkec').val(data.kec);
+        $('#lkab').val(data.kab);
+        $('#lprov').val(data.prov);
+        $('#llv').val(data.u_level);
+        $('#lus').val(data.u_user);
+        $('#lpw').val(data.u_pass);
+      },
+      error: function (data) {
+        alert(data.responseText)
+      }
+    });
+  }
+
+  function aksi_validasi_del(val) {
+    $('#lakv').val(val);
+    if (val == "setuju") {
+      var x = confirm("Terima Permintaan Hapus Data?");
+      if (x == true) {
+        $('#f-permintaan-delete').submit();
+      } else {
+        return false;
+      }
+    } else if (val == "tolak") {
+      var x = confirm("Tolak Permintaan Hapus Data?");
+      if (x == true) {
+        $('#f-permintaan-delete').submit();
+      } else {
+        return false;
+      }
+    }
+  }
+
+  //batal delete
+  function cancel_permintaan_del() {
+    $('#judul').text('Validasi Permintaan');
+    $('#tbl_permintaan_delete').slideUp('slow');
+    $('#tbl_data').slideDown('slow');
+  }
   //hapus data
   function hapus_data(id, nama, old) {
     $('#h_id').val(id);
@@ -1016,20 +1308,4 @@
     $('#h_text').text(nama);
     $('#modal-hapus').modal('show');
   }
-
-  function upload_foto(id, foto) {
-    $('#u-foto-id').val(id);
-    $('#u-foto-lama').val(foto);
-    $('#upload-foto-pengguna').modal('show');
-  }
-
-  $.uploadPreview({
-    input_field: "#image-upload",   // Default: .image-upload
-    preview_box: "#image-preview",  // Default: .image-preview
-    label_field: "#image-label",    // Default: .image-label
-    label_default: "Pilih Foto",   // Default: Choose File
-    label_selected: "Ganti Foto",  // Default: Change File
-    no_label: false,                // Default: false
-    success_callback: null          // Default: null
-  });
 </script>

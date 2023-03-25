@@ -171,6 +171,7 @@ class Pengguna extends Renew
 			redirect('master-data-keluarga');
 		endif;
 	}
+
 	function update_foto()
 	{
 		$id = $this->input->post('id_user');
@@ -413,6 +414,64 @@ class Pengguna extends Renew
 				$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
 				redirect('master-data-keluarga-validasi');
 			endif;
+		endif;
+	}
+
+	//permintaan hapus pengguna
+	public function ac_permintaan_delete()
+	{
+		$id = $this->input->post('id_user');
+		$id_temp = $this->input->post('id_temp');
+		$old = $this->input->post('old');
+		$aksi = $this->input->post('aksi_val');
+		$loc = './assets/img/users/profile/';
+
+		if ($aksi == "setuju"):
+			$where = array('id_user' => $id);
+			$q = $this->M_keluarga->db_delete($where, 'tbl_user');
+			if ($q):
+				if ($old) {
+					unlink($loc . $old);
+				}
+				$this->session->set_flashdata('success', ' Berhasil Menghapus Data!');
+				$where = array('id_temp_user' => $id_temp);
+				$this->M_keluarga->db_delete($where, 'temp_tbl_user');
+				redirect('master-data-keluarga-validasi');
+			else:
+				$this->session->set_flashdata('warning', ' Gagal  Menghapus Data!');
+				redirect('master-data-keluarga-validasi');
+			endif;
+		else:
+			$where = array('id_temp_user' => $id_temp);
+			$data = array(
+				'acc_admin' => "rejected"
+			);
+			$q = $this->M_keluarga->db_update($where, $data, 'temp_tbl_user');
+			if ($q):
+				$this->session->set_flashdata('success', ' Berhasil Disimpan!');
+				redirect('master-data-keluarga-validasi');
+			else:
+				$this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+				redirect('master-data-keluarga-validasi');
+			endif;
+		endif;
+	} //hapus pengguna
+	public function delete_permintaan()
+	{
+		$id = $this->input->post('id');
+		$old = $this->input->post('old');
+		$loc = './assets/img/users/profile/';
+		$where = array('id_temp_user' => $id);
+		$q = $this->M_keluarga->db_delete($where, 'temp_tbl_user');
+		if ($q):
+			if ($old):
+				unlink($loc . $old);
+			endif;
+			$this->session->set_flashdata('success', ' Berhasil Dihapus!');
+			redirect('master-data-keluarga-validasi');
+		else:
+			$this->session->set_flashdata('warning', ' Gagal menghapus data!');
+			redirect('master-data-keluarga-validasi');
 		endif;
 	}
 }

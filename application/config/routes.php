@@ -81,6 +81,8 @@ $route['master-get-permintaan']['post'] = 'master/Pengguna/get_permintaan_val';
 $route['master-permintaan-add']['post'] = 'master/Pengguna/ac_permintaan_add';
 $route['master-permintaan-update']['post'] = 'master/Pengguna/ac_permintaan_update';
 $route['master-permintaan-update-foto']['post'] = 'master/Pengguna/ac_permintaan_update_foto';
+$route['master-permintaan-delete']['post'] = 'master/Pengguna/ac_permintaan_delete';
+$route['master-delete-permintaan']['post'] = 'master/Pengguna/delete_permintaan';
 
 //menu hubungan keluarga
 $route['master-hubungan-keluarga'] = 'master/Relasi';
