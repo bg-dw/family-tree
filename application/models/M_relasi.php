@@ -30,6 +30,25 @@ class M_relasi extends CI_Model
         return $query; //mengembalikan nilai yang didapat
     }
 
+    function get_data_val($id_bio)
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.sex,tbl_user.name,tbl_user.nick_name,tbl_user_bio.*'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
+        $this->db->where('tbl_user_bio.id_bio', $id_bio); //kondisi
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_data_val_by($id_temp)
+    {
+        $this->db->select('tbl_user.id_user,tbl_user.sex,tbl_user.name,tbl_user.nick_name,temp_tbl_user_bio.*'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('temp_tbl_user_bio', 'temp_tbl_user_bio.id_user=tbl_user.id_user');
+        $this->db->where('temp_tbl_user_bio.id_temp_bio', $id_temp); //kondisi
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+
     //menyimpan data kedalam database
     public function db_input($data, $table) //$data dan $table merupakan variable yang dikirim dari controller
     {

@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 id="judul">Hubungan Keluarga</h4>
+                    <h4 id="judul">Permintaan Hubungan Keluarga</h4>
                 </div>
                 <div class="card-body" id="tbl_data">
                     <div class="table-responsive">
@@ -18,6 +18,7 @@
                                     <th class="text-center">Nama Ayah</th>
                                     <th class="text-center">Nama Pasangan</th>
                                     <th class="text-center">Permintaan</th>
+                                    <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -63,6 +64,13 @@
                                                 <?php endif; ?>
                                             </td>
                                             <td class="text-center">
+                                                <?php if ($rec[$i]['acc_admin'] == "waiting"): ?>
+                                                    <div class="badge badge-warning badge-shadow">Menunggu Persetujuan</div>
+                                                <?php else: ?>
+                                                    <div class="badge badge-danger badge-shadow">Ditolak</div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-center">
                                                 <?php if ($rec[$i]['aksi'] != "delete"): ?>
                                                     <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"
                                                         onclick="update_data('<?= $rec[$i]['id_temp_bio'] ?>','<?= $rec[$i]['id_user'] ?>','<?= $rec[$i]['nama'] ?>','<?= $rec[$i]['sex'] ?>','<?= $rec[$i]['id_ibu'] ?>','<?= $rec[$i]['id_ayah'] ?>','<?= $rec[$i]['id_pasangan'] ?>')"><i
@@ -101,15 +109,19 @@
                         <div class="form-group row mb-4" id="u-f-ibu">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Ibu</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_ibu" id="u-sel-ibu" style="width:100%;">
+                                <select class="form-control select2" name="id_ibu" id="u-sel-ibu" style="width:100%;"
+                                    onchange="set_gen_ibu_update()">
                                 </select>
+                                <input type="hidden" name="gen_ibu" id="u-inp-gen-ibu">
                             </div>
                         </div>
                         <div class="form-group row mb-4" id="u-f-ayah">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Ayah</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_ayah" id="u-sel-ayah" style="width:100%;">
+                                <select class="form-control select2" name="id_ayah" id="u-sel-ayah" style="width:100%;"
+                                    onchange="set_gen_ayah_update()">
                                 </select>
+                                <input type="hidden" name="gen_ayah" id="u-inp-gen-ayah">
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -285,21 +297,33 @@
         });
     }
 
+    //set gen ibu
+    function set_gen_ibu_update() {
+        var x = $("#u-sel-ibu").find(":selected").text();
+        var a = x.split('Gen-');
+        $("#u-inp-gen-ibu").val(a[1]);
+    }
+    //set gen ayah
+    function set_gen_ayah_update() {
+        var x = $("#u-sel-ayah").find(":selected").text();
+        var a = x.split('Gen-');
+        $("#u-inp-gen-ayah").val(a[1]);
+    }
+
     //update data
     function update_data(id_temp_bio, id, nama, sex, id_ibu, id_ayah, id_pas) {
-        $('#judul').text('Update Hubungan Keluarga');
+        $('#judul').text('Update Permintaan Hubungan Keluarga');
         $('#btn-add').slideUp('slow');
         $('#tbl_data').slideUp('slow');
         $('#u-id-temp-bio').val(id_temp_bio);
         $('#u-sel-user').append('<option value="' + id + '" selected>' + nama + '</option>')
         $('#tbl_update').slideDown('slow');
-        console.log(nama);
         update_pasangan(id, sex, id_ibu, id_ayah, id_pas);
     }
 
     //batal update
     function cancel_update() {
-        $('#judul').text('Hubungan Keluarga');
+        $('#judul').text('Permintaan Hubungan Keluarga');
         $('#tbl_update').slideUp('slow');
         $('#btn-add').slideDown('slow');
         $('#tbl_data').slideDown('slow');

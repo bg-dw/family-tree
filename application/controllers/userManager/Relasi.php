@@ -125,10 +125,10 @@ class Relasi extends CI_Controller
         $gen_ayah = $this->input->post('gen_ayah');
 
         if ($id_awal):
-            $gen = "1";
-            if ($gen_ibu != ""):
+            $gen = 1;
+            if ($gen_ibu != "" && $gen_ibu != "X"):
                 $gen = $gen_ibu + 1;
-            elseif ($gen_ayah != ""):
+            elseif ($gen_ayah != "" && $gen_ibu != "X"):
                 $gen = $gen_ayah + 1;
             else:
                 $gen = "X";
@@ -159,6 +159,7 @@ class Relasi extends CI_Controller
     }
     public function update_relasi()
     {
+        $id_bio = $this->input->post('id_bio');
         $id_awal = $this->input->post('id_user');
         $id = explode(',', $id_awal);
         $id_pas = $this->input->post('id_pasangan');
@@ -168,15 +169,16 @@ class Relasi extends CI_Controller
         $gen_ayah = $this->input->post('gen_ayah');
 
         if ($id_awal):
-            $gen = "1";
-            if ($gen_ibu != ""):
+            $gen = 1;
+            if ($gen_ibu != "" && $gen_ibu != "X"):
                 $gen = $gen_ibu + 1;
-            elseif ($gen_ayah != ""):
+            elseif ($gen_ayah != "" && $gen_ibu != "X"):
                 $gen = $gen_ayah + 1;
             else:
                 $gen = "X";
             endif;
             $data = array(
+                'id_bio' => $id_bio,
                 'id_user' => $id[0],
                 'generasi' => $gen,
                 'ibu' => $id_ibu,
@@ -206,10 +208,15 @@ class Relasi extends CI_Controller
         $id = $this->input->post('id');
         $id_user = $this->input->post('id_user');
 
+        $res = $this->M_relasi->get_data_by($id)->row();
         if ($id):
             $data = array(
                 'id_bio' => $id,
                 'id_user' => $id_user,
+                'generasi' => $res->generasi,
+                'ibu' => $res->ibu,
+                'ayah' => $res->ayah,
+                'pasangan' => $res->pasangan,
                 'create_at' => date('Y-m-d H:i:s'),
                 'id_log' => $this->session->userdata('id'),
                 'aksi' => "delete",
@@ -262,6 +269,7 @@ class Relasi extends CI_Controller
                 $rel[$x]['id_ayah'] = $a->ayah;
                 $rel[$x]['id_pasangan'] = $a->pasangan;
                 $rel[$x]['aksi'] = $a->aksi;
+                $rel[$x]['acc_admin'] = $a->acc_admin;
                 $rel[$x]['ibu'] = "";
                 $rel[$x]['ayah'] = "";
                 $rel[$x]['pasangan'] = "";
@@ -295,10 +303,10 @@ class Relasi extends CI_Controller
         $gen_ayah = $this->input->post('gen_ayah');
 
         if ($id):
-            $gen = "1";
-            if ($gen_ibu != ""):
+            $gen = 1;
+            if ($gen_ibu != "" && $gen_ibu != "X"):
                 $gen = $gen_ibu + 1;
-            elseif ($gen_ayah != ""):
+            elseif ($gen_ayah != "" && $gen_ibu != "X"):
                 $gen = $gen_ayah + 1;
             else:
                 $gen = "X";
@@ -309,7 +317,8 @@ class Relasi extends CI_Controller
                 'ibu' => $id_ibu,
                 'ayah' => $id_ayah,
                 'pasangan' => $id_pas,
-                'id_log' => $this->session->userdata('id')
+                'id_log' => $this->session->userdata('id'),
+                'acc_admin' => "waiting"
             );
             $q = $this->M_relasi->db_update($where, $data, 'temp_tbl_user_bio');
             if ($q):

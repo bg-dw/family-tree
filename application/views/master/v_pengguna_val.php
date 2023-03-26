@@ -311,307 +311,309 @@
                 <input type="hidden" class="form-control" name="id_temp" required="" id="eid">
                 <input type="hidden" class="form-control" name="id_user" required="" id="eid_us">
                 <input type="hidden" class="form-control" name="aksi_val" required="" id="eakv">
-                <table width="100%" border="1">
-                  <tr>
-                    <th class="text-center" style="width: 30%;">Attribut</th>
-                    <th class="text-center">Data Lama</th>
-                    <th class="text-center">Data Baru</th>
-                    <th class="text-center">Hasil</th>
-                  </tr>
-                  <tr>
-                    <th>Nama Lengkap</th>
-                    <th>
-                      <input type="text" class="form-control" id="anl" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="nama_l" required="" id="enl">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rnm" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Nama Panggilan</th>
-                    <th>
-                      <input type="text" class="form-control" id="anm" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="nama" required="" id="enm">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rnp" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Jenis Kelamin</th>
-                    <th>
-                      <input type="text" class="form-control" id="ajk" disabled>
-                    </th>
-                    <th>
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ecr1" name="ujk" value="male" class="custom-control-input">
-                        <label class="custom-control-label" for="ecr1">Laki - Laki</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="ecr2" name="ujk" value="female" class="custom-control-input">
-                        <label class="custom-control-label" for="ecr2">Perempuan</label>
-                      </div>
-                    </th>
-                    <th class="text-center" id="rjk" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Tempat Lahir</th>
-                    <th>
-                      <input type="text" class="form-control" id="atl" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="tempat" required="" id="etl">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rtl" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Tanggal Lahir</th>
-                    <th>
-                      <input type="text" class="form-control" id="atgl" disabled>
-                    </th>
-                    <th>
-                      <input type="date" class="form-control" name="tgl" required="" id="etgl">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rtgl" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Pekerjaan</th>
-                    <th>
-                      <input type="text" class="form-control" id="apk" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="pekerjaan" id="epk">
-                    </th>
-                    <th class="text-center" id="rpk" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Alamat</th>
-                    <th>
-                      <input type="text" class="form-control" id="aal" disabled>
-                    </th>
-                    <th>
-                      <textarea class="form-control" name="alamat" required="" id="eal"></textarea>
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="ral" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>No. Telp</th>
-                    <th>
-                      <input type="text" class="form-control" id="atel" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="telp" required="" id="etel">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rtel" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>RT</th>
-                    <th>
-                      <input type="text" class="form-control" id="art" disabled>
-                    </th>
-                    <th>
-                      <input type="number" min="1" class="form-control" name="rt" required="" id="ert">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rrt" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>RW</th>
-                    <th>
-                      <input type="text" class="form-control" id="arw" disabled>
-                    </th>
-                    <th>
-                      <input type="number" min="1" class="form-control" name="rw" required="" id="erw">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rrw" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Desa</th>
-                    <th>
-                      <input type="text" class="form-control" id="ads" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="desa" required="" id="eds">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rds" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Kecamatan</th>
-                    <th>
-                      <input type="text" class="form-control" id="akec" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="kecamatan" required="" id="ekec">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rkec" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Kabupaten</th>
-                    <th>
-                      <input type="text" class="form-control" id="akab" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="kabupaten" required="" id="ekab">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rkab" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Provinsi</th>
-                    <th>
-                      <input type="text" class="form-control" id="aprov" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="prov" required="" id="eprov">
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rprov" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Akses Login</th>
-                    <th>
-                      <input type="text" class="form-control" id="alog" disabled>
-                    </th>
-                    <th>
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="eal1" name="uakses" value="acc" class="custom-control-input">
-                        <label class="custom-control-label" for="eal1">Bisa Login</label>
-                      </div>
-                      <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="eal2" name="uakses" value="ban" class="custom-control-input">
-                        <label class="custom-control-label" for="eal2">Tidak Bisa</label>
-                      </div>
-                    </th>
-                    <th class="text-center" id="rak" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Level Pengguna</th>
-                    <th>
-                      <input type="text" class="form-control" id="alv" disabled>
-                    </th>
-                    <th>
-                      <select class="form-control" name="level" required id="elv">
-                        <option value="usm">Admin</option>
-                        <option value="us">Pengguna</option>
-                      </select>
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rlv" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Pengguna (Username minimal 5 karakter)</th>
-                    <th>
-                      <input type="text" class="form-control" id="aus" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="uname" required="" onkeyup="cek_uname_update()"
-                        pattern=".{5,}" id="eus">
-                      <div class="valid-feedback" id="e-val">
-                        Tersedia!
-                      </div>
-                      <div class="invalid-feedback" id="e-in">
-                        Harap gunakan username lain!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rus" style="color:white"></th>
-                  </tr>
-                  <tr>
-                    <th>Password</th>
-                    <th>
-                      <input type="text" class="form-control" id="apw" disabled>
-                    </th>
-                    <th>
-                      <input type="text" class="form-control pwstrength" data-indicator="pwindicator" name="pass"
-                        required="" id="epw">
-                      <div id="epwindicator2" class="pwindicator">
-                        <div class="bar"></div>
-                        <div class="label"></div>
-                      </div>
-                      <div class="valid-feedback">
-                        Valid!
-                      </div>
-                      <div class="invalid-feedback">
-                        Tidak Valid!
-                      </div>
-                    </th>
-                    <th class="text-center" id="rpw" style="color:white"></th>
-                  </tr>
-                </table>
+                <div class="table-responsive">
+                  <table width="100%" border="1">
+                    <tr>
+                      <th class="text-center" style="width: 30%;">Attribut</th>
+                      <th class="text-center">Data Lama</th>
+                      <th class="text-center">Data Baru</th>
+                      <th class="text-center">Hasil</th>
+                    </tr>
+                    <tr>
+                      <th>Nama Lengkap</th>
+                      <th>
+                        <input type="text" class="form-control" id="anl" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="nama_l" required="" id="enl">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rnm" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Nama Panggilan</th>
+                      <th>
+                        <input type="text" class="form-control" id="anm" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="nama" required="" id="enm">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rnp" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Jenis Kelamin</th>
+                      <th>
+                        <input type="text" class="form-control" id="ajk" disabled>
+                      </th>
+                      <th>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="ecr1" name="ujk" value="male" class="custom-control-input">
+                          <label class="custom-control-label" for="ecr1">Laki - Laki</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="ecr2" name="ujk" value="female" class="custom-control-input">
+                          <label class="custom-control-label" for="ecr2">Perempuan</label>
+                        </div>
+                      </th>
+                      <th class="text-center" id="rjk" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Tempat Lahir</th>
+                      <th>
+                        <input type="text" class="form-control" id="atl" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="tempat" required="" id="etl">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rtl" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Tanggal Lahir</th>
+                      <th>
+                        <input type="text" class="form-control" id="atgl" disabled>
+                      </th>
+                      <th>
+                        <input type="date" class="form-control" name="tgl" required="" id="etgl">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rtgl" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Pekerjaan</th>
+                      <th>
+                        <input type="text" class="form-control" id="apk" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="pekerjaan" id="epk">
+                      </th>
+                      <th class="text-center" id="rpk" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Alamat</th>
+                      <th>
+                        <input type="text" class="form-control" id="aal" disabled>
+                      </th>
+                      <th>
+                        <textarea class="form-control" name="alamat" required="" id="eal"></textarea>
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="ral" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>No. Telp</th>
+                      <th>
+                        <input type="text" class="form-control" id="atel" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="telp" required="" id="etel">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rtel" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>RT</th>
+                      <th>
+                        <input type="text" class="form-control" id="art" disabled>
+                      </th>
+                      <th>
+                        <input type="number" min="1" class="form-control" name="rt" required="" id="ert">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rrt" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>RW</th>
+                      <th>
+                        <input type="text" class="form-control" id="arw" disabled>
+                      </th>
+                      <th>
+                        <input type="number" min="1" class="form-control" name="rw" required="" id="erw">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rrw" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Desa</th>
+                      <th>
+                        <input type="text" class="form-control" id="ads" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="desa" required="" id="eds">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rds" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Kecamatan</th>
+                      <th>
+                        <input type="text" class="form-control" id="akec" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="kecamatan" required="" id="ekec">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rkec" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Kabupaten</th>
+                      <th>
+                        <input type="text" class="form-control" id="akab" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="kabupaten" required="" id="ekab">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rkab" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Provinsi</th>
+                      <th>
+                        <input type="text" class="form-control" id="aprov" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="prov" required="" id="eprov">
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rprov" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Akses Login</th>
+                      <th>
+                        <input type="text" class="form-control" id="alog" disabled>
+                      </th>
+                      <th>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="eal1" name="uakses" value="acc" class="custom-control-input">
+                          <label class="custom-control-label" for="eal1">Bisa Login</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" id="eal2" name="uakses" value="ban" class="custom-control-input">
+                          <label class="custom-control-label" for="eal2">Tidak Bisa</label>
+                        </div>
+                      </th>
+                      <th class="text-center" id="rak" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Level Pengguna</th>
+                      <th>
+                        <input type="text" class="form-control" id="alv" disabled>
+                      </th>
+                      <th>
+                        <select class="form-control" name="level" required id="elv">
+                          <option value="usm">Admin</option>
+                          <option value="us">Pengguna</option>
+                        </select>
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rlv" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Pengguna (Username minimal 5 karakter)</th>
+                      <th>
+                        <input type="text" class="form-control" id="aus" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control" name="uname" required="" onkeyup="cek_uname_update()"
+                          pattern=".{5,}" id="eus">
+                        <div class="valid-feedback" id="e-val">
+                          Tersedia!
+                        </div>
+                        <div class="invalid-feedback" id="e-in">
+                          Harap gunakan username lain!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rus" style="color:white"></th>
+                    </tr>
+                    <tr>
+                      <th>Password</th>
+                      <th>
+                        <input type="text" class="form-control" id="apw" disabled>
+                      </th>
+                      <th>
+                        <input type="text" class="form-control pwstrength" data-indicator="pwindicator" name="pass"
+                          required="" id="epw">
+                        <div id="epwindicator2" class="pwindicator">
+                          <div class="bar"></div>
+                          <div class="label"></div>
+                        </div>
+                        <div class="valid-feedback">
+                          Valid!
+                        </div>
+                        <div class="invalid-feedback">
+                          Tidak Valid!
+                        </div>
+                      </th>
+                      <th class="text-center" id="rpw" style="color:white"></th>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </form>
           </div>
@@ -1239,7 +1241,6 @@
       dataType: 'json',
       data: { id_user: id },
       success: function (data) {
-        console.table(data);
         $('#lid').val(id);
         $('#lid_temp').val(id_temp);
         $('#lold').val(data.u_pic);

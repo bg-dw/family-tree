@@ -76,6 +76,7 @@ $route['master-update-pengguna']['post'] = 'master/Pengguna/update_pengguna';
 $route['master-delete-pengguna']['post'] = 'master/Pengguna/delete_pengguna';
 $route['master-get-user']['post'] = 'master/Pengguna/get_user';
 $route['master-update-foto-pengguna']['post'] = 'master/Pengguna/update_foto';
+
 $route['master-data-keluarga-validasi'] = 'master/Pengguna/validasi';
 $route['master-get-permintaan']['post'] = 'master/Pengguna/get_permintaan_val';
 $route['master-permintaan-add']['post'] = 'master/Pengguna/ac_permintaan_add';
@@ -92,6 +93,14 @@ $route['master-get-pasangan']['post'] = 'master/Relasi/get_pasangan';
 $route['master-add-relasi']['post'] = 'master/Relasi/add_relasi';
 $route['master-update-relasi']['post'] = 'master/Relasi/update_relasi';
 $route['master-delete-relasi']['post'] = 'master/Relasi/delete_relasi';
+
+$route['master-hubungan-keluarga-validasi'] = 'master/Relasi/validasi';
+$route['master-get-bio'] = 'master/Relasi/get_user_bio';
+$route['master-add-relasi-val'] = 'master/Relasi/ac_permintaan_add_relasi';
+$route['master-get-bio-lama'] = 'master/Relasi/get_user_val';
+$route['master-update-relasi-val'] = 'master/Relasi/ac_permintaan_update_relasi';
+$route['master-delete-relasi-val']['post'] = 'master/Relasi/ac_permintaan_delete_relasi';
+$route['master-delete-permintaan-relasi']['post'] = 'master/Relasi/delete_relasi_val';
 
 //menu portofolio
 $route['master-portofolio'] = 'master/Portofolio';

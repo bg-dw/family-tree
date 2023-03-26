@@ -139,15 +139,19 @@
                         <div class="form-group row mb-4" id="u-f-ibu">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Ibu</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_ibu" id="u-sel-ibu" style="width:100%;">
+                                <select class="form-control select2" name="id_ibu" id="u-sel-ibu" style="width:100%;"
+                                    onchange="set_gen_ibu_update()">
                                 </select>
+                                <input type="hidden" name="gen_ibu" id="u-inp-gen-ibu">
                             </div>
                         </div>
                         <div class="form-group row mb-4" id="u-f-ayah">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Ayah</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control select2" name="id_ayah" id="u-sel-ayah" style="width:100%;">
+                                <select class="form-control select2" name="id_ayah" id="u-sel-ayah" style="width:100%;"
+                                    onchange="set_gen_ayah_update()">
                                 </select>
+                                <input type="hidden" name="gen_ayah" id="u-inp-gen-ayah">
                             </div>
                         </div>
                         <div class="form-group row mb-4">
@@ -377,6 +381,18 @@
         $('#u-sel-user').append('<option value="' + id + '" selected>' + nama + '</option>')
         $('#tbl_update').slideDown('slow');
         update_pasangan(id, sex, id_ibu, id_ayah, id_pas);
+    }
+    //set gen ibu
+    function set_gen_ibu_update() {
+        var x = $("#u-sel-ibu").find(":selected").text();
+        var a = x.split('Gen-');
+        $("#u-inp-gen-ibu").val(a[1]);
+    }
+    //set gen ayah
+    function set_gen_ayah_update() {
+        var x = $("#u-sel-ayah").find(":selected").text();
+        var a = x.split('Gen-');
+        $("#u-inp-gen-ayah").val(a[1]);
     }
 
     //batal update

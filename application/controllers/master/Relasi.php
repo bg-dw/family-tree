@@ -24,7 +24,7 @@ class Relasi extends CI_Controller
         $data['content'] = 'master/v_relasi';
         $record = $this->M_keluarga->get_by();
         $q = $this->M_keluarga->get_data_relasi();
-        // $start = microtime(true);
+        $rel = array();
         if ($q):
             $x = 0;
             foreach ($q->result() as $a) {
@@ -55,7 +55,6 @@ class Relasi extends CI_Controller
         else:
             $this->session->set_flashdata('error', ' Belum ada data!');
         endif;
-        // $end = microtime(true);
         $data['rec'] = $rel;
         $this->load->view('_layout/master/main', $data);
     }
@@ -127,11 +126,13 @@ class Relasi extends CI_Controller
         $gen_ayah = $this->input->post('gen_ayah');
 
         if ($id_awal):
-            $gen = "1";
-            if ($gen_ibu != ""):
+            $gen = 1;
+            if ($gen_ibu != "" && $gen_ibu != "X"):
                 $gen = $gen_ibu + 1;
-            elseif ($gen_ayah != ""):
+            elseif ($gen_ayah != "" && $gen_ibu != "X"):
                 $gen = $gen_ayah + 1;
+            else:
+                $gen = "X";
             endif;
             $data = array(
                 'id_user' => $id[0],
@@ -214,4 +215,237 @@ class Relasi extends CI_Controller
 
     }
 
+    public function validasi()
+    {
+        $data['content'] = 'master/v_validasi_relasi';
+        $record = $this->M_keluarga->get_by();
+        $q = $this->M_keluarga->get_data_relasi_val();
+        $rel = array();
+        if ($q):
+            $x = 0;
+            foreach ($q->result() as $a) {
+                //id_bio,id_user,gen,id_ibu,ibu,id_ayah,ayah,id_pasangan,pasangan
+                $rel[$x]['id_temp_bio'] = $a->id_temp_bio;
+                $rel[$x]['id_bio'] = $a->id_bio;
+                $rel[$x]['id_user'] = $a->id_user;
+                $rel[$x]['nama'] = $a->name;
+                $rel[$x]['sex'] = $a->sex;
+                $rel[$x]['id_ibu'] = $a->ibu;
+                $rel[$x]['id_ayah'] = $a->ayah;
+                $rel[$x]['id_pasangan'] = $a->pasangan;
+                $rel[$x]['aksi'] = $a->aksi;
+                $rel[$x]['acc_admin'] = $a->acc_admin;
+                $rel[$x]['ibu'] = "";
+                $rel[$x]['ayah'] = "";
+                $rel[$x]['pasangan'] = "";
+                foreach ($record->result() as $b) {
+                    if ($a->ibu == $b->id_user) {
+                        $rel[$x]['ibu'] = $b->name;
+                    }
+                    if ($a->ayah == $b->id_user) {
+                        $rel[$x]['ayah'] = $b->name;
+                    }
+                    if ($a->pasangan == $b->id_user) {
+                        $rel[$x]['pasangan'] = $b->name;
+                    }
+                }
+                $x++;
+            }
+        else:
+            $this->session->set_flashdata('error', ' Belum ada data!');
+        endif;
+        $data['rec'] = $rel;
+        $this->load->view('_layout/master/main', $data);
+    }
+
+    public function get_user_val()
+    {
+        $id_bio = $this->input->post('id_bio');
+        $result = $this->M_relasi->get_data_val($id_bio)->row();
+        echo json_encode($result);
+    }
+    public function get_user_bio()
+    {
+        $id_temp = $this->input->post('id_temp_bio');
+        $result = $this->M_relasi->get_data_val_by($id_temp)->row();
+        echo json_encode($result);
+    }
+    public function ac_permintaan_add_relasi()
+    {
+        $id_temp = $this->input->post('id_temp_bio');
+        $id_user = $this->input->post('id_user');
+        $aksi = $this->input->post('aksi_val');
+        $id_pas = $this->input->post('id_pasangan');
+        $id_ibu = $this->input->post('id_ibu');
+        $gen_ibu = $this->input->post('gen_ibu');
+        $id_ayah = $this->input->post('id_ayah');
+        $gen_ayah = $this->input->post('gen_ayah');
+
+        if ($id_user):
+            $gen = 1;
+            if ($gen_ibu != "" && $gen_ibu != "X"):
+                $gen = $gen_ibu + 1;
+            elseif ($gen_ayah != "" && $gen_ibu != "X"):
+                $gen = $gen_ayah + 1;
+            else:
+                $gen = "X";
+            endif;
+            $data = array(
+                'id_user' => $id_user,
+                'generasi' => $gen,
+                'ibu' => $id_ibu,
+                'ayah' => $id_ayah,
+                'pasangan' => $id_pas,
+                'create_at' => date('Y-m-d H:i:s'),
+                'id_log' => $this->session->userdata('id'),
+                'acc_admin' => "accept"
+            );
+            if ($aksi == "setuju"):
+                $q = $this->M_keluarga->db_input($data, 'tbl_user_bio');
+                if ($q):
+                    $this->session->set_flashdata('success', ' Berhasil Disimpan!');
+                    $where = array('id_temp_bio' => $id_temp);
+                    $this->M_keluarga->db_delete($where, 'temp_tbl_user_bio');
+                    redirect('master-hubungan-keluarga');
+                else:
+                    $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+                    redirect('master-hubungan-keluarga-validasi');
+                endif;
+            else:
+                $where = array('id_temp_bio' => $id_temp);
+                $data = array(
+                    'acc_admin' => "rejected"
+                );
+                $q = $this->M_keluarga->db_update($where, $data, 'temp_tbl_user_bio');
+                if ($q):
+                    $this->session->set_flashdata('success', ' Berhasil Disimpan!');
+                    redirect('master-hubungan-keluarga-validasi');
+                else:
+                    $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+                    redirect('master-hubungan-keluarga-validasi');
+                endif;
+            endif;
+        else:
+            $this->session->set_flashdata('error', ' Harap isi form dengan benar!');
+            redirect('master-hubungan-keluarga-validasi');
+        endif;
+    }
+
+    public function ac_permintaan_update_relasi()
+    {
+        $id_temp = $this->input->post('id_temp_bio');
+        $id_bio = $this->input->post('id_bio');
+        $id_user = $this->input->post('id_user');
+        $aksi = $this->input->post('aksi_val');
+        $id_pas = $this->input->post('id_pasangan');
+        $id_ibu = $this->input->post('id_ibu');
+        $gen_ibu = $this->input->post('gen_ibu');
+        $id_ayah = $this->input->post('id_ayah');
+        $gen_ayah = $this->input->post('gen_ayah');
+
+        if ($id_user):
+            $gen = 1;
+            if ($gen_ibu != "" && $gen_ibu != "X"):
+                $gen = $gen_ibu + 1;
+            elseif ($gen_ayah != "" && $gen_ibu != "X"):
+                $gen = $gen_ayah + 1;
+            else:
+                $gen = "X";
+            endif;
+            $data = array(
+                'id_user' => $id_user,
+                'generasi' => $gen,
+                'ibu' => $id_ibu,
+                'ayah' => $id_ayah,
+                'pasangan' => $id_pas,
+                'id_log' => $this->session->userdata('id'),
+                'acc_admin' => "accept"
+            );
+            $where = array('id_bio' => $id_bio);
+            if ($aksi == "setuju"):
+                $q = $this->M_keluarga->db_update($where, $data, 'tbl_user_bio');
+                if ($q):
+                    $this->session->set_flashdata('success', ' Berhasil Disimpan!');
+                    $where = array('id_temp_bio' => $id_temp);
+                    $this->M_keluarga->db_delete($where, 'temp_tbl_user_bio');
+                    redirect('master-hubungan-keluarga');
+                else:
+                    $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+                    redirect('master-hubungan-keluarga-validasi');
+                endif;
+            else:
+                $where = array('id_temp_bio' => $id_temp);
+                $data = array(
+                    'acc_admin' => "rejected"
+                );
+                $q = $this->M_keluarga->db_update($where, $data, 'temp_tbl_user_bio');
+                if ($q):
+                    $this->session->set_flashdata('success', ' Berhasil Disimpan!');
+                    redirect('master-hubungan-keluarga-validasi');
+                else:
+                    $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+                    redirect('master-hubungan-keluarga-validasi');
+                endif;
+            endif;
+        else:
+            $this->session->set_flashdata('error', ' Harap isi form dengan benar!');
+            redirect('master-hubungan-keluarga-validasi');
+        endif;
+    }
+
+    public function ac_permintaan_delete_relasi()
+    {
+        $id_temp = $this->input->post('id_temp_bio');
+        $id_bio = $this->input->post('id_bio');
+        $aksi = $this->input->post('aksi_val');
+
+        if ($id_temp):
+            $where = array('id_bio' => $id_bio);
+            if ($aksi == "setuju"):
+                $q = $this->M_keluarga->db_delete($where, 'tbl_user_bio');
+                if ($q):
+                    $this->session->set_flashdata('success', ' Berhasil Disimpan!');
+                    $where = array('id_temp_bio' => $id_temp);
+                    $this->M_keluarga->db_delete($where, 'temp_tbl_user_bio');
+                    redirect('master-hubungan-keluarga');
+                else:
+                    $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+                    redirect('master-hubungan-keluarga-validasi');
+                endif;
+            else:
+                $where = array('id_temp_bio' => $id_temp);
+                $data = array(
+                    'acc_admin' => "rejected"
+                );
+                $q = $this->M_keluarga->db_update($where, $data, 'temp_tbl_user_bio');
+                if ($q):
+                    $this->session->set_flashdata('success', ' Berhasil Disimpan!');
+                    redirect('master-hubungan-keluarga-validasi');
+                else:
+                    $this->session->set_flashdata('warning', ' Gagal menyimpan data!');
+                    redirect('master-hubungan-keluarga-validasi');
+                endif;
+            endif;
+        else:
+            $this->session->set_flashdata('error', ' Harap isi form dengan benar!');
+            redirect('master-hubungan-keluarga-validasi');
+        endif;
+    }
+
+    //hapus relasi
+    public function delete_relasi_val()
+    {
+        $id = $this->input->post('id');
+        $where = array('id_temp_bio' => $id);
+
+        $q = $this->M_relasi->db_delete($where, 'temp_tbl_user_bio');
+        if ($q):
+            $this->session->set_flashdata('success', ' Berhasil Dihapus!');
+            redirect('master-hubungan-keluarga-validasi');
+        else:
+            $this->session->set_flashdata('error', ' Gagal menghapus data!');
+            redirect('master-hubungan-keluarga-validasi');
+        endif;
+
+    }
 }

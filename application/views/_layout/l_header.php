@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<?= base_url() ?>assets/bundles/select2/dist/css/select2.min.css">
 <link rel="stylesheet" href="<?= base_url() ?>assets/bundles/summernote/summernote-bs4.css">
 
-//script
+<!-- script -->
 <script src="<?= base_url() ?>assets/js/jquery-3.2.1.min.js"></script>
 <script src="<?= base_url() ?>assets/js/familytree.js"></script>
 <script src="<?= base_url() ?>assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
