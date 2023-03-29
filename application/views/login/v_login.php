@@ -41,7 +41,7 @@
                     <div class="d-block">
                       <label for="password" class="control-label">Kata Sandi</label>
                       <div class="float-right">
-                        <a href="#" class="text-small">
+                        <a href="#" class="text-small" onclick="alert('Harap Hubungi Admin Master');">
                           Lupa Kata Sandi?
                         </a>
                       </div>
@@ -86,7 +86,7 @@
         position: 'topCenter'
       });
     </script>
-  <?php
+    <?php
   endif; ?>
   <?php if ($this->session->flashdata('error')):
     ?>
@@ -97,7 +97,7 @@
         position: 'topCenter'
       });
     </script>
-  <?php
+    <?php
   endif; ?>
 </body>
 
