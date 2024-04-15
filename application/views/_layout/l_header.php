@@ -18,6 +18,10 @@
 <!-- script -->
 <script src="<?= base_url() ?>assets/js/jquery-3.2.1.min.js"></script>
 <!-- <script src="<?= base_url() ?>assets/js/familytree.js"></script> -->
+<script src="https://cdn.jsdelivr.net/gh/BenPortner/js_family_tree/js/d3-dag.js"></script>
+<script src="<?= base_url() ?>assets/bundles/ftree/d3.v7.min.js"></script>
+<script src="<?= base_url() ?>assets/bundles/ftree/data.js"></script>
+<script src="<?= base_url() ?>assets/bundles/ftree/familytree.js"></script>
 <script src="<?= base_url() ?>assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js"></script>
 <script src="<?= base_url() ?>assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
 <script src="<?= base_url() ?>assets/bundles/sweetalert/sweetalert.min.js"></script>

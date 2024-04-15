@@ -36,44 +36,25 @@ class Dashboard extends CI_Controller
 		$kep = $this->M_keluarga->get_data_kepkel()->result();
 		$ibu = $this->M_keluarga->get_data_pasangan()->result();
 		$anak = $this->M_keluarga->get_data_anak()->result();
-		$start = "";
-		$person = "";
-		foreach ($t as $x) {
-			if ($x->generasi == "1"):
-				$start = '"' . $x->id_user . '"';
-				$person .= '"' . $x->id_user . '":{"id":"' . $x->id_user . '","name":"' . $x->name . '","own_unions":[]},';
-				// $a["'" . $x->id_user . "'"] = array(
-				// 	'id' => $x->id_user,
-				// 	'name' => $x->name,
-				// 	'own_unions' => $x->pasangan,
-				// );
-			else:
-				$person .= '"' . $x->id_user . '":{"id":"' . $x->id_user . '","name":"' . $x->name . '","own_unions":[]},';
-				// $a["'" . $x->id_user . "'"] = array(
-				// 	'id' => $x->id_user,
-				// 	'name' => $x->name,
-				// 	'own_unions' => $x->pasangan,
-				// 	'parent_union' => $x->ibu,
-				// );
-			endif;
-		}
-		// $u = array();
-		// $link = array();
+
+
+		$link = array();
 		$unions = "";
 		$links = "";
 		foreach ($kep as $row) {//kepala keluarga
+			array_push($link, array($row->id_user, "un" . $row->id_user));//link ayah ke union
 			$links .= '["' . $row->id_user . '",' . '"un' . $row->id_user . '"],';
-			// array_push($link, array($row->id_user, "un" . $row->id_user));//link ayah ke union
 			foreach ($ibu as $bar) {//pasangan
 				if ($row->id_user == $bar->id_user)://jika user merupakan pasangan dari kepala keluarga
+					array_push($link, array($bar->pasangan, "un" . $row->id_user));//link ibu ke union
 					$links .= '["' . $bar->pasangan . '",' . '"un' . $row->id_user . '"],';
-					// array_push($link, array($bar->pasangan, "un" . $row->id_user));//link ibu ke union
 					$temp_anak = [];
+					$temp_id = "";
 					foreach ($anak as $s) {//anak
 						if ($bar->pasangan == $s->ibu)://jika user merupakan anak dari ibu
 							$temp_anak[] = $s->id_user;
+							$temp_id = $s->id_user;
 							$links .= '["un' . $row->id_user . '",' . '"' . $s->id_user . '"],';
-							// array_push($link, array("un" . $row->id_user, $s->id_user));//link union ke anak
 						endif;
 					}
 					$child = "";
@@ -81,29 +62,41 @@ class Dashboard extends CI_Controller
 						$child .= '"' . $temp_anak[$i] . '",';
 					}
 					$unions .= '"un' . $row->id_user . '":{"id":"un' . $row->id_user . '","partner":["' . $row->id_user . '","' . $bar->pasangan . '"],"children":[' . $child . ']},';
-					$u["'un" . $row->id_user . "'"] = array(
-						'id' => "un" . $row->id_user,
-						'partner' => array($row->id_user, $bar->pasangan),
-						'children' => $temp_anak
-					);
+					array_push($link, array("un" . $row->id_user, $temp_id));//link union ke anak
 				endif;
 			}
 		}
-		// $data = (object) array(
-		// 	'start' => $start,
-		// 	'persons' => $a,
-		// 	'unions' => $u,
-		// 	'links' => $link
-		// );
+
+		$start = "";
+		$person = "";
+		foreach ($t as $x) {//menginisialisasi variable person
+			$own_union = "";
+			$prnt_union = "";
+			for ($b = 0; $b < count($link); $b++) {
+				if ($x->id_user == $link[$b][0]):
+					$own_union .= '"' . $link[$b][1] . '"';
+				endif;
+				if ($x->id_user == $link[$b][1]):
+					$prnt_union .= '"' . $link[$b][0] . '"';
+				endif;
+			}
+			if ($x->generasi == "1"):
+				$start = '"' . $x->id_user . '"';
+				$person .= '"' . $x->id_user . '":{"id":"' . $x->id_user . '","name":"' . $x->name . '","birthyear":' . $x->year . ',"own_unions":[' . $own_union . '],"parent_union":[]},';
+			else:
+				$person .= '"' . $x->id_user . '":{"id":"' . $x->id_user . '","name":"' . $x->name . '","birthyear":' . $x->year . ',"own_unions":[' . $own_union . '],"parent_union":[]},';
+			endif;
+		}
+
 		$pembuka = 'data = {"start":' . $start . ',';
 		$ps = '"persons":{' . $person . '},';
 		$un = '"unions":{' . $unions . '},';
 		$lin = '"links":[' . $links . ']';
 		$penutup = '}';
 		$script = $pembuka . $ps . $un . $lin . $penutup;
-		$fileName = './assets/bundles/ftree/' . "data2.js";
+		$fileName = './assets/bundles/ftree/' . "data.js";
 		file_put_contents($fileName, $script);
-		echo json_encode($script);
+		echo json_encode($link);
 	}
 
 	//cek username

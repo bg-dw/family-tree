@@ -86,13 +86,7 @@
     </div>
   </div>
 </section>
-<script src="<?= base_url() ?>assets/bundles/ftree/d3.v7.min.js"></script>
-<!-- <script src="<?= base_url() ?>assets/bundles/ftree/d3-dag.js.js"></script> -->
-<script src="https://cdn.jsdelivr.net/gh/BenPortner/js_family_tree/js/d3-dag.js"></script>
-<script src="<?= base_url() ?>assets/bundles/ftree/data2.js"></script>
-<script src="<?= base_url() ?>assets/bundles/ftree/familytree.js"></script>
 <script>
-
   const svg = d3.select("#tree-fam").append("svg")
     .attr("width", document.body.offsetWidth)
     .attr("height", document.documentElement.clientHeight);

@@ -31,33 +31,70 @@ class Dashboard extends CI_Controller
 	public function get_fam()
 	{
 		$t = $this->M_keluarga->get_data_keluarga()->result();
-		foreach ($t as $x) {
-			if ($x->u_pic != ""):
-				$img = base_url("assets/img/users/profile/" . $x->u_pic);
-			else:
-				$img = base_url("assets/img/users/none.png");
-			endif;
+		$kep = $this->M_keluarga->get_data_kepkel()->result();
+		$ibu = $this->M_keluarga->get_data_pasangan()->result();
+		$anak = $this->M_keluarga->get_data_anak()->result();
+
+
+		$link = array();
+		$unions = "";
+		$links = "";
+		foreach ($kep as $row) {//kepala keluarga
+			array_push($link, array($row->id_user, "un" . $row->id_user));//link ayah ke union
+			$links .= '["' . $row->id_user . '",' . '"un' . $row->id_user . '"],';
+			foreach ($ibu as $bar) {//pasangan
+				if ($row->id_user == $bar->id_user)://jika user merupakan pasangan dari kepala keluarga
+					array_push($link, array($bar->pasangan, "un" . $row->id_user));//link ibu ke union
+					$links .= '["' . $bar->pasangan . '",' . '"un' . $row->id_user . '"],';
+					$temp_anak = [];
+					$temp_id = "";
+					foreach ($anak as $s) {//anak
+						if ($bar->pasangan == $s->ibu)://jika user merupakan anak dari ibu
+							$temp_anak[] = $s->id_user;
+							$temp_id = $s->id_user;
+							$links .= '["un' . $row->id_user . '",' . '"' . $s->id_user . '"],';
+						endif;
+					}
+					$child = "";
+					for ($i = 0; $i < count($temp_anak); $i++) {
+						$child .= '"' . $temp_anak[$i] . '",';
+					}
+					$unions .= '"un' . $row->id_user . '":{"id":"un' . $row->id_user . '","partner":["' . $row->id_user . '","' . $bar->pasangan . '"],"children":[' . $child . ']},';
+					array_push($link, array("un" . $row->id_user, $temp_id));//link union ke anak
+				endif;
+			}
+		}
+
+		$start = "";
+		$person = "";
+		foreach ($t as $x) {//menginisialisasi variable person
+			$own_union = "";
+			$prnt_union = "";
+			for ($b = 0; $b < count($link); $b++) {
+				if ($x->id_user == $link[$b][0]):
+					$own_union .= '"' . $link[$b][1] . '"';
+				endif;
+				if ($x->id_user == $link[$b][1]):
+					$prnt_union .= '"' . $link[$b][0] . '"';
+				endif;
+			}
 			if ($x->generasi == "1"):
-				$a[] = (object) array(
-					'id' => intval($x->id_user),
-					'gender' => $x->sex,
-					'name' => $x->name,
-					'img' => $img,
-					'pids' => [$x->pasangan]
-				);
+				$start = '"' . $x->id_user . '"';
+				$person .= '"' . $x->id_user . '":{"id":"' . $x->id_user . '","name":"' . $x->name . '","birthyear":' . $x->year . ',"own_unions":[' . $own_union . '],"parent_union":[]},';
 			else:
-				$a[] = (object) array(
-					'id' => intval($x->id_user),
-					'gender' => $x->sex,
-					'name' => $x->name,
-					'pids' => [$x->pasangan],
-					'img' => $img,
-					'mid' => $x->ibu,
-					'fid' => $x->ayah
-				);
+				$person .= '"' . $x->id_user . '":{"id":"' . $x->id_user . '","name":"' . $x->name . '","birthyear":' . $x->year . ',"own_unions":[' . $own_union . '],"parent_union":[]},';
 			endif;
 		}
-		echo json_encode($a);
+
+		$pembuka = 'data = {"start":' . $start . ',';
+		$ps = '"persons":{' . $person . '},';
+		$un = '"unions":{' . $unions . '},';
+		$lin = '"links":[' . $links . ']';
+		$penutup = '}';
+		$script = $pembuka . $ps . $un . $lin . $penutup;
+		$fileName = './assets/bundles/ftree/' . "data.js";
+		file_put_contents($fileName, $script);
+		echo json_encode($link);
 	}
 
 	//cek username

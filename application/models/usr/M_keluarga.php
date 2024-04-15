@@ -21,9 +21,39 @@ class M_keluarga extends CI_Model
 
     function get_data_keluarga()
     {
-        $this->db->select('tbl_user.sex,tbl_user.name,tbl_user.u_pic,tbl_user_bio.id_user,tbl_user_bio.generasi,tbl_user_bio.ibu,tbl_user_bio.ayah,tbl_user_bio.pasangan'); //mengambil semua data
+        $this->db->select('tbl_user.sex,tbl_user.name,tbl_user.u_pic,tbl_user_bio.id_user,tbl_user_bio.generasi,tbl_user_bio.ibu,tbl_user_bio.ayah,tbl_user_bio.pasangan,YEAR(tbl_user.birth_date) AS year'); //mengambil semua data
         $this->db->from('tbl_user'); //dari table
         $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_data_kepkel()
+    {
+        $this->db->select('tbl_user_bio.id_user,'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
+        $this->db->where('tbl_user.sex', "male");
+        $this->db->where("tbl_user_bio.pasangan!=''");
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+    function get_data_pasangan()
+    {
+        $this->db->select('tbl_user_bio.id_user,tbl_user_bio.pasangan,'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
+        $this->db->where('tbl_user.sex', "male");
+        $this->db->where("tbl_user_bio.pasangan!=''");
+        $query = $this->db->get(); //eksekusi query
+        return $query; //mengembalikan nilai yang didapat
+    }
+
+    function get_data_anak()
+    {
+        $this->db->select('tbl_user_bio.id_user,tbl_user_bio.ibu,'); //mengambil semua data
+        $this->db->from('tbl_user'); //dari table
+        $this->db->join('tbl_user_bio', 'tbl_user_bio.id_user=tbl_user.id_user');
+        $this->db->where("tbl_user_bio.ibu!=''");
         $query = $this->db->get(); //eksekusi query
         return $query; //mengembalikan nilai yang didapat
     }
